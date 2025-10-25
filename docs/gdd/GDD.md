@@ -6,28 +6,86 @@
 
 **These goals guide EVERY design decision. When in doubt, revisit these.**
 
-### 1. 🎮 Casual Friendly: Easy to Learn, Hard to Master
-- **Easy to Learn:** Familiar poker hands, clear goals ("beat the quota"), simple UI
-- **Hard to Master:** Deep Joker synergies, trading tactics, economic optimization
-- **Success Metric:** New players can complete Round 1 on first try. Mastering Round 8 takes multiple runs.
+**Inspired by Balatro's design philosophy:** Exponential power scaling, satisfying number growth, and emergent strategic depth.
 
-### 2. 🔄 Highly Replayable
-- **Variety:** Random Joker shops create unique runs every time
-- **Build Diversity:** Multiple viable strategies (engine+battery, twin engines, specialist decks)
-- **Discovery:** Players find new synergies and tactics across runs
-- **Success Metric:** "One more run" feeling. 20+ hours to see all content.
+---
 
-### 3. 🎲 No RNG Bloat
-- **Player Agency:** Always have tools to fight bad luck (trades, shop refresh, dual decks)
-- **Skill > Luck:** Good play consistently beats bad luck
-- **Fair Failures:** Losses feel like "I could have played better" not "RNG screwed me"
-- **Success Metric:** Players attribute wins/losses to decisions, not dice rolls.
+### **TIER 1: Identity-Defining (Non-Negotiable)**
 
-### 4. 🧠 Strategic Depth
-- **No Obvious Choice:** Multiple valid plays each round, no single "always correct" strategy
-- **Learnable Patterns:** High-level strategies emerge (e.g., "balance Jokers 3-3" vs "stack one side 4-2")
-- **Mastery Curve:** Beginners can win with basics. Veterans optimize through deep understanding.
-- **Success Metric:** Community discusses strategies. Streamers debate optimal plays.
+When these conflict with other goals, **Tier 1 always wins.**
+
+#### **#1: Satisfying Progression (Exponential Power Fantasy)**
+- **Players feel godlike by Round 8:** Scores scale from hundreds → thousands
+- **Exponential scaling:** Jokers multiply power, not just add
+- **Visible growth:** Every Joker purchase makes you noticeably stronger
+- **"Number go up" dopamine:** Big numbers, satisfying calculations
+- **Success Metric:** Round 8 feels EPIC, not impossible. Players say "I'm so OP!"
+
+#### **#2: Meaningful Decisions Over Busywork**
+- **Every action matters:** No repetitive grinding or "going through motions"
+- **Visible impact:** Show exactly how each Joker/hand affects score
+- **Quality > Quantity:** 4 impactful hands better than 10 tedious ones
+- **No hidden math:** Formula is clear: (Left + Right) × Mult
+- **Success Metric:** Players think "this choice matters" not "whatever, next"
+
+#### **#3: Casual Friendly Entry (Easy to Start)**
+- **Poker familiarity:** Everyone knows poker hands already
+- **No tutorial needed:** Start playing Round 1 immediately
+- **Clear goals:** "Beat the quota" is instantly understandable
+- **Simple base rules:** Complexity emerges from Joker combos, not core mechanics
+- **Success Metric:** New players understand Round 1 in < 2 minutes
+
+---
+
+### **TIER 2: Important (Support Tier 1)**
+
+When these conflict with Tier 1, **Tier 1 wins.** Otherwise, preserve these.
+
+#### **#4: Strategic Depth (Emergent, Not Taught)**
+- **No obvious optimal play:** Multiple viable strategies each round
+- **Depth from interactions:** Joker combos create complexity, not rules
+- **Learnable patterns:** High-level strategies emerge through play
+- **Hard to master:** Beginners can win, veterans optimize micro-decisions
+- **Success Metric:** Community discusses strategies. "I'm running X build" pride.
+
+#### **#5: Highly Replayable (One More Run Loop)**
+- **Short sessions:** 20-40 min runs (8 rounds)
+- **Variety:** Random Joker shops make every run unique
+- **Discovery:** Players find new synergies across runs
+- **"One more run" feeling:** Losing makes you want to retry immediately
+- **Success Metric:** Players play 5+ runs in one sitting
+
+**Sub-goal 5a: Session Length & Flow**
+- Target: 25-35 min per complete run
+- 3-5 min per round average
+- Can pause/resume between rounds
+
+#### **#6: No RNG Bloat (Player Agency)**
+- **Tools to fight bad luck:** Shop refresh, trades, dual decks
+- **Skill > Luck:** Good play beats bad RNG consistently
+- **Never feel helpless:** Always have options to adapt
+- **Fair failures:** "I could have played better" not "bad RNG"
+- **Success Metric:** Win rate increases with skill, not just luck
+
+**Sub-goal 6a: Comeback Mechanics**
+- Bad rounds don't doom entire run
+- Shop flexibility allows pivots
+- Can recover with smart Joker repositioning
+
+---
+
+### **TIER 3: Sub-Goals (Nice to Have)**
+
+#### **Player Expression / Build Identity**
+- Players CAN pursue archetypes (Flush specialist, Pair engine)
+- BUT adaptation to RNG is equally valid
+- "This is MY strategy" feeling emerges naturally
+- Not forced — expression is possible, not required
+
+#### **Risk vs Reward Tension**
+- Optional high-risk plays available
+- Unspent tokens = money (conservative play rewarded)
+- Future: Hard mode rounds for bonus rewards
 
 ---
 
@@ -223,6 +281,95 @@ Final Score = (Left Deck Points + Right Deck Points) × Global Mult
 - Global Mult: 1.6
 - **Final Score: 122 × 1.6 = 195**
 
+#### Example Joker Library (Scaling Tiers)
+
+**Design Philosophy:** Jokers scale from flat bonuses (early game) → multiplicative (mid game) → exponential conditionals (late game).
+
+##### **COMMON JOKERS** (Cost: $5)
+Flat bonuses, always useful, never gamebreaking.
+
+1. **"Chip Stack"**
+   - Effect: +30 points per hand played
+   - Scaling: Additive only
+   - Best in: Early game (Rounds 1-3)
+
+2. **"Lucky Seven"**
+   - Effect: +15 points if hand contains a 7
+   - Scaling: Conditional flat bonus
+   - Best in: Early-mid game
+
+3. **"Pair Producer"**
+   - Effect: +0.1 mult per Pair played
+   - Scaling: Additive mult (stacks in Bridge slot)
+   - Best in: Pair-focused builds
+
+##### **UNCOMMON JOKERS** (Cost: $8)
+Conditional bonuses or small multipliers.
+
+4. **"Flush Fund"**
+   - Effect: +60 points per Flush played
+   - Scaling: Higher flat bonus with condition
+   - Best in: Flush specialist builds
+
+5. **"Twin Boost"**
+   - Effect: +0.2 mult if both decks played at least 1 hand this round
+   - Scaling: Conditional mult (great in Bridge slot)
+   - Best in: Balanced 2-2 hand splits
+
+6. **"Card Counter"**
+   - Effect: +5 points per card played this round (cumulative)
+   - Scaling: Grows throughout round
+   - Best in: High-volume play (playing all 4 hands)
+
+##### **RARE JOKERS** (Cost: $12)
+Multiplicative scaling or strong conditionals.
+
+7. **"Suit Synergy"**
+   - Effect: ×1.3 mult if all hands played this round were same suit type
+   - Scaling: Multiplicative
+   - Best in: Specialist builds (all Flushes or mono-suit focus)
+
+8. **"High Roller"**
+   - Effect: ×1.5 mult if round score > 500 before this Joker triggers
+   - Scaling: Exponential (triggers after other Jokers)
+   - Best in: Late game (Rounds 6-8)
+
+9. **"Bridge Troll"**
+   - Effect: +0.4 mult per Joker in Bridge slots (including self)
+   - Scaling: Self-synergizing (MUST go in Bridge to trigger twice)
+   - Best in: Bridge-focused builds
+
+##### **LEGENDARY JOKERS** (Cost: $18)
+Game-warping effects, build-defining.
+
+10. **"Twin Flames"**
+    - Effect: ×2.0 mult if both decks scored exactly the same this round
+    - Scaling: Massive multiplier with strict condition
+    - Best in: Coordinated 2-2 balanced builds
+    - High risk, high reward
+
+---
+
+**Joker Synergy Example (Late Game):**
+
+**Setup:**
+- Bridge B1: "Twin Boost" (+0.2 mult if both decks played)
+- Bridge B2: "Bridge Troll" (+0.4 mult per Bridge Joker)
+- Left J1: "Flush Fund" (+60 per Flush)
+- Right J4: "High Roller" (×1.5 if score > 500)
+
+**Round 7 Play:**
+- Left plays 2 Flushes = 40 base + 120 (Flush Fund) = 160 points
+- Right plays 2 Pairs = 12 base = 12 points
+- Bridge triggers:
+  - Twin Boost: +0.2 mult (both played) → 1.2
+  - Bridge Troll: +0.4 mult (2 Bridge Jokers) → 1.6
+  - Triggers again for right deck: +0.6 mult → 2.2
+- High Roller checks: 172 points < 500 → doesn't trigger
+- **Final: 172 × 2.2 = 378 points**
+
+(Not enough! Need better Joker synergies or higher base hands for Round 7's 3,418 quota)
+
 ### 6️⃣ Round Flow
 
 Rounds are **free-form** — you can play or trade in any order until tokens are exhausted.
@@ -301,31 +448,57 @@ Players can form hands using 1-4 cards from a single deck. Hand rankings and bas
 - Beat **Round 8** to win the run.
 - **Future TODO:** Endless mode after Round 8.
 
-### Quota Scaling (Linear)
-- **Round 1:** 240 points
-- **Round 2:** 480 points
-- **Round 3:** 720 points
-- **Round 4:** 960 points
-- **Round 5:** 1200 points
-- **Round 6:** 1440 points
-- **Round 7:** 1680 points
-- **Round 8:** 1920 points
+### Quota Scaling (Exponential - 1.5× Per Round)
+- **Round 1:** 300 points (beatable with base poker hands)
+- **Round 2:** 450 points (1.5×)
+- **Round 3:** 675 points (1.5×)
+- **Round 4:** 1,013 points (1.5×)
+- **Round 5:** 1,519 points (1.5×)
+- **Round 6:** 2,279 points (1.5×)
+- **Round 7:** 3,418 points (1.5×)
+- **Round 8:** 5,127 points (1.5×)
 
-*(Tuned for ~4 hands averaging 15 points base, with Joker scaling)*
+**Scaling Philosophy (Balatro-Inspired):**
+- Early game (R1-3): Linear-ish feel, building your engine
+- Mid game (R4-6): Exponential curve kicks in, Jokers become critical
+- Late game (R7-8): God mode, massive scores, exponential scaling pays off
+
+**Why Exponential:**
+- Matches Balatro's "power fantasy" progression
+- Forces Joker synergies (can't brute-force with base hands)
+- Round 8 feels epic (17× harder than Round 1)
+- Aligns with Design Goal #1 (Satisfying Progression)
 
 ### Failure Condition
 - If final score < quota: **Game Over** (no retry, no lives).
 
 ### Money System
+
 **Earning Money:**
 - Unspent hand tokens: $2 each
 - Unspent trade tokens: $1 each
 - Interest: $1 per $5 held (max $4 interest on $20+)
+- Example: Use 2 hands, 1 trade, hold $12 → Earn $4 (hands) + $2 (trades) + $2 (interest) = $8
 
 **Spending Money:**
-- Jokers: Cost TBD based on rarity
-- Shop refresh: $4
-- Permanent card trades: Cost TBD
+
+**Joker Prices (by rarity):**
+- Common: $5
+- Uncommon: $8
+- Rare: $12
+- Legendary: $18
+
+**Other Shop Options:**
+- Shop refresh: $4 (reroll all 4 Jokers)
+- Sell Joker: Receive 50% of purchase price (mitigates bad purchases)
+- Skip purchase: Free (save money for better shops)
+- Permanent card trades: $8 (move one specific card permanently between decks)
+
+**Shop Strategy:**
+- Early game: Buy cheap Commons to start scaling
+- Mid game: Save for Rares ($12+) with exponential effects
+- Late game: Hunt for Legendary synergies or perfect Bridge Jokers
+- Always: Can sell bad Jokers to pivot builds (comeback mechanic)
 
 ### Unlocks (Future TODO)
 - Asymmetric deck splits
