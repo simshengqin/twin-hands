@@ -53,19 +53,6 @@ Twin Hands: Double the engine. Double the chaos. Infinite the combos.
 
 ---
 
-## For Reddit/Social Media Testing
-
-**Elevator Pitch (Ultra-Short):**
-"What if you played TWO poker decks at the same time, and Jokers could trigger for BOTH of them? That's Twin Hands. Build two engines, make them multiply each other, watch everything explode."
-
-**Slightly Longer Hook:**
-"Twin Hands: A poker roguelike where one deck randomly splits into TWO decks. You play hands from both simultaneously. Jokers in 'Bridge' slots trigger TWICE—once per deck. Trade cards between decks mid-round. Upgrade hands globally. Watch both engines scale together exponentially. 8 rounds, 30 min, pure combo chaos."
-
-**Reddit Post Title Ideas:**
-- "I made a poker roguelike where Jokers trigger TWICE because you're playing TWO DECKS at once [Twin Hands]"
-- "What if every Joker you bought could affect TWO poker decks simultaneously? [Twin Hands]"
-- "Poker roguelike where one deck splits into two, and you build both engines to combo off each other [Twin Hands]"
-
 **The Hook Test:**
 If someone asks "Why not just play Balatro?", the answer is:
 **"Because in Balatro you build ONE broken hand. In Twin Hands you build TWO broken hands that multiply each other. Bridge Jokers trigger for both. Planet Packs buff both. Every decision affects both. It's exponential chaos instead of linear scaling."**
