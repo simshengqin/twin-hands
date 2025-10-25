@@ -205,21 +205,36 @@ All tokens are shared resources between both decks:
 
 #### Joker Effects & Terminology
 
-Jokers can modify two components of scoring:
+**Per-Deck Scoring System (Balatro-Inspired):**
+
+Each deck scores independently like a Balatro hand:
+```
+Left Score = Left Points × Left Mult
+Right Score = Right Points × Right Mult
+Final Score = Left Score + Right Score
+```
+
+**Jokers modify two components:**
 
 **Points (Additive):**
-- Add to deck's total score
+- Add to deck's total points
 - Example: "+50 points when Flush is played"
 
-**Mult (Additive to Global Multiplier):**
-- Add to the global multiplier
+**Mult (Additive to Deck Multiplier):**
+- Add to that deck's multiplier
 - Example: "+0.3 mult when Pair is played"
-- Global mult starts at 1.0 each round
+- Each deck's mult starts at 1.0
 
-**Final Score Formula:**
-```
-Final Score = (Left Deck Points + Right Deck Points) × Global Mult
-```
+**Bridge Jokers are Premium:**
+- Trigger for BOTH decks (once per deck)
+- Add to both Left Mult AND Right Mult
+- Example: Bridge Joker "+0.2 mult" → Left gets +0.2, Right gets +0.2
+- **This makes Bridge slots 2× as valuable!**
+
+**Casual Friendly Design:**
+- Each deck = one Balatro hand (familiar mental model)
+- "Twin Hands" = "Two Balatro hands working together"
+- Easy to predict: Calculate each deck's score separately, then add
 
 #### Joker Placement Rules
 
@@ -237,49 +252,50 @@ Final Score = (Left Deck Points + Right Deck Points) × Global Mult
 
 **Left Deck Scoring:**
 1. Calculate base points from all hands played
-2. Trigger Left slot Jokers (J1 → J2 → J3)
-3. Trigger Bridge slot Jokers (B1 → B2)
+2. Trigger Left slot Jokers (J1 → J2 → J3) — modify points or mult
+3. Trigger Bridge slot Jokers (B1 → B2) — modify points or mult
+4. **Calculate: Left Points × Left Mult = Left Score**
 
 **Right Deck Scoring:**
 1. Calculate base points from all hands played
-2. Trigger Right slot Jokers (J4 → J5 → J6)
-3. Trigger Bridge slot Jokers (B1 → B2) — **triggers again**
+2. Trigger Right slot Jokers (J4 → J5 → J6) — modify points or mult
+3. Trigger Bridge slot Jokers (B1 → B2) — **triggers again** — modify points or mult
+4. **Calculate: Right Points × Right Mult = Right Score**
 
 **Final Calculation:**
-- Combine both deck points
-- Apply accumulated global mult
+- **Final Score = Left Score + Right Score**
 
 #### Example Round with Joker Triggers
 
 **Setup:**
 - Left J1: "+50 points per Flush played"
-- Left J2: "+0.1 mult per hand played"
-- Bridge B1: "+0.2 mult per Pair played"
+- Left J2: "+0.2 mult per hand played"
+- Bridge B1: "+0.3 mult per Pair played"
 - Right J4: "+30 points per Two Pair played"
 
 **Round Play:**
-- Left deck plays 2 hands: Flush (20 base) + Pair (6 base) = 26 base points
-- Right deck plays 2 hands: Two Pair (10 base) + Pair (6 base) = 16 base points
+- Left deck plays 2 hands: Flush (20 base) + Pair (6 base)
+- Right deck plays 2 hands: Two Pair (10 base) + Pair (6 base)
 
 **Scoring:**
 
 **Left Deck Scoring:**
-1. Base: 26 points
+1. Base points: 20 (Flush) + 6 (Pair) = 26 points
 2. Left J1 triggers: +50 (Flush) → 76 points
-3. Left J2 triggers: +0.1 mult (per hand) × 2 hands → Global mult = 1.0 + 0.2 = 1.2
-4. Bridge B1 triggers: +0.2 mult (Pair played) → Global mult = 1.2 + 0.2 = 1.4
-5. **Left Result: 76 points, Global mult = 1.4**
+3. Left J2 triggers: +0.2 mult × 2 hands → Left Mult = 1.0 + 0.4 = 1.4
+4. Bridge B1 triggers: +0.3 mult (Pair played) → Left Mult = 1.4 + 0.3 = 1.7
+5. **Left Score: 76 × 1.7 = 129**
 
 **Right Deck Scoring:**
-1. Base: 16 points
+1. Base points: 10 (Two Pair) + 6 (Pair) = 16 points
 2. Right J4 triggers: +30 (Two Pair) → 46 points
-3. Bridge B1 triggers again: +0.2 mult (Pair played) → Global mult = 1.4 + 0.2 = 1.6
-4. **Right Result: 46 points, Global mult = 1.6**
+3. Bridge B1 triggers again: +0.3 mult (Pair played) → Right Mult = 1.0 + 0.3 = 1.3
+4. **Right Score: 46 × 1.3 = 60**
 
 **Final:**
-- Total Points: 76 + 46 = 122
-- Global Mult: 1.6
-- **Final Score: 122 × 1.6 = 195**
+- **Final Score: 129 + 60 = 189**
+
+**Key Insight:** Bridge Joker triggered for BOTH decks (+0.3 to left, +0.3 to right), making it twice as valuable as a regular Joker slot!
 
 #### Example Joker Library (Scaling Tiers)
 
@@ -350,25 +366,36 @@ Game-warping effects, build-defining.
 
 ---
 
-**Joker Synergy Example (Late Game):**
+**Late Game Synergy Example (Round 7):**
 
 **Setup:**
-- Bridge B1: "Twin Boost" (+0.2 mult if both decks played)
+- Hand upgrades: Flush Level 3 (40 base), Pair Level 2 (10 base)
+- Bridge B1: "Twin Boost" (+0.3 mult if both decks played)
 - Bridge B2: "Bridge Troll" (+0.4 mult per Bridge Joker)
 - Left J1: "Flush Fund" (+60 per Flush)
-- Right J4: "High Roller" (×1.5 if score > 500)
+- Left J2: "Suit Synergy" (×1.3 if all same suit)
+- Right J4: "Pair Producer" (+0.3 mult per Pair)
 
-**Round 7 Play:**
-- Left plays 2 Flushes = 40 base + 120 (Flush Fund) = 160 points
-- Right plays 2 Pairs = 12 base = 12 points
-- Bridge triggers:
-  - Twin Boost: +0.2 mult (both played) → 1.2
-  - Bridge Troll: +0.4 mult (2 Bridge Jokers) → 1.6
-  - Triggers again for right deck: +0.6 mult → 2.2
-- High Roller checks: 172 points < 500 → doesn't trigger
-- **Final: 172 × 2.2 = 378 points**
+**Round 7 Play (Quota: 1,448):**
 
-(Not enough! Need better Joker synergies or higher base hands for Round 7's 3,418 quota)
+**LEFT DECK:**
+- Plays 2 Flushes: 40 + 40 = 80 base
+- Flush Fund: +60 + 60 = +120 → 200 points
+- Suit Synergy: ×1.3 → Left Mult = 1.3
+- Bridge B1: +0.3 (both played) → Left Mult = 1.6
+- Bridge B2: +0.4 × 2 Jokers = +0.8 → Left Mult = 2.4
+- **Left Score: 200 × 2.4 = 480**
+
+**RIGHT DECK:**
+- Plays 2 Pairs: 10 + 10 = 20 base
+- Pair Producer: +0.3 + 0.3 = +0.6 → Right Mult = 1.6
+- Bridge B1: +0.3 (both played) → Right Mult = 1.9
+- Bridge B2: +0.8 (triggers again) → Right Mult = 2.7
+- **Right Score: 20 × 2.7 = 54**
+
+**FINAL: 480 + 54 = 534 points** ❌
+
+(Still not enough! Need more hand upgrades or stronger Jokers for Round 7. This shows the importance of Planet Packs!)
 
 ### 6️⃣ Round Flow
 
@@ -387,27 +414,28 @@ Rounds are **free-form** — you can play or trade in any order until tokens are
   - Receiving deck accumulates cards (max 8).
 - Repeat in any order until you've used all tokens or choose to end the round.
 
-**3. Scoring:**
+**3. Scoring (Per-Deck System):**
 - **Left Deck Scoring:**
   - Sum base points from all hands played
-  - Trigger Left slot Jokers (J1 → J2 → J3) — modify points or global mult
-  - Trigger Bridge slot Jokers (B1 → B2) — modify points or global mult
-  - Result: Left Deck Points + updated Global Mult
+  - Trigger Left slot Jokers (J1 → J2 → J3) — modify points or Left Mult
+  - Trigger Bridge slot Jokers (B1 → B2) — modify points or Left Mult
+  - **Calculate: Left Score = Left Points × Left Mult**
 - **Right Deck Scoring:**
   - Sum base points from all hands played
-  - Trigger Right slot Jokers (J4 → J5 → J6) — modify points or global mult
-  - Trigger Bridge slot Jokers (B1 → B2) **again** — modify points or global mult
-  - Result: Right Deck Points + updated Global Mult
+  - Trigger Right slot Jokers (J4 → J5 → J6) — modify points or Right Mult
+  - Trigger Bridge slot Jokers (B1 → B2) **again** — modify points or Right Mult
+  - **Calculate: Right Score = Right Points × Right Mult**
 - **Final Calculation:**
-  - Final Score = (Left Deck Points + Right Deck Points) × Global Mult
+  - **Final Score = Left Score + Right Score**
   - Compare to quota: Pass = advance to shop, Fail = game over.
 
 **4. Shop Phase:**
-- 4 random Jokers offered (Common/Uncommon/Rare/Legendary mix).
-- Purchase Jokers (cost TBD based on rarity) — immediately choose which slot to place them in.
+- **4 random Jokers** offered (Common/Uncommon/Rare/Legendary mix).
+- **1 Planet Pack** offered (upgrade one hand type globally).
+- Purchase Jokers (see pricing below) — immediately choose which slot to place them in.
 - **Freely move and reorder ALL Jokers** between any slots (Left/Right/Bridge).
-- Shop refresh costs $4.
-- Purchase permanent card trades (cost TBD).
+- Shop refresh costs $4 (rerolls both Jokers AND Planet Pack).
+- Purchase permanent card trades ($8).
 - Proceed to next round.
 
 **5. End of Round Rewards:**
@@ -448,26 +476,27 @@ Players can form hands using 1-4 cards from a single deck. Hand rankings and bas
 - Beat **Round 8** to win the run.
 - **Future TODO:** Endless mode after Round 8.
 
-### Quota Scaling (Exponential - 1.5× Per Round)
-- **Round 1:** 300 points (beatable with base poker hands)
-- **Round 2:** 450 points (1.5×)
-- **Round 3:** 675 points (1.5×)
-- **Round 4:** 1,013 points (1.5×)
-- **Round 5:** 1,519 points (1.5×)
-- **Round 6:** 2,279 points (1.5×)
-- **Round 7:** 3,418 points (1.5×)
-- **Round 8:** 5,127 points (1.5×)
+### Quota Scaling (Exponential - 1.3× Per Round)
+- **Round 1:** 300 points (beatable with base poker hands, no Jokers)
+- **Round 2:** 390 points (1.3×)
+- **Round 3:** 507 points (1.3×)
+- **Round 4:** 659 points (1.3×)
+- **Round 5:** 857 points (1.3×)
+- **Round 6:** 1,114 points (1.3×)
+- **Round 7:** 1,448 points (1.3×)
+- **Round 8:** 1,882 points (1.3×)
 
-**Scaling Philosophy (Balatro-Inspired):**
-- Early game (R1-3): Linear-ish feel, building your engine
-- Mid game (R4-6): Exponential curve kicks in, Jokers become critical
-- Late game (R7-8): God mode, massive scores, exponential scaling pays off
+**Scaling Philosophy (Balanced for Per-Deck Mult):**
+- **Round 1:** Base hands only, learn the game
+- **Rounds 2-4:** Build Joker engine + start upgrading hands
+- **Rounds 5-6:** Joker synergies kick in, hand upgrades critical
+- **Rounds 7-8:** Full power, max hand levels, optimized Joker placement
 
-**Why Exponential:**
-- Matches Balatro's "power fantasy" progression
-- Forces Joker synergies (can't brute-force with base hands)
-- Round 8 feels epic (17× harder than Round 1)
-- Aligns with Design Goal #1 (Satisfying Progression)
+**Why 1.3× (not 1.5×):**
+- Per-Deck Mult system scales slower than Global Mult
+- 1.3× growth matches achievable power curve with 8 Joker slots + hand upgrades
+- Round 8 = 6.3× harder than Round 1 (still feels epic!)
+- Aligns with Design Goal #1 (Satisfying Progression) + #3 (Casual Friendly)
 
 ### Failure Condition
 - If final score < quota: **Game Over** (no retry, no lives).
@@ -488,17 +517,33 @@ Players can form hands using 1-4 cards from a single deck. Hand rankings and bas
 - Rare: $12
 - Legendary: $18
 
+**Planet Packs (Universal Hand Upgrades):**
+- Cost: $6 per upgrade
+- Upgrades ONE hand type globally (affects BOTH decks)
+- Each hand type can be upgraded multiple times
+- Example progression:
+  - Flush Level 1 (base): 20 points
+  - Flush Level 2: 30 points (+$6)
+  - Flush Level 3: 40 points (+$6)
+  - Flush Level 4: 50 points (+$6)
+
 **Other Shop Options:**
-- Shop refresh: $4 (reroll all 4 Jokers)
+- Shop refresh: $4 (rerolls all 4 Jokers AND Planet Pack)
 - Sell Joker: Receive 50% of purchase price (mitigates bad purchases)
 - Skip purchase: Free (save money for better shops)
 - Permanent card trades: $8 (move one specific card permanently between decks)
 
 **Shop Strategy:**
-- Early game: Buy cheap Commons to start scaling
-- Mid game: Save for Rares ($12+) with exponential effects
-- Late game: Hunt for Legendary synergies or perfect Bridge Jokers
-- Always: Can sell bad Jokers to pivot builds (comeback mechanic)
+- **Early game (R1-3):** Buy cheap Common Jokers ($5) to start scaling
+- **Mid game (R4-6):** Upgrade key hands with Planet Packs, buy Rare Jokers
+- **Late game (R7-8):** Hunt for Legendary Jokers or max out hand levels
+- **Always:** Prioritize Bridge slots (2× value), can sell bad Jokers to pivot
+
+**Why Planet Packs are Critical:**
+- Jokers alone can't reach Round 8 quota (need base hand scaling too)
+- Universal upgrades = both decks benefit immediately
+- Familiar mechanic for Balatro players
+- Creates strategic choice: "Which hand type do I play most?"
 
 ### Unlocks (Future TODO)
 - Asymmetric deck splits

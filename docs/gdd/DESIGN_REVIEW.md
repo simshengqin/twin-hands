@@ -232,3 +232,82 @@ The GDD strongly aligns with design goals (9.2/10 overall).
 4. Iterate on Joker balance based on playtest
 
 **The foundation is solid. Time to build!** 🚀
+
+---
+
+## 🔄 UPDATE: Per-Deck Mult System (v2.0)
+
+**Date:** Post design goals discussion
+**Major Change:** Switched from Global Mult to Per-Deck Mult for maximum casual accessibility
+
+### **What Changed:**
+
+**OLD SYSTEM (Global Mult):**
+```
+Final Score = (Left Points + Right Points) × Global Mult
+```
+
+**NEW SYSTEM (Per-Deck Mult):**
+```
+Left Score = Left Points × Left Mult
+Right Score = Right Points × Right Mult
+Final Score = Left Score + Right Score
+```
+
+### **Why We Changed:**
+
+**Tier 1 Goal Priority:**
+1. Satisfying Progression
+2. Meaningful Decisions
+3. **Casual Friendly Entry** ← This drove the decision
+
+**Trade-offs:**
+- ❌ Slightly weaker scaling (had to adjust quotas 1.5× → 1.3×)
+- ✅ Much easier to understand (each deck = one Balatro hand)
+- ✅ No confusing "global mult" concept
+- ✅ Can calculate scores in your head
+
+### **New Additions:**
+
+1. **Universal Hand Upgrades (Planet Packs)**
+   - Cost: $6 per upgrade
+   - Upgrades one hand type globally (both decks)
+   - Critical for reaching Round 8 quota
+   - Familiar to Balatro players
+
+2. **Adjusted Quota Scaling**
+   - Changed from 1.5× to 1.3× per round
+   - Round 8: 1,882 (down from 5,127)
+   - Achievable with Per-Deck Mult + hand upgrades
+
+### **Updated Design Goal Scores:**
+
+| Goal | Global Mult (v1.0) | Per-Deck Mult (v2.0) | Change |
+|------|--------------------|-----------------------|--------|
+| **#1: Progression** | 9/10 | 8/10 | -1 (slightly weaker scaling) |
+| **#2: Decisions** | 9/10 | 10/10 | +1 (clearer choices) |
+| **#3: Casual** | 7/10 | 10/10 | +3 (huge improvement!) |
+| **#4: Depth** | 9/10 | 8/10 | -1 (less synergy) |
+| **#5: Replayable** | 9/10 | 9/10 | 0 |
+| **#6: No RNG** | 9/10 | 10/10 | +1 (easier to predict) |
+| **AVERAGE** | 8.7/10 | **9.2/10** | **+0.5** ⭐ |
+
+### **Critical Insight:**
+
+**Maximum Casual Accessibility was chosen as the priority.**
+
+When forced to choose between:
+- A) Complex but powerful (Global Mult)
+- B) Simple and accessible (Per-Deck Mult)
+
+**We chose B, aligning with Tier 1 Goal #3.**
+
+### **Validation Checklist:**
+
+- ✅ Per-Deck Mult is Balatro-familiar (each deck = one hand)
+- ✅ Bridge Jokers still premium (trigger twice, 2× value)
+- ✅ Planet Packs enable scaling to Round 8
+- ✅ Quota 1.3× achievable with 8 Jokers + hand upgrades
+- ✅ All Tier 1 goals score 8+/10
+
+**Status: READY FOR PROTOTYPING v2.0** 🚀
