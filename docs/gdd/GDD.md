@@ -5,25 +5,25 @@
 ## TABLE OF CONTENTS
 
 1. [Design Goals (North Star)](#1-design-goals-north-star)
-   - 1.1 [Tier 1: Identity-Defining](#11-tier-1-identity-defining-non-negotiable)
-   - 1.2 [Tier 2: Important](#12-tier-2-important-support-tier-1)
-   - 1.3 [Tier 3: Sub-Goals](#13-tier-3-sub-goals-nice-to-have)
+   - [1-1 Tier 1: Identity-Defining](#1-1-tier-1-identity-defining-non-negotiable)
+   - [1-2 Tier 2: Important](#1-2-tier-2-important-support-tier-1)
+   - [1-3 Tier 3: Sub-Goals](#1-3-tier-3-sub-goals-nice-to-have)
 2. [Elevator Pitch](#2-elevator-pitch)
 3. [Core Concept](#3-core-concept)
 4. [Core Mechanics](#4-core-mechanics)
-   - 4.1 [Deck Splitting](#41-deck-splitting)
-   - 4.2 [Card Drawing System](#42-card-drawing-system)
-   - 4.3 [Token System](#43-token-system-shared-between-decks)
-   - 4.4 [Trading System](#44-trading-system)
-   - 4.5 [Joker System](#45-joker-system)
-   - 4.6 [Round Flow](#46-round-flow)
-   - 4.7 [Poker Hand Scoring](#47-poker-hand-scoring-1-4-cards)
+   - [4-1 Deck Splitting](#4-1-deck-splitting)
+   - [4-2 Card Drawing System](#4-2-card-drawing-system)
+   - [4-3 Token System](#4-3-token-system-shared-between-decks)
+   - [4-4 Trading System](#4-4-trading-system)
+   - [4-5 Joker System](#4-5-joker-system)
+   - [4-6 Round Flow](#4-6-round-flow)
+   - [4-7 Poker Hand Scoring](#4-7-poker-hand-scoring-1-4-cards)
 5. [Progression & Economy](#5-progression--economy)
-   - 5.1 [Starting Conditions](#51-starting-conditions)
-   - 5.2 [Win Condition](#52-win-condition)
-   - 5.3 [Quota Scaling](#53-quota-scaling-exponential---13-per-round)
-   - 5.4 [Money System](#54-money-system)
-   - 5.5 [Unlocks](#55-unlocks-future-todo)
+   - [5-1 Starting Conditions](#5-1-starting-conditions)
+   - [5-2 Win Condition](#5-2-win-condition)
+   - [5-3 Quota Scaling](#5-3-quota-scaling-exponential---13-per-round)
+   - [5-4 Money System](#5-4-money-system)
+   - [5-5 Unlocks](#5-5-unlocks-future-todo)
 6. [Co-op Integration (Future)](#6-co-op-integration-future-feature)
 7. [Unique Sell Points](#7-unique-sell-points)
 8. [Implementation Roadmap](#8-implementation-roadmap)
@@ -39,7 +39,7 @@
 
 ---
 
-### 1.1 TIER 1: Identity-Defining (Non-Negotiable)
+### 1-1 TIER 1: Identity-Defining (Non-Negotiable)
 
 When these conflict with other goals, **Tier 1 always wins.**
 
@@ -66,7 +66,7 @@ When these conflict with other goals, **Tier 1 always wins.**
 
 ---
 
-### 1.2 TIER 2: Important (Support Tier 1)
+### 1-2 TIER 2: Important (Support Tier 1)
 
 When these conflict with Tier 1, **Tier 1 wins.** Otherwise, preserve these.
 
@@ -103,7 +103,7 @@ When these conflict with Tier 1, **Tier 1 wins.** Otherwise, preserve these.
 
 ---
 
-### 1.3 TIER 3: Sub-Goals (Nice to Have)
+### 1-3 TIER 3: Sub-Goals (Nice to Have)
 
 #### **Player Expression / Build Identity**
 - Players CAN pursue archetypes (Flush specialist, Pair engine)
@@ -137,20 +137,20 @@ Manage resources across both decks in a fluid round where every decision matters
 
 ## 4. CORE MECHANICS
 
-### 4.1 Deck Splitting
+### 4-1 Deck Splitting
 
 - **Starting Split:** Random 26/26 split — One 52-card deck randomly splits into Left Deck (26 cards) and Right Deck (26 cards).
 - Each run has a unique deck composition per side, creating different strategic opportunities.
 - **Future TODO:** Asymmetric splits (e.g., 20/32) or themed splits for unique deck identities.
 
-### 4.2 Card Drawing System
+### 4-2 Card Drawing System
 
 - Each deck maintains **4 visible cards** at a time.
 - When you play cards, you immediately draw replacements from that deck.
 - **Example:** Play 3 cards from left deck → draw 3 new cards from left deck → back to 4 visible.
 - Each deck's 26 cards cycle independently throughout the round.
 
-### 4.3 Token System (Shared Between Decks)
+### 4-3 Token System (Shared Between Decks)
 
 All tokens are shared resources between both decks:
 
@@ -172,7 +172,7 @@ All tokens are shared resources between both decks:
 - Encourages 3-3 Joker split or strategic 4-2 splits
 - Aligns with Design Goal #4 (Strategic Depth) — no single dominant strategy
 
-### 4.4 Trading System
+### 4-4 Trading System
 
 **Temporary Trades (During Round):**
 - **One-directional only:** Choose a source deck and give 1-4 cards to the other deck.
@@ -194,7 +194,7 @@ All tokens are shared resources between both decks:
 - One-way transfer: receiving deck cannot give cards back in the same transaction.
 - **Example:** Buy "Move A♠ from Right to Left" = A♠ permanently joins left deck for the entire run.
 
-### 4.5 Joker System
+### 4-5 Joker System
 
 #### Slot Structure (Fixed)
 
@@ -427,7 +427,7 @@ Game-warping effects, build-defining.
 
 (Still not enough! Need more hand upgrades or stronger Jokers for Round 7. This shows the importance of Planet Packs!)
 
-### 4.6 Round Flow
+### 4-6 Round Flow
 
 Rounds are **free-form** — you can play or trade in any order until tokens are exhausted.
 
@@ -474,7 +474,7 @@ Rounds are **free-form** — you can play or trade in any order until tokens are
   - $1 per unspent trade token
 - Earn interest: $1 per $5 held (max $4 interest on $20+)
 
-### 4.7 Poker Hand Scoring (1-4 Cards)
+### 4-7 Poker Hand Scoring (1-4 Cards)
 
 Players can form hands using 1-4 cards from a single deck. Hand rankings and base scores:
 
@@ -497,16 +497,16 @@ Players can form hands using 1-4 cards from a single deck. Hand rankings and bas
 
 ## 5. PROGRESSION & ECONOMY
 
-### 5.1 Starting Conditions
+### 5-1 Starting Conditions
 - **Money:** $0
 - **Jokers:** None (all slots empty)
 - **First Round:** Play Round 1 with no Jokers, earn money from unspent tokens and beating quota, then enter first shop
 
-### 5.2 Win Condition
+### 5-2 Win Condition
 - Beat **Round 8** to win the run.
 - **Future TODO:** Endless mode after Round 8.
 
-### 5.3 Quota Scaling (Exponential - 1.3× Per Round)
+### 5-3 Quota Scaling (Exponential - 1.3× Per Round)
 - **Round 1:** 300 points (beatable with base poker hands, no Jokers)
 - **Round 2:** 390 points (1.3×)
 - **Round 3:** 507 points (1.3×)
@@ -531,7 +531,7 @@ Players can form hands using 1-4 cards from a single deck. Hand rankings and bas
 **Failure Condition:**
 - If final score < quota: **Game Over** (no retry, no lives).
 
-### 5.4 Money System
+### 5-4 Money System
 
 **Earning Money:**
 - Unspent hand tokens: $2 each
@@ -575,7 +575,7 @@ Players can form hands using 1-4 cards from a single deck. Hand rankings and bas
 - Familiar mechanic for Balatro players
 - Creates strategic choice: "Which hand type do I play most?"
 
-### 5.5 Unlocks (Future TODO)
+### 5-5 Unlocks (Future TODO)
 - Asymmetric deck splits
 - New starting Jokers
 - Special card modifications
