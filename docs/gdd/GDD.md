@@ -2,7 +2,36 @@
 
 ---
 
-## 🌟 DESIGN GOALS (NORTH STAR)
+## TABLE OF CONTENTS
+
+1. [Design Goals (North Star)](#1-design-goals-north-star)
+   - 1.1 [Tier 1: Identity-Defining](#11-tier-1-identity-defining)
+   - 1.2 [Tier 2: Important](#12-tier-2-important)
+   - 1.3 [Tier 3: Sub-Goals](#13-tier-3-sub-goals)
+2. [Elevator Pitch](#2-elevator-pitch)
+3. [Core Concept](#3-core-concept)
+4. [Core Mechanics](#4-core-mechanics)
+   - 4.1 [Deck Splitting](#41-deck-splitting)
+   - 4.2 [Card Drawing System](#42-card-drawing-system)
+   - 4.3 [Token System](#43-token-system)
+   - 4.4 [Trading System](#44-trading-system)
+   - 4.5 [Joker System](#45-joker-system)
+   - 4.6 [Round Flow](#46-round-flow)
+   - 4.7 [Poker Hand Scoring](#47-poker-hand-scoring)
+5. [Progression & Economy](#5-progression--economy)
+   - 5.1 [Starting Conditions](#51-starting-conditions)
+   - 5.2 [Win Condition](#52-win-condition)
+   - 5.3 [Quota Scaling](#53-quota-scaling)
+   - 5.4 [Money System](#54-money-system)
+   - 5.5 [Unlocks](#55-unlocks)
+6. [Co-op Integration (Future)](#6-co-op-integration-future)
+7. [Unique Sell Points](#7-unique-sell-points)
+8. [Implementation Roadmap](#8-implementation-roadmap)
+9. [Target Audience](#9-target-audience)
+
+---
+
+## 1. DESIGN GOALS (NORTH STAR)
 
 **These goals guide EVERY design decision. When in doubt, revisit these.**
 
@@ -10,7 +39,7 @@
 
 ---
 
-### **TIER 1: Identity-Defining (Non-Negotiable)**
+### 1.1 TIER 1: Identity-Defining (Non-Negotiable)
 
 When these conflict with other goals, **Tier 1 always wins.**
 
@@ -37,7 +66,7 @@ When these conflict with other goals, **Tier 1 always wins.**
 
 ---
 
-### **TIER 2: Important (Support Tier 1)**
+### 1.2 TIER 2: Important (Support Tier 1)
 
 When these conflict with Tier 1, **Tier 1 wins.** Otherwise, preserve these.
 
@@ -74,7 +103,7 @@ When these conflict with Tier 1, **Tier 1 wins.** Otherwise, preserve these.
 
 ---
 
-### **TIER 3: Sub-Goals (Nice to Have)**
+### 1.3 TIER 3: Sub-Goals (Nice to Have)
 
 #### **Player Expression / Build Identity**
 - Players CAN pursue archetypes (Flush specialist, Pair engine)
@@ -89,7 +118,7 @@ When these conflict with Tier 1, **Tier 1 wins.** Otherwise, preserve these.
 
 ---
 
-## 🎯 ELEVATOR PITCH
+## 2. ELEVATOR PITCH
 
 Build two poker engines from one deck. Trade cards freely, trigger shared Jokers, and break escalating quotas.
 
@@ -97,7 +126,7 @@ A roguelike poker builder where one 52-card deck splits into two specialized han
 
 Manage resources across both decks in a fluid round where every decision matters.
 
-## 🧩 CORE CONCEPT
+## 3. CORE CONCEPT
 
 - **Deck Splitting:** One 52-card deck splits into Left (Red ♥♦) and Right (Black ♣♠) decks of 26 cards each.
 - **Free-Form Rounds:** Play, discard, and trade cards in any order using shared tokens.
@@ -106,22 +135,22 @@ Manage resources across both decks in a fluid round where every decision matters
 - **Natural Imbalance:** Decks don't need to score equally — synergy and adaptation matter more than balance.
 - **Solo Focus (Co-op = TODO):** Current design is solo play. Co-op mechanics deferred to future updates.
 
-## ♠️ CORE MECHANICS
+## 4. CORE MECHANICS
 
-### 1️⃣ Deck Splitting
+### 4.1 Deck Splitting
 
 - **Starting Split:** Random 26/26 split — One 52-card deck randomly splits into Left Deck (26 cards) and Right Deck (26 cards).
 - Each run has a unique deck composition per side, creating different strategic opportunities.
 - **Future TODO:** Asymmetric splits (e.g., 20/32) or themed splits for unique deck identities.
 
-### 2️⃣ Card Drawing System
+### 4.2 Card Drawing System
 
 - Each deck maintains **4 visible cards** at a time.
 - When you play cards, you immediately draw replacements from that deck.
 - **Example:** Play 3 cards from left deck → draw 3 new cards from left deck → back to 4 visible.
 - Each deck's 26 cards cycle independently throughout the round.
 
-### 3️⃣ Token System (Shared Between Decks)
+### 4.3 Token System (Shared Between Decks)
 
 All tokens are shared resources between both decks:
 
@@ -143,7 +172,7 @@ All tokens are shared resources between both decks:
 - Encourages 3-3 Joker split or strategic 4-2 splits
 - Aligns with Design Goal #4 (Strategic Depth) — no single dominant strategy
 
-### 4️⃣ Trading System
+### 4.4 Trading System
 
 **Temporary Trades (During Round):**
 - **One-directional only:** Choose a source deck and give 1-4 cards to the other deck.
@@ -165,7 +194,7 @@ All tokens are shared resources between both decks:
 - One-way transfer: receiving deck cannot give cards back in the same transaction.
 - **Example:** Buy "Move A♠ from Right to Left" = A♠ permanently joins left deck for the entire run.
 
-### 5️⃣ Joker System
+### 4.5 Joker System
 
 #### Slot Structure (Fixed)
 
@@ -398,7 +427,7 @@ Game-warping effects, build-defining.
 
 (Still not enough! Need more hand upgrades or stronger Jokers for Round 7. This shows the importance of Planet Packs!)
 
-### 6️⃣ Round Flow
+### 4.6 Round Flow
 
 Rounds are **free-form** — you can play or trade in any order until tokens are exhausted.
 
@@ -445,7 +474,7 @@ Rounds are **free-form** — you can play or trade in any order until tokens are
   - $1 per unspent trade token
 - Earn interest: $1 per $5 held (max $4 interest on $20+)
 
-### 7️⃣ Poker Hand Scoring (1-4 Cards)
+### 4.7 Poker Hand Scoring (1-4 Cards)
 
 Players can form hands using 1-4 cards from a single deck. Hand rankings and base scores:
 
@@ -466,18 +495,18 @@ Players can form hands using 1-4 cards from a single deck. Hand rankings and bas
 - Hands with fewer cards are valid (e.g., play 1 card = High Card for 3 points).
 - Values tuned for dual-deck economy where 4 hands per round are played.
 
-## 📈 PROGRESSION & ECONOMY
+## 5. PROGRESSION & ECONOMY
 
-### Starting Conditions
+### 5.1 Starting Conditions
 - **Money:** $0
 - **Jokers:** None (all slots empty)
 - **First Round:** Play Round 1 with no Jokers, earn money from unspent tokens and beating quota, then enter first shop
 
-### Win Condition
+### 5.2 Win Condition
 - Beat **Round 8** to win the run.
 - **Future TODO:** Endless mode after Round 8.
 
-### Quota Scaling (Exponential - 1.3× Per Round)
+### 5.3 Quota Scaling (Exponential - 1.3× Per Round)
 - **Round 1:** 300 points (beatable with base poker hands, no Jokers)
 - **Round 2:** 390 points (1.3×)
 - **Round 3:** 507 points (1.3×)
@@ -499,10 +528,10 @@ Players can form hands using 1-4 cards from a single deck. Hand rankings and bas
 - Round 8 = 6.3× harder than Round 1 (still feels epic!)
 - Aligns with Design Goal #1 (Satisfying Progression) + #3 (Casual Friendly)
 
-### Failure Condition
+**Failure Condition:**
 - If final score < quota: **Game Over** (no retry, no lives).
 
-### Money System
+### 5.4 Money System
 
 **Earning Money:**
 - Unspent hand tokens: $2 each
@@ -546,12 +575,12 @@ Players can form hands using 1-4 cards from a single deck. Hand rankings and bas
 - Familiar mechanic for Balatro players
 - Creates strategic choice: "Which hand type do I play most?"
 
-### Unlocks (Future TODO)
+### 5.5 Unlocks (Future TODO)
 - Asymmetric deck splits
 - New starting Jokers
 - Special card modifications
 
-## 👥 CO-OP INTEGRATION (TODO - Future Feature)
+## 6. CO-OP INTEGRATION (Future Feature)
 
 Co-op is planned but not part of the current solo prototype. Future design considerations:
 
@@ -563,7 +592,7 @@ Co-op is planned but not part of the current solo prototype. Future design consi
 | **Quota** | Combined total of all decks. | Scales with player count (BaseQuota × N × 1.3). |
 | **Trades** | Internal swaps. | Cross-player trades require mutual confirmation. |
 
-## 💎 UNIQUE SELL POINTS
+## 7. UNIQUE SELL POINTS
 
 - **Dual-deck poker engine** where both sides matter every round.
 - **Free-form action economy** — play, discard, trade in any order.
@@ -571,7 +600,7 @@ Co-op is planned but not part of the current solo prototype. Future design consi
 - **1-4 card hands** enable flexible tactical plays.
 - **Solo-focused design** with future co-op expansion.
 
-## ✅ IMPLEMENTATION ROADMAP
+## 8. IMPLEMENTATION ROADMAP
 
 ### Phase 1: Python Terminal Prototype (Current)
 - Core mechanics: dual decks, one-directional trading, poker evaluation
@@ -598,7 +627,7 @@ Co-op is planned but not part of the current solo prototype. Future design consi
 - Scaled quotas and shared resources
 - Cross-player trade confirmation UI
 
-## 🎯 TARGET AUDIENCE
+## 9. TARGET AUDIENCE
 
 - **Balatro Fans:** Familiar poker-roguelike feel with deeper strategic layers.
 - **Roguelike Players:** High replayability through emergent Joker combinations.
