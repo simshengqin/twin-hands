@@ -1,0 +1,50 @@
+# Poker Grid - Claude Code Rules
+
+## Critical Rules
+
+1. NEVER modify `legacy_code/` or `party-house/` (except `legacy_code/ui.py` via adapter)
+2. All new code goes in `src/` following the Godot-ready architecture
+3. Use lowercase config attributes: `config.max_hands` NOT `config.MAX_HANDS`
+4. Import from `src.` not `godot_src.`
+5. Follow the architecture patterns: Resources (data), Managers (logic), Utils (helpers), Autoload (events)
+
+## Project Structure
+
+```
+src/
+├── resources/    # Data classes (extends Resource)
+├── managers/     # Game logic (extends Node)
+├── utils/        # Static helpers
+├── autoload/     # Global singletons
+├── docs/         # Documentation
+└── tests_manual/ # Visual tests
+```
+
+## Architecture Patterns
+
+- **Resources**: Pure data, simple management methods only
+- **Managers**: Game logic, coordinate systems, emit events
+- **Utils**: Static functions, no state
+- **Events**: Cross-system communication via `src/autoload/events.py`
+
+## When Adding Code
+
+- New resource → `src/resources/`
+- New game logic → `src/managers/`
+- New helper function → `src/utils/`
+- New global event → Add to `src/autoload/events.py`
+- New test → `src/tests_manual/`
+
+## Import Pattern
+
+```python
+from src.resources.card_resource import CardResource
+from src.managers.game_manager import GameManager
+from src.utils.poker_evaluator import PokerEvaluator
+from src.autoload.events import Events
+```
+
+## Documentation
+
+Read `claude.md` for complete instructions.
+Read `src/docs/GODOT_ARCHITECTURE.md` for architecture deep-dive.

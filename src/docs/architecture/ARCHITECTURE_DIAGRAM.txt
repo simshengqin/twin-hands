@@ -1,0 +1,401 @@
+================================================================================
+                    POKER GRID - GODOT-READY ARCHITECTURE
+================================================================================
+
+PROJECT STRUCTURE
+================================================================================
+
+poker-grid/
+│
+├── godot_src/                        ← NEW GODOT-READY CODE
+│   ├── __init__.py
+│   │
+│   ├── resources/                    ← Data Classes (extends Resource)
+│   │   ├── __init__.py
+│   │   ├── card_resource.py         → Playing card data
+│   │   ├── hand_resource.py         → Poker hand data
+│   │   ├── game_config_resource.py  → Game configuration
+│   │   ├── grid_cell_resource.py    → Single grid cell
+│   │   ├── reel_resource.py         → Column reel (deck)
+│   │   └── game_state_resource.py   → Main game state
+│   │
+│   ├── managers/                     ← Game Controllers (extends Node)
+│   │   ├── __init__.py
+│   │   ├── game_manager.py          → Main coordinator
+│   │   ├── grid_manager.py          → Grid operations
+│   │   └── score_manager.py         → Scoring logic
+│   │
+│   ├── utils/                        ← Static Utilities
+│   │   ├── __init__.py
+│   │   ├── poker_evaluator.py       → Hand evaluation
+│   │   └── card_factory.py          → Deck creation
+│   │
+│   ├── autoload/                     ← Global Singletons (extends Node)
+│   │   ├── __init__.py
+│   │   └── events.py                → Global event bus
+│   │
+│   └── ui_adapter.py                 ← Bridge to old UI
+│
+├── Original Files (Still Work!)
+│   ├── run.py                        → Original entry point
+│   ├── models.py
+│   ├── game_state.py
+│   ├── poker_evaluator.py
+│   ├── card_factory.py
+│   ├── config.py
+│   └── ui.py
+│
+├── New Entry Point
+│   └── run_godot_ready.py            → Test new architecture
+│
+└── Documentation
+    ├── GODOT_ARCHITECTURE.md         → Architecture deep-dive
+    ├── PORTING_GUIDE.md              → Step-by-step porting
+    ├── README_REFACTOR.md            → Quick overview
+    ├── REFACTOR_SUMMARY.md           → What was done
+    └── ARCHITECTURE_DIAGRAM.txt      → This file
+
+
+ARCHITECTURE LAYERS
+================================================================================
+
+┌─────────────────────────────────────────────────────────────────┐
+│                           UI LAYER                              │
+│                    (Terminal UI for now)                        │
+│                  (Will be Godot scenes later)                   │
+└─────────────────────────────────────────────────────────────────┘
+                              ▲
+                              │ Signals
+                              │
+┌─────────────────────────────────────────────────────────────────┐
+│                     EVENTS (Autoload)                           │
+│  Global event bus for cross-system communication                │
+│  • hand_started, hand_completed                                 │
+│  • cell_frozen, cell_unfrozen                                   │
+│  • score_updated, game_won, game_lost                           │
+└─────────────────────────────────────────────────────────────────┘
+                              ▲
+                              │ Emits signals
+                              │
+┌─────────────────────────────────────────────────────────────────┐
+│                   MANAGERS LAYER (Nodes)                        │
+│                                                                 │
+│  ┌────────────────┐  ┌────────────────┐  ┌─────────────────┐  │
+│  │  GameManager   │  │  GridManager   │  │  ScoreManager   │  │
+│  │                │  │                │  │                 │  │
+│  │ • Coordinates  │  │ • deal_grid()  │  │ • score_grid()  │  │
+│  │ • play_hand()       │  │ • auto_freeze()│  │ • update_score()│  │
+│  │ • toggle_freeze│  │                │  │                 │  │
+│  └────────────────┘  └────────────────┘  └─────────────────┘  │
+│         │                    │                    │            │
+│         └────────────────────┴────────────────────┘            │
+│                              │                                 │
+│                         Uses ↓                                 │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+┌─────────────────────────────────────────────────────────────────┐
+│                  RESOURCES LAYER (Data)                         │
+│                                                                 │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐ │
+│  │ CardResource │  │ GridCell     │  │ GameStateResource    │ │
+│  │ • rank       │  │ • card       │  │ • grid: [][]         │ │
+│  │ • suit       │  │ • is_frozen  │  │ • reels: []          │ │
+│  └──────────────┘  └──────────────┘  │ • hands_left         │ │
+│                                      │ • cumulative_score   │ │
+│  ┌──────────────┐  ┌──────────────┐  └──────────────────────┘ │
+│  │ HandResource │  │ GameConfig   │                           │
+│  │ • cards      │  │ • max_hands  │                           │
+│  │ • hand_type  │  │ • grid_rows  │                           │
+│  │ • chips      │  │ • HAND_SCORES│                           │
+│  └──────────────┘  └──────────────┘                           │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              │ Uses
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    UTILS LAYER (Static)                         │
+│                                                                 │
+│  ┌──────────────────────┐        ┌──────────────────────────┐  │
+│  │  PokerEvaluator      │        │  CardFactory             │  │
+│  │                      │        │                          │  │
+│  │  static evaluate_hand│        │  static create_deck()    │  │
+│  │  static _is_flush    │        │  static shuffle_deck()   │  │
+│  │  static _is_straight │        │  static create_reels()   │  │
+│  └──────────────────────┘        └──────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+
+
+SIGNAL FLOW EXAMPLE
+================================================================================
+
+User Action: "Play Hand"
+│
+▼
+┌──────────────────────────────────────────────────────────────────┐
+│ 1. UI Button Clicked                                             │
+└──────────────────────────────────────────────────────────────────┘
+│
+▼
+┌──────────────────────────────────────────────────────────────────┐
+│ 2. GameManager.play_hand() called                                     │
+│    • Checks if hands_left > 0                                    │
+│    • Emits Events.emit_hand_started()                            │
+└──────────────────────────────────────────────────────────────────┘
+│
+▼
+┌──────────────────────────────────────────────────────────────────┐
+│ 3. GridManager.deal_grid()                                       │
+│    • For each unfrozen cell:                                     │
+│    •   Draw card from reel                                       │
+│    •   Update cell.card                                          │
+│    • Emits Events.emit_cards_dealt()                             │
+└──────────────────────────────────────────────────────────────────┘
+│
+▼
+┌──────────────────────────────────────────────────────────────────┐
+│ 4. GameManager.score_and_update()                                │
+│    • Calls ScoreManager.score_and_update()                       │
+└──────────────────────────────────────────────────────────────────┘
+│
+▼
+┌──────────────────────────────────────────────────────────────────┐
+│ 5. ScoreManager.score_and_update()                               │
+│    • Evaluate all rows/columns                                   │
+│    • Update state.cumulative_score                               │
+│    • Emits Events.emit_score_updated(current, cumulative)        │
+└──────────────────────────────────────────────────────────────────┘
+│
+▼
+┌──────────────────────────────────────────────────────────────────┐
+│ 6. UI reacts to signal                                           │
+│    • Updates score display                                       │
+│    • Updates grid display                                        │
+│    • Shows animations (in Godot)                                 │
+└──────────────────────────────────────────────────────────────────┘
+
+
+DATA FLOW
+================================================================================
+
+GameConfig (Resource)
+    ↓ Configuration
+GameStateResource (Resource)
+    ├── grid: [][]GridCellResource
+    ├── reels: []ReelResource
+    ├── hands_left, cumulative_score
+    └── frozen_cells: [(row, col)]
+        ↓ Managed by
+GameManager (Node)
+    ├── GridManager (Node)
+    │   ├── deal_grid()
+    │   └── auto_freeze_highest_pair()
+    └── ScoreManager (Node)
+        ├── score_current_grid()
+        └── score_and_update()
+            ↓ Uses
+    PokerEvaluator (Static)
+        ├── evaluate_hand()
+        └── _is_royal_flush(), _is_straight()...
+            ↓ Returns
+    HandResource (Resource)
+        ├── cards: []CardResource
+        ├── hand_type: str
+        └── chips: int
+
+
+GODOT SCENE TREE (Future)
+================================================================================
+
+Main (Node)
+│
+├── GameManager (Node)
+│   ├── GridManager (Node)
+│   └── ScoreManager (Node)
+│
+├── UI (CanvasLayer)
+│   │
+│   ├── GridUI (Control)
+│   │   └── GridContainer
+│   │       ├── CellUI (Control) x 25
+│   │       │   ├── Background (ColorRect)
+│   │       │   ├── CardDisplay (VBoxContainer)
+│   │       │   │   ├── RankLabel
+│   │       │   │   └── SuitLabel
+│   │       │   └── FreezeIndicator (TextureRect)
+│   │
+│   ├── ScorePanel (PanelContainer)
+│   │   └── VBoxContainer
+│   │       ├── CurrentScoreLabel
+│   │       ├── CumulativeScoreLabel
+│   │       └── HandsLeftLabel
+│   │
+│   └── Controls (HBoxContainer)
+│       ├── PlayHandButton
+│       ├── UnfreezeAllButton
+│       └── QuitButton
+│
+└── Camera2D
+
+
+COMPARISON: OLD vs NEW
+================================================================================
+
+OLD STRUCTURE:
+    models.py               → Mixed data + some logic
+    game_state.py           → 272 lines, does everything
+    poker_evaluator.py      → Static helpers
+    card_factory.py         → Static helpers
+    config.py               → Configuration
+    ui.py                   → Terminal UI
+
+    Problems:
+    ✗ GameStateManager too large (God object)
+    ✗ Mixed concerns (grid, scoring, freezing all in one)
+    ✗ Hard to extend
+    ✗ Direct coupling
+    ✗ Not Godot-ready
+
+NEW STRUCTURE:
+    resources/              → Pure data (6 files)
+    managers/               → Focused controllers (3 files)
+    utils/                  → Static helpers (2 files)
+    autoload/               → Global systems (1 file)
+
+    Benefits:
+    ✓ Single Responsibility Principle
+    ✓ Easy to test
+    ✓ Easy to extend
+    ✓ Signal-driven (decoupled)
+    ✓ Perfect Godot mapping
+
+
+KEY PRINCIPLES APPLIED
+================================================================================
+
+1. SEPARATION OF CONCERNS
+   Resources    → Data only
+   Managers     → Logic only
+   Utils        → Helpers only
+   Autoload     → Global communication
+
+2. SIGNAL-DRIVEN ARCHITECTURE
+   No direct method calls between systems
+   Everything goes through Events singleton
+   Loose coupling = easy to modify
+
+3. RESOURCE PATTERN
+   All data in Resource classes
+   Serializable as .tres files in Godot
+   Easy to edit in Inspector
+
+4. MANAGER PATTERN
+   Each manager has one responsibility
+   GameManager coordinates
+   GridManager handles grid
+   ScoreManager handles scoring
+
+5. DON'T REPEAT YOURSELF (DRY)
+   PokerEvaluator is reusable
+   CardFactory is reusable
+   No duplicate logic
+
+
+GODOT CONCEPTS MAPPED
+================================================================================
+
+Python Class          │ Godot Class        │ Purpose
+──────────────────────┼────────────────────┼─────────────────────────
+CardResource          │ extends Resource   │ Playing card data
+GameConfigResource    │ extends Resource   │ Configuration
+GameStateResource     │ extends Resource   │ Game state
+GridCellResource      │ extends Resource   │ Cell data
+ReelResource          │ extends Resource   │ Reel data
+HandResource          │ extends Resource   │ Hand data
+                      │                    │
+GameManager           │ extends Node       │ Main coordinator
+GridManager           │ extends Node       │ Grid logic
+ScoreManager          │ extends Node       │ Score logic
+                      │                    │
+PokerEvaluator        │ Static class       │ Hand evaluation
+CardFactory           │ Static class       │ Deck creation
+                      │                    │
+Events                │ extends Node       │ Global signals
+                      │ (autoload)         │
+
+
+FILES CREATED
+================================================================================
+
+New Code:
+    godot_src/resources/card_resource.py
+    godot_src/resources/hand_resource.py
+    godot_src/resources/game_config_resource.py
+    godot_src/resources/grid_cell_resource.py
+    godot_src/resources/reel_resource.py
+    godot_src/resources/game_state_resource.py
+    godot_src/managers/game_manager.py
+    godot_src/managers/grid_manager.py
+    godot_src/managers/score_manager.py
+    godot_src/utils/poker_evaluator.py
+    godot_src/utils/card_factory.py
+    godot_src/autoload/events.py
+    godot_src/ui_adapter.py
+    godot_src/__init__.py (+ 4 more __init__ files)
+
+New Entry Point:
+    run_godot_ready.py
+
+Documentation:
+    GODOT_ARCHITECTURE.md       (Detailed architecture)
+    PORTING_GUIDE.md            (Step-by-step porting)
+    README_REFACTOR.md          (Quick overview)
+    REFACTOR_SUMMARY.md         (What was done)
+    ARCHITECTURE_DIAGRAM.txt    (This file)
+
+Total: 23 new files
+
+
+HOW TO USE
+================================================================================
+
+1. Test the new architecture:
+   $ python run_godot_ready.py
+
+2. Read the documentation:
+   - GODOT_ARCHITECTURE.md for deep understanding
+   - PORTING_GUIDE.md for Godot porting steps
+   - README_REFACTOR.md for quick overview
+
+3. Explore the code:
+   - Start with godot_src/managers/game_manager.py
+   - Look at godot_src/autoload/events.py for signals
+   - Check godot_src/resources/ for data structures
+
+4. When ready to port to Godot:
+   - Follow PORTING_GUIDE.md step-by-step
+   - Convert Python to GDScript (mostly syntax)
+   - Create UI scenes
+   - Connect signals
+
+
+NEXT STEPS
+================================================================================
+
+IMMEDIATE:
+    [ ] Test: python run_godot_ready.py
+    [ ] Read: GODOT_ARCHITECTURE.md
+    [ ] Understand: Signal flow
+
+WHEN READY TO PORT:
+    [ ] Install Godot 4.5
+    [ ] Follow PORTING_GUIDE.md
+    [ ] Create basic UI scenes
+    [ ] Test in Godot
+    [ ] Add polish (animations, sounds)
+
+
+================================================================================
+                          YOUR CODE IS GODOT-READY!
+================================================================================
+
+

@@ -1,0 +1,102 @@
+🎯 Top Rules When Designing Balatro Jokers
+1. Every Joker lives in a clear design space
+
+Each Joker modifies exactly one axis of the scoring ecosystem:
+
+Chips, Mult, ×Mult, or Economy/Effect.
+→ This isolates variables so synergies feel earned, not random.
+
+Rule: Never design a Joker that affects more than one axis at once unless it’s Legendary.
+
+2. Every Joker defines a “trigger condition”
+
+Every effect maps to a predictable trigger:
+
+When Scored, When Blind Selected, Each Round, When Played, etc.
+
+Rule: Always pair an effect with a consistent, memorable trigger.
+
+3. Conditional depth > raw power
+
+Balatro avoids flat +100 effects; instead, it adds conditions that push new playstyles:
+
+“+4 mult if hand contains a Flush”
+→ Encourages deck shaping and behavior change.
+
+Rule: A Joker must change how you play, not just make you stronger.
+
+4. Avoid overlapping roles
+
+There’s usually one archetype Joker per trigger + axis combo.
+If you duplicate the same trigger/effect pair, you destroy clarity.
+
+Rule: Each Joker should have a unique niche — never compete for identical triggers.
+
+5. Encourage synergy, not stacking
+
+Balatro’s beauty is orthogonal synergy — cards boost each other indirectly.
+E.g.
+
+“Retrigger all Hearts” synergizes with “+3 mult on Hearts.”
+
+But you rarely see two +3 mult-on-Hearts stacked.
+
+Rule: Design for combinational synergy, not linear stacking.
+
+6. Limit hidden information
+
+Effects are deterministic and shown in tooltips. Random effects are rare (and low-stakes, like 1-in-4 Tarot creation).
+
+Rule: Minimize invisible math; players must understand what just happened.
+
+7. Scale smoothly with run length
+
+Each Joker either:
+
+Scales per round (Campfire, Obelisk)
+
+Scales per trigger (Vampire, Flash Card)
+
+Scales per resource (Bull, Bootstraps)
+
+Rule: Choose exactly one scaling lever per Joker.
+
+8. Legendaries break the rules intentionally
+
+Legendary Jokers are allowed to:
+
+Combine multiple design spaces.
+
+Alter game structure (e.g., “Disable Boss Blinds”).
+
+Rule: Legendaries are your permission to be wild — but still readable.
+
+9. Limit multipliers by rarity
+Rarity	Typical Power	Example
+Common	+Chips / +Mult (flat)	“+50 Chips if Flush”
+Uncommon	Conditional × or scaling	“×1.5 if all cards Spades”
+Rare	Rules bending / scaling	“Each King ×1.5 Mult”
+Legendary	Game-warping	“Disables Boss Blinds”
+
+Rule: Map mechanical complexity to rarity, not just power.
+
+10. Avoid dead triggers
+
+Every Joker should remain at least sometimes useful across a normal run.
+Even niche builds (Flush-only, Heart decks) get fallback triggers.
+
+Rule: No Joker should be 100% dead outside its archetype.
+
+✅ TL;DR:
+
+Balatro’s Joker design follows a constraint-based philosophy:
+
+1 axis
+
+1 trigger
+
+1 condition
+
+1 synergy lane
+
+→ Combined, these produce emergent complexity without RNG bloat.

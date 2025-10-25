@@ -1,0 +1,481 @@
+{
+  "simulation_info": {
+    "num_simulations": 100000,
+    "grid_size": "5x5",
+    "hands_per_grid": 10,
+    "reroll_scenarios": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "strategy": "EV-based row upgrades",
+    "timestamp": "2025-10-17 21:56:10"
+  },
+  "scenarios": {
+    "0_rerolls": {
+      "distribution": {
+        "Royal Flush": {
+          "count": 0,
+          "percentage": 0.0
+        },
+        "Straight Flush": {
+          "count": 12,
+          "percentage": 0.0012
+        },
+        "Four of a Kind": {
+          "count": 2048,
+          "percentage": 0.2048
+        },
+        "Full House": {
+          "count": 4213,
+          "percentage": 0.4213
+        },
+        "Flush": {
+          "count": 3874,
+          "percentage": 0.3874
+        },
+        "Straight": {
+          "count": 3282,
+          "percentage": 0.3282
+        },
+        "Three of a Kind": {
+          "count": 45668,
+          "percentage": 4.5668
+        },
+        "Two Pair": {
+          "count": 69002,
+          "percentage": 6.9002
+        },
+        "One Pair": {
+          "count": 460412,
+          "percentage": 46.0412
+        },
+        "High Card": {
+          "count": 411489,
+          "percentage": 41.1489
+        }
+      },
+      "per_grid_stats": {
+        "Royal Flush": {
+          "min": 0,
+          "max": 0,
+          "median": 0.0,
+          "mean": 0,
+          "std_dev": 0.0
+        },
+        "Straight Flush": {
+          "min": 0,
+          "max": 1,
+          "median": 0.0,
+          "mean": 0.0001,
+          "std_dev": 0.011
+        },
+        "Four of a Kind": {
+          "min": 0,
+          "max": 2,
+          "median": 0.0,
+          "mean": 0.0205,
+          "std_dev": 0.1434
+        },
+        "Full House": {
+          "min": 0,
+          "max": 2,
+          "median": 0.0,
+          "mean": 0.0421,
+          "std_dev": 0.2056
+        },
+        "Flush": {
+          "min": 0,
+          "max": 2,
+          "median": 0.0,
+          "mean": 0.0387,
+          "std_dev": 0.1963
+        },
+        "Straight": {
+          "min": 0,
+          "max": 2,
+          "median": 0.0,
+          "mean": 0.0328,
+          "std_dev": 0.1802
+        },
+        "Three of a Kind": {
+          "min": 0,
+          "max": 6,
+          "median": 0.0,
+          "mean": 0.4567,
+          "std_dev": 0.6606
+        },
+        "Two Pair": {
+          "min": 0,
+          "max": 6,
+          "median": 1.0,
+          "mean": 0.69,
+          "std_dev": 0.8033
+        },
+        "One Pair": {
+          "min": 0,
+          "max": 10,
+          "median": 5.0,
+          "mean": 4.6041,
+          "std_dev": 1.5782
+        },
+        "High Card": {
+          "min": 0,
+          "max": 10,
+          "median": 4.0,
+          "mean": 4.1149,
+          "std_dev": 1.5627
+        }
+      }
+    },
+    "1_rerolls": {
+      "distribution": {
+        "Royal Flush": {
+          "count": 5,
+          "percentage": 0.0005
+        },
+        "Straight Flush": {
+          "count": 28,
+          "percentage": 0.0028
+        },
+        "Four of a Kind": {
+          "count": 2153,
+          "percentage": 0.2153
+        },
+        "Full House": {
+          "count": 6471,
+          "percentage": 0.6471
+        },
+        "Flush": {
+          "count": 9061,
+          "percentage": 0.9061
+        },
+        "Straight": {
+          "count": 3234,
+          "percentage": 0.3234
+        },
+        "Three of a Kind": {
+          "count": 44624,
+          "percentage": 4.4624
+        },
+        "Two Pair": {
+          "count": 78998,
+          "percentage": 7.8998
+        },
+        "One Pair": {
+          "count": 446835,
+          "percentage": 44.6835
+        },
+        "High Card": {
+          "count": 408591,
+          "percentage": 40.8591
+        }
+      },
+      "per_grid_stats": {
+        "Royal Flush": {
+          "min": 0,
+          "max": 1,
+          "median": 0.0,
+          "mean": 0.0001,
+          "std_dev": 0.0071
+        },
+        "Straight Flush": {
+          "min": 0,
+          "max": 1,
+          "median": 0.0,
+          "mean": 0.0003,
+          "std_dev": 0.0167
+        },
+        "Four of a Kind": {
+          "min": 0,
+          "max": 2,
+          "median": 0.0,
+          "mean": 0.0215,
+          "std_dev": 0.1468
+        },
+        "Full House": {
+          "min": 0,
+          "max": 3,
+          "median": 0.0,
+          "mean": 0.0647,
+          "std_dev": 0.2521
+        },
+        "Flush": {
+          "min": 0,
+          "max": 3,
+          "median": 0.0,
+          "mean": 0.0906,
+          "std_dev": 0.2947
+        },
+        "Straight": {
+          "min": 0,
+          "max": 3,
+          "median": 0.0,
+          "mean": 0.0323,
+          "std_dev": 0.179
+        },
+        "Three of a Kind": {
+          "min": 0,
+          "max": 5,
+          "median": 0.0,
+          "mean": 0.4462,
+          "std_dev": 0.6535
+        },
+        "Two Pair": {
+          "min": 0,
+          "max": 6,
+          "median": 1.0,
+          "mean": 0.79,
+          "std_dev": 0.845
+        },
+        "One Pair": {
+          "min": 0,
+          "max": 10,
+          "median": 4.0,
+          "mean": 4.4684,
+          "std_dev": 1.5705
+        },
+        "High Card": {
+          "min": 0,
+          "max": 10,
+          "median": 4.0,
+          "mean": 4.0859,
+          "std_dev": 1.5537
+        }
+      }
+    },
+    "2_rerolls": {
+      "distribution": {
+        "Royal Flush": {
+          "count": 6,
+          "percentage": 0.0006
+        },
+        "Straight Flush": {
+          "count": 40,
+          "percentage": 0.004
+        },
+        "Four of a Kind": {
+          "count": 2174,
+          "percentage": 0.2174
+        },
+        "Full House": {
+          "count": 7328,
+          "percentage": 0.7328
+        },
+        "Flush": {
+          "count": 12611,
+          "percentage": 1.2611
+        },
+        "Straight": {
+          "count": 3226,
+          "percentage": 0.3226
+        },
+        "Three of a Kind": {
+          "count": 45018,
+          "percentage": 4.5018
+        },
+        "Two Pair": {
+          "count": 83024,
+          "percentage": 8.3024
+        },
+        "One Pair": {
+          "count": 441451,
+          "percentage": 44.1451
+        },
+        "High Card": {
+          "count": 405122,
+          "percentage": 40.5122
+        }
+      },
+      "per_grid_stats": {
+        "Royal Flush": {
+          "min": 0,
+          "max": 1,
+          "median": 0.0,
+          "mean": 0.0001,
+          "std_dev": 0.0077
+        },
+        "Straight Flush": {
+          "min": 0,
+          "max": 1,
+          "median": 0.0,
+          "mean": 0.0004,
+          "std_dev": 0.02
+        },
+        "Four of a Kind": {
+          "min": 0,
+          "max": 2,
+          "median": 0.0,
+          "mean": 0.0217,
+          "std_dev": 0.1472
+        },
+        "Full House": {
+          "min": 0,
+          "max": 3,
+          "median": 0.0,
+          "mean": 0.0733,
+          "std_dev": 0.2676
+        },
+        "Flush": {
+          "min": 0,
+          "max": 3,
+          "median": 0.0,
+          "mean": 0.1261,
+          "std_dev": 0.3443
+        },
+        "Straight": {
+          "min": 0,
+          "max": 3,
+          "median": 0.0,
+          "mean": 0.0323,
+          "std_dev": 0.1794
+        },
+        "Three of a Kind": {
+          "min": 0,
+          "max": 5,
+          "median": 0.0,
+          "mean": 0.4502,
+          "std_dev": 0.6558
+        },
+        "Two Pair": {
+          "min": 0,
+          "max": 6,
+          "median": 1.0,
+          "mean": 0.8302,
+          "std_dev": 0.86
+        },
+        "One Pair": {
+          "min": 0,
+          "max": 10,
+          "median": 4.0,
+          "mean": 4.4145,
+          "std_dev": 1.5647
+        },
+        "High Card": {
+          "min": 0,
+          "max": 10,
+          "median": 4.0,
+          "mean": 4.0512,
+          "std_dev": 1.5612
+        }
+      }
+    },
+    "3_rerolls": {
+      "distribution": {
+        "Royal Flush": {
+          "count": 3,
+          "percentage": 0.0003
+        },
+        "Straight Flush": {
+          "count": 39,
+          "percentage": 0.0039
+        },
+        "Four of a Kind": {
+          "count": 2232,
+          "percentage": 0.2232
+        },
+        "Full House": {
+          "count": 7891,
+          "percentage": 0.7891
+        },
+        "Flush": {
+          "count": 15058,
+          "percentage": 1.5058
+        },
+        "Straight": {
+          "count": 3300,
+          "percentage": 0.33
+        },
+        "Three of a Kind": {
+          "count": 45593,
+          "percentage": 4.5593
+        },
+        "Two Pair": {
+          "count": 84706,
+          "percentage": 8.4706
+        },
+        "One Pair": {
+          "count": 439293,
+          "percentage": 43.9293
+        },
+        "High Card": {
+          "count": 401885,
+          "percentage": 40.1885
+        }
+      },
+      "per_grid_stats": {
+        "Royal Flush": {
+          "min": 0,
+          "max": 1,
+          "median": 0.0,
+          "mean": 0.0,
+          "std_dev": 0.0055
+        },
+        "Straight Flush": {
+          "min": 0,
+          "max": 1,
+          "median": 0.0,
+          "mean": 0.0004,
+          "std_dev": 0.0197
+        },
+        "Four of a Kind": {
+          "min": 0,
+          "max": 2,
+          "median": 0.0,
+          "mean": 0.0223,
+          "std_dev": 0.1496
+        },
+        "Full House": {
+          "min": 0,
+          "max": 3,
+          "median": 0.0,
+          "mean": 0.0789,
+          "std_dev": 0.2766
+        },
+        "Flush": {
+          "min": 0,
+          "max": 3,
+          "median": 0.0,
+          "mean": 0.1506,
+          "std_dev": 0.3719
+        },
+        "Straight": {
+          "min": 0,
+          "max": 3,
+          "median": 0.0,
+          "mean": 0.033,
+          "std_dev": 0.1816
+        },
+        "Three of a Kind": {
+          "min": 0,
+          "max": 6,
+          "median": 0.0,
+          "mean": 0.4559,
+          "std_dev": 0.6598
+        },
+        "Two Pair": {
+          "min": 0,
+          "max": 7,
+          "median": 1.0,
+          "mean": 0.8471,
+          "std_dev": 0.8684
+        },
+        "One Pair": {
+          "min": 0,
+          "max": 10,
+          "median": 4.0,
+          "mean": 4.3929,
+          "std_dev": 1.5632
+        },
+        "High Card": {
+          "min": 0,
+          "max": 10,
+          "median": 4.0,
+          "mean": 4.0188,
+          "std_dev": 1.5538
+        }
+      }
+    }
+  }
+}

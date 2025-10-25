@@ -1,0 +1,27 @@
+id,name,effect_type,trigger,condition_type,condition_value,bonus_type,bonus_value,per_card,grow_per,rarity,cost,priority,notes
+j_001,Joker,instant,always,,,+m,4,no,,Common,2,P0,Simplest joker - always active
+j_002,Greedy Joker,instant,on_scored,suit,Diamond,+m,3,yes,,Common,5,P0,+3 Mult per Diamond in scored line
+j_003,Lusty Joker,instant,on_scored,suit,Heart,+m,3,yes,,Common,5,P0,+3 Mult per Heart in scored line
+j_004,Wrathful Joker,instant,on_scored,suit,Spade,+m,3,yes,,Common,5,P0,+3 Mult per Spade in scored line
+j_005,Gluttonous Joker,instant,on_scored,suit,Club,+m,3,yes,,Common,5,P0,+3 Mult per Club in scored line
+j_006,Jolly Joker,instant,on_scored,hand_type,Pair,+m,8,no,,Common,3,P0,+8 Mult if line is a Pair
+j_007,Zany Joker,instant,on_scored,hand_type,Three of a Kind,+m,12,no,,Common,4,P0,+12 Mult if line is Three of a Kind
+j_008,Mad Joker,instant,on_scored,hand_type,Two Pair,+m,10,no,,Common,4,P0,+10 Mult if line is Two Pair
+j_009,Crazy Joker,instant,on_scored,hand_type,Straight,+m,12,no,,Common,4,P0,+12 Mult if line is a Straight
+j_010,Droll Joker,instant,on_scored,hand_type,Flush,+m,10,no,,Common,4,P0,+10 Mult if line is a Flush
+j_011,Sly Joker,instant,on_scored,hand_type,Pair,+c,50,no,,Common,3,P0,+50 Chips if line is a Pair
+j_012,Wily Joker,instant,on_scored,hand_type,Three of a Kind,+c,100,no,,Common,4,P0,+100 Chips if line is Three of a Kind
+j_013,Clever Joker,instant,on_scored,hand_type,Two Pair,+c,80,no,,Common,4,P0,+80 Chips if line is Two Pair
+j_014,Devious Joker,instant,on_scored,hand_type,Straight,+c,100,no,,Common,4,P0,+100 Chips if line is a Straight
+j_015,Crafty Joker,instant,on_scored,hand_type,Flush,+c,80,no,,Common,4,P0,+80 Chips if line is a Flush
+j_029,Raised Fist,instant,on_held,card_type,lowest_rank,+m,2x,no,,Common,5,P0,Adds 2× lowest held card rank to Mult
+j_033,Scary Face,instant,on_scored,card_type,face,+c,30,yes,,Common,4,P0,+30 Chips per face card in scored line
+j_038,Gros Michel,instant,always,,,+m,15,no,,Common,5,P0,+15 Mult (1/6 chance destroyed each round)
+j_039,Even Steven,instant,on_scored,rank_parity,even,+m,4,yes,,Common,4,P0,+4 Mult per even rank card (10-8-6-4-2)
+j_040,Odd Todd,instant,on_scored,rank_parity,odd,+c,31,yes,,Common,4,P0,+31 Chips per odd rank card (A-9-7-5-3)
+j_041,Scholar,instant,on_scored,rank,A,++,20c4m,yes,,Common,4,P0,Aces give +20 Chips AND +4 Mult
+j_049,Runner,growing,on_scored,hand_type,Straight,+c,15,no,line,Common,5,P0,Gains +15 Chips per Straight line scored
+j_078,Photograph,instant,on_scored,card_position,first_face,Xm,2,first_only,,Common,5,P0,First face card in each line gets ×2 Mult
+j_098,Spare Trousers,growing,on_scored,hand_type,Two Pair,+m,2,no,line,Uncommon,6,P0,Gains +2 Mult per Two Pair line scored
+j_101,Walkie Talkie,instant,on_scored,rank,10|4,++,10c4m,yes,,Common,4,P0,10s and 4s give +10 Chips AND +4 Mult
+j_104,Smiley Face,instant,on_scored,card_type,face,+m,5,yes,,Common,4,P0,+5 Mult per face card in scored line

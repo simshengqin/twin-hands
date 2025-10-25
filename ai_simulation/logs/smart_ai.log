@@ -1,0 +1,1551 @@
+
+=== Starting session with smart ===
+============================================================
+POKER GRID - Round 1/8
+Hands: 0/7 (Remaining: 7)
+Score: 0 / 100 (Round 1 Quota)
+============================================================
+
+      0    1    2    3    4  
+ 0 | 9[91m♦[0m  Q[91m♦[0m* K[91m♦[0m  6[91m♥[0m  T[91m♦[0m 
+ 1 | 9[91m♥[0m  6[97m♣[0m  8[91m♥[0m  3[97m♣[0m  5[97m♠[0m 
+ 2 | T[97m♠[0m  Q[97m♠[0m* 7[91m♦[0m  A[97m♣[0m  8[91m♦[0m 
+ 3 | 3[91m♦[0m  8[97m♣[0m  Q[91m♦[0m  2[97m♣[0m  4[97m♣[0m 
+ 4 | 9[91m♥[0m  5[97m♠[0m  6[97m♠[0m  9[97m♠[0m  2[97m♠[0m 
+
+AI froze: (0, 1), (2, 1)
+
+      0    1    2    3    4  
+ 0 | 9[91m♦[0m  Q[91m♦[0m* K[91m♦[0m  6[91m♥[0m  T[91m♦[0m 
+ 1 | 9[91m♥[0m  6[97m♣[0m  8[91m♥[0m  3[97m♣[0m  5[97m♠[0m 
+ 2 | T[97m♠[0m  Q[97m♠[0m* 7[91m♦[0m  A[97m♣[0m  8[91m♦[0m 
+ 3 | 3[91m♦[0m  8[97m♣[0m  Q[91m♦[0m  2[97m♣[0m  4[97m♣[0m 
+ 4 | 9[91m♥[0m  5[97m♠[0m  6[97m♠[0m  9[97m♠[0m  2[97m♠[0m 
+
+
+=== HAND 1/7 COMPLETE ===
+
+      0    1    2    3    4  
+ 0 |[93m 5♦  [0m[93m Q♦ *[0m 7♦   3♠   T♣  
+ 1 |[93m 3♦  [0m[93m A♥  [0m[93m J♦  [0m[93m 9♦  [0m[93m 9♣  [0m
+ 2 |[93m 6♠  [0m[93m Q♠ *[0m 9♦   Q♥   7♣  
+ 3 |[93m 3♣  [0m[93m 4♦  [0m 3♥   2♠   6♥  
+ 4 |[93m 2♥  [0m[93m 3♦  [0m 6♥   J♦   Q♣  
+
+
+┌──────────────────────────────────────┐
+│ 🥇 1st: Col 0 (One Pair) 10 × 2 = 20 │
+│ 🥇 1st: Col 1 (One Pair) 10 × 2 = 20 │
+│ 🥇 1st: Row 1 (One Pair) 10 × 2 = 20 │
+├──────────────────────────────────────┤
+│ TOP 3 TOTAL: 60 chips                │
+└──────────────────────────────────────┘
+------------------------------------------------------------
+SCORING BREAKDOWN:
+------------------------------------------------------------
+
+COLUMNS:
+[93m  Col 0: One Pair             ( 10 ×  2 =    20)[0m [93m(1st tied)[0m
+[93m  Col 1: One Pair             ( 10 ×  2 =    20)[0m [93m(1st tied)[0m
+  Col 2: High Card            (  5 ×  1 =     5)
+  Col 3: High Card            (  5 ×  1 =     5)
+  Col 4: High Card            (  5 ×  1 =     5)
+
+ROWS:
+  Row 0: High Card            (  5 ×  1 =     5)
+[93m  Row 1: One Pair             ( 10 ×  2 =    20)[0m [93m(1st tied)[0m
+  Row 2: One Pair             ( 10 ×  2 =    20)
+  Row 3: One Pair             ( 10 ×  2 =    20)
+  Row 4: High Card            (  5 ×  1 =     5)
+------------------------------------------------------------
+
+Cumulative Score: 60 chips
+Hands Remaining: 6/7
+AI froze: (1, 1)
+
+      0    1    2    3    4  
+ 0 | 5[91m♦[0m  Q[91m♦[0m  7[91m♦[0m  3[97m♠[0m  T[97m♣[0m 
+ 1 | 3[91m♦[0m  A[91m♥[0m* J[91m♦[0m  9[91m♦[0m  9[97m♣[0m 
+ 2 | 6[97m♠[0m  Q[97m♠[0m  9[91m♦[0m  Q[91m♥[0m  7[97m♣[0m 
+ 3 | 3[97m♣[0m  4[91m♦[0m  3[91m♥[0m  2[97m♠[0m  6[91m♥[0m 
+ 4 | 2[91m♥[0m  3[91m♦[0m  6[91m♥[0m  J[91m♦[0m  Q[97m♣[0m 
+
+
+=== HAND 2/7 COMPLETE ===
+
+      0    1    2    3    4  
+ 0 | T♥   3♦  [93m K♣  [0m A♣   7♠  
+ 1 |[93m 2♥  [0m[93m A♥ *[0m[93m 9♠  [0m[93m 9♣  [0m[93m T♦  [0m
+ 2 |[93m 7♠  [0m[93m 7♦  [0m[93m 6♠  [0m[93m T♠  [0m[93m 2♦  [0m
+ 3 | 5♠   T♣  [93m 9♠  [0m 3♠   Q♣  
+ 4 | J♣   Q♠  [93m Q♥  [0m 4♥   3♣  
+
+
+┌──────────────────────────────────────┐
+│ 🥇 1st: Col 2 (One Pair) 10 × 2 = 20 │
+│ 🥇 1st: Row 1 (One Pair) 10 × 2 = 20 │
+│ 🥇 1st: Row 2 (One Pair) 10 × 2 = 20 │
+├──────────────────────────────────────┤
+│ TOP 3 TOTAL: 60 chips                │
+└──────────────────────────────────────┘
+------------------------------------------------------------
+SCORING BREAKDOWN:
+------------------------------------------------------------
+
+COLUMNS:
+  Col 0: High Card            (  5 ×  1 =     5)
+  Col 1: High Card            (  5 ×  1 =     5)
+[93m  Col 2: One Pair             ( 10 ×  2 =    20)[0m [93m(1st tied)[0m
+  Col 3: High Card            (  5 ×  1 =     5)
+  Col 4: High Card            (  5 ×  1 =     5)
+
+ROWS:
+  Row 0: High Card            (  5 ×  1 =     5)
+[93m  Row 1: One Pair             ( 10 ×  2 =    20)[0m [93m(1st tied)[0m
+[93m  Row 2: One Pair             ( 10 ×  2 =    20)[0m [93m(1st tied)[0m
+  Row 3: High Card            (  5 ×  1 =     5)
+  Row 4: One Pair             ( 10 ×  2 =    20)
+------------------------------------------------------------
+
+Cumulative Score: 120 chips
+Hands Remaining: 5/7
+
+?? ROUND QUOTA REACHED! (120/100)
+Auto-ending round with 5 hands remaining...
+
+SUMMARY: Smart - Round 1: score 120, hands left 5
+============================================================
+JOKER SHOP
+============================================================
+
+💰 Earned $5 from 5 unutilized hand(s)!
+💵 Money: $5
+
+Active Jokers: None
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Crafty Joker - $4 [Common]
+    +80 Chips if hand is a Flush
+
+[2] Smiley Face - $4 [Common]
+    +5 Mult per face card scored
+
+[3] Wrathful Joker - $5 [Common]
+    +3 Mult per Spade card scored
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Bought Smiley Face for $4
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $1
+
+Active Jokers (1/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Crafty Joker - $4 [Common]
+    +80 Chips if hand is a Flush
+
+[2] [EMPTY SLOT]
+
+[3] Wrathful Joker - $5 [Common]
+    +3 Mult per Spade card scored
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+SHOP_ACTIONS: buy:Smiley Face
+============================================================
+POKER GRID - Round 2/8
+Hands: 0/7 (Remaining: 7)
+Score: 120 / 250 (Round 2 Quota)
+============================================================
+
+      0    1    2    3    4  
+ 0 | K[97m♠[0m* Q[91m♥[0m  9[97m♣[0m  5[97m♣[0m  K[97m♠[0m*
+ 1 | 6[91m♦[0m  4[91m♥[0m  4[91m♥[0m  8[97m♣[0m  9[91m♥[0m 
+ 2 | T[97m♣[0m  K[91m♥[0m  6[97m♠[0m  K[97m♠[0m  Q[91m♥[0m 
+ 3 | A[97m♣[0m  T[91m♦[0m  4[91m♥[0m  Q[91m♦[0m  T[97m♣[0m 
+ 4 | 9[97m♣[0m  T[91m♥[0m  T[91m♦[0m  J[97m♣[0m  2[97m♣[0m 
+
+AI froze: (0, 0), (0, 4)
+
+      0    1    2    3    4  
+ 0 | K[97m♠[0m* Q[91m♥[0m  9[97m♣[0m  5[97m♣[0m  K[97m♠[0m*
+ 1 | 6[91m♦[0m  4[91m♥[0m  4[91m♥[0m  8[97m♣[0m  9[91m♥[0m 
+ 2 | T[97m♣[0m  K[91m♥[0m  6[97m♠[0m  K[97m♠[0m  Q[91m♥[0m 
+ 3 | A[97m♣[0m  T[91m♦[0m  4[91m♥[0m  Q[91m♦[0m  T[97m♣[0m 
+ 4 | 9[97m♣[0m  T[91m♥[0m  T[91m♦[0m  J[97m♣[0m  2[97m♣[0m 
+
+
+=== HAND 1/7 COMPLETE ===
+
+      0    1    2    3    4  
+ 0 |[93m K♠ *[0m[93m K♠  [0m[93m J♠  [0m[93m Q♠  [0m[93m K♠ *[0m
+ 1 | A♥  [96m 4♥  [0m A♥  [95m 8♠  [0m 5♠  
+ 2 | 8♥  [96m 5♥  [0m 5♠  [95m 5♣  [0m 3♥  
+ 3 | 5♠  [96m 4♠  [0m 2♥  [95m Q♦  [0m J♣  
+ 4 | 8♥  [96m K♠  [0m 8♣  [95m 2♥  [0m 9♠  
+
+
+┌────────────────────────────────────────┐
+│ 🥇 1st: Row 0 (Flush) 35 × 29 = 1015   │
+│ 🥈 2nd: Col 1 (Two Pair) 20 × 12 = 240 │
+│ 🥉 3rd: Col 3 (One Pair) 10 × 12 = 120 │
+├────────────────────────────────────────┤
+│ TOP 3 TOTAL: 1375 chips                │
+└────────────────────────────────────────┘
+------------------------------------------------------------
+SCORING BREAKDOWN:
+------------------------------------------------------------
+
+COLUMNS:
+  Col 0: One Pair             ( 10 ×  7 =    70)
+[96m  Col 1: Two Pair             ( 20 × 12 =   240)[0m [96m(2nd)[0m
+  Col 2: High Card            (  5 ×  6 =    30)
+[95m  Col 3: One Pair             ( 10 × 12 =   120)[0m [95m(3rd)[0m
+  Col 4: High Card            (  5 × 11 =    55)
+
+ROWS:
+[93m  Row 0: Flush                ( 35 × 29 =  1015)[0m [93m(1st)[0m
+  Row 1: One Pair             ( 10 ×  2 =    20)
+  Row 2: Three of a Kind      ( 30 ×  3 =    90)
+  Row 3: High Card            (  5 × 11 =    55)
+  Row 4: One Pair             ( 10 ×  7 =    70)
+------------------------------------------------------------
+
+Cumulative Score: 1495 chips
+Hands Remaining: 6/7
+
+?? ROUND QUOTA REACHED! (1495/250)
+Auto-ending round with 6 hands remaining...
+
+SUMMARY: Smart - Round 2: score 1495, hands left 6
+============================================================
+JOKER SHOP
+============================================================
+
+💰 Earned $6 from 6 unutilized hand(s)!
+💵 Money: $7
+
+Active Jokers (1/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Gluttonous Joker - $5 [Common]
+    +3 Mult per Club card scored
+
+[2] Gros Michel - $5 [Common]
+    +15 Mult
+
+[3] Photograph - $5 [Common]
+    First face card in each line gets ×2 Mult
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Bought Photograph for $5
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $2
+
+Active Jokers (2/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Gluttonous Joker - $5 [Common]
+    +3 Mult per Club card scored
+
+[2] Gros Michel - $5 [Common]
+    +15 Mult
+
+[3] [EMPTY SLOT]
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+SHOP_ACTIONS: buy:Photograph
+============================================================
+POKER GRID - Round 3/8
+Hands: 0/7 (Remaining: 7)
+Score: 1495 / 450 (Round 3 Quota)
+============================================================
+
+      0    1    2    3    4  
+ 0 | Q[91m♥[0m  Q[91m♦[0m  4[97m♣[0m  9[97m♠[0m  2[91m♦[0m 
+ 1 | K[91m♦[0m* 3[91m♥[0m  A[91m♥[0m  K[91m♦[0m* J[91m♥[0m 
+ 2 | A[91m♥[0m  3[91m♥[0m  8[97m♠[0m  5[97m♠[0m  K[91m♦[0m 
+ 3 | T[97m♣[0m  A[97m♠[0m  J[91m♥[0m  4[97m♣[0m  J[97m♣[0m 
+ 4 | 9[97m♣[0m  2[91m♦[0m  8[97m♣[0m  7[97m♣[0m  4[97m♠[0m 
+
+AI froze: (1, 0), (1, 3)
+
+      0    1    2    3    4  
+ 0 | Q[91m♥[0m  Q[91m♦[0m  4[97m♣[0m  9[97m♠[0m  2[91m♦[0m 
+ 1 | K[91m♦[0m* 3[91m♥[0m  A[91m♥[0m  K[91m♦[0m* J[91m♥[0m 
+ 2 | A[91m♥[0m  3[91m♥[0m  8[97m♠[0m  5[97m♠[0m  K[91m♦[0m 
+ 3 | T[97m♣[0m  A[97m♠[0m  J[91m♥[0m  4[97m♣[0m  J[97m♣[0m 
+ 4 | 9[97m♣[0m  2[91m♦[0m  8[97m♣[0m  7[97m♣[0m  4[97m♠[0m 
+
+
+=== HAND 1/7 COMPLETE ===
+
+      0    1    2    3    4  
+ 0 |[96m Q♣  [0m 3♣   9♣  [96m J♣  [0m Q♠  
+ 1 |[93m K♦ *[0m[93m 2♣  [0m[93m J♦  [0m[93m K♦ *[0m[93m Q♦  [0m
+ 2 |[96m 9♠  [0m 6♥   5♦  [96m 9♥  [0m A♠  
+ 3 |[96m T♥  [0m 6♦   3♦  [96m 8♣  [0m 4♦  
+ 4 |[96m K♦  [0m A♣   J♣  [96m K♥  [0m 9♥  
+
+
+┌────────────────────────────────────────┐
+│ 🥇 1st: Row 1 (One Pair) 10 × 88 = 880 │
+│ 🥈 2nd: Col 0 (One Pair) 10 × 68 = 680 │
+│ 🥈 2nd: Col 3 (One Pair) 10 × 68 = 680 │
+├────────────────────────────────────────┤
+│ TOP 3 TOTAL: 2240 chips                │
+└────────────────────────────────────────┘
+------------------------------------------------------------
+SCORING BREAKDOWN:
+------------------------------------------------------------
+
+COLUMNS:
+[96m  Col 0: One Pair             ( 10 × 68 =   680)[0m [96m(2nd tied)[0m
+  Col 1: One Pair             ( 10 ×  2 =    20)
+  Col 2: One Pair             ( 10 × 48 =   480)
+[96m  Col 3: One Pair             ( 10 × 68 =   680)[0m [96m(2nd tied)[0m
+  Col 4: One Pair             ( 10 × 48 =   480)
+
+ROWS:
+  Row 0: One Pair             ( 10 × 68 =   680)
+[93m  Row 1: One Pair             ( 10 × 88 =   880)[0m [93m(1st)[0m
+  Row 2: One Pair             ( 10 ×  2 =    20)
+  Row 3: High Card            (  5 ×  1 =     5)
+  Row 4: One Pair             ( 10 × 68 =   680)
+------------------------------------------------------------
+
+Cumulative Score: 3735 chips
+Hands Remaining: 6/7
+
+?? ROUND QUOTA REACHED! (3735/450)
+Auto-ending round with 6 hands remaining...
+
+SUMMARY: Smart - Round 3: score 3735, hands left 6
+============================================================
+JOKER SHOP
+============================================================
+
+💰 Earned $6 from 6 unutilized hand(s)!
+💵 Money: $8
+
+Active Jokers (2/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Crafty Joker - $4 [Common]
+    +80 Chips if hand is a Flush
+
+[2] Gros Michel - $5 [Common]
+    +15 Mult
+
+[3] Scary Face - $4 [Common]
+    +30 Chips per face card scored
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Bought Crafty Joker for $4
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $4
+
+Active Jokers (3/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+  [3] Crafty Joker (Sell: $2)
+      +80 Chips if hand is a Flush
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] [EMPTY SLOT]
+
+[2] Gros Michel - $5 [Common]
+    +15 Mult
+
+[3] Scary Face - $4 [Common]
+    +30 Chips per face card scored
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Sold Crafty Joker for $2
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $6
+
+Active Jokers (2/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] [EMPTY SLOT]
+
+[2] Gros Michel - $5 [Common]
+    +15 Mult
+
+[3] Scary Face - $4 [Common]
+    +30 Chips per face card scored
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Bought Scary Face for $4
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $2
+
+Active Jokers (3/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+  [3] Scary Face (Sell: $2)
+      +30 Chips per face card scored
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] [EMPTY SLOT]
+
+[2] Gros Michel - $5 [Common]
+    +15 Mult
+
+[3] [EMPTY SLOT]
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+SHOP_ACTIONS: buy:Crafty Joker, sell:Crafty Joker, buy:Scary Face
+============================================================
+POKER GRID - Round 4/8
+Hands: 0/7 (Remaining: 7)
+Score: 3735 / 700 (Round 4 Quota)
+============================================================
+
+      0    1    2    3    4  
+ 0 | 7[97m♠[0m  2[91m♦[0m  3[97m♣[0m  J[97m♠[0m* 7[97m♣[0m 
+ 1 | 4[97m♣[0m  6[91m♦[0m  7[91m♥[0m  3[91m♦[0m  4[97m♠[0m 
+ 2 | 6[91m♦[0m  2[91m♥[0m  A[91m♦[0m  J[91m♦[0m* 2[91m♦[0m 
+ 3 | 6[91m♦[0m  7[91m♥[0m  3[97m♠[0m  A[91m♥[0m  2[91m♥[0m 
+ 4 | A[97m♠[0m  6[97m♠[0m  8[97m♠[0m  J[91m♦[0m  T[97m♠[0m 
+
+AI froze: (0, 3), (2, 3)
+
+      0    1    2    3    4  
+ 0 | 7[97m♠[0m  2[91m♦[0m  3[97m♣[0m  J[97m♠[0m* 7[97m♣[0m 
+ 1 | 4[97m♣[0m  6[91m♦[0m  7[91m♥[0m  3[91m♦[0m  4[97m♠[0m 
+ 2 | 6[91m♦[0m  2[91m♥[0m  A[91m♦[0m  J[91m♦[0m* 2[91m♦[0m 
+ 3 | 6[91m♦[0m  7[91m♥[0m  3[97m♠[0m  A[91m♥[0m  2[91m♥[0m 
+ 4 | A[97m♠[0m  6[97m♠[0m  8[97m♠[0m  J[91m♦[0m  T[97m♠[0m 
+
+
+=== HAND 1/7 COMPLETE ===
+
+      0    1    2    3    4  
+ 0 |[93m K♦  [0m[93m T♠  [0m[93m K♣  [0m[93m J♠ *[0m[93m K♣  [0m
+ 1 |[95m T♥  [0m 9♣   5♦   4♣   5♦  
+ 2 |[96m K♠  [0m[96m 8♣  [0m[96m K♥  [0m[96m J♦ *[0m[96m T♣  [0m
+ 3 |[95m 8♥  [0m 3♦   A♥   6♥   7♥  
+ 4 |[95m A♦  [0m 7♠   8♠   8♥   A♣  
+
+
+┌──────────────────────────────────────────────────┐
+│ 🥇 1st: Row 0 (Three of a Kind) 150 × 92 = 13800 │
+│ 🥈 2nd: Row 2 (One Pair) 100 × 68 = 6800         │
+│ 🥉 3rd: Col 0 (One Pair) 70 × 48 = 3360          │
+├──────────────────────────────────────────────────┤
+│ TOP 3 TOTAL: 23960 chips                         │
+└──────────────────────────────────────────────────┘
+------------------------------------------------------------
+SCORING BREAKDOWN:
+------------------------------------------------------------
+
+COLUMNS:
+[95m  Col 0: One Pair             ( 70 × 48 =  3360)[0m [95m(3rd)[0m
+  Col 1: High Card            (  5 ×  1 =     5)
+  Col 2: One Pair             ( 70 × 48 =  3360)
+  Col 3: One Pair             ( 70 × 48 =  3360)
+  Col 4: High Card            ( 35 × 24 =   840)
+
+ROWS:
+[93m  Row 0: Three of a Kind      (150 × 92 = 13800)[0m [93m(1st)[0m
+  Row 1: One Pair             ( 10 ×  2 =    20)
+[96m  Row 2: One Pair             (100 × 68 =  6800)[0m [96m(2nd)[0m
+  Row 3: High Card            (  5 ×  1 =     5)
+  Row 4: Two Pair             ( 20 ×  2 =    40)
+------------------------------------------------------------
+
+Cumulative Score: 27695 chips
+Hands Remaining: 6/7
+
+?? ROUND QUOTA REACHED! (27695/700)
+Auto-ending round with 6 hands remaining...
+
+SUMMARY: Smart - Round 4: score 27695, hands left 6
+============================================================
+JOKER SHOP
+============================================================
+
+💰 Earned $6 from 6 unutilized hand(s)!
+💵 Money: $8
+
+Active Jokers (3/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+  [3] Scary Face (Sell: $2)
+      +30 Chips per face card scored
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Crafty Joker - $4 [Common]
+    +80 Chips if hand is a Flush
+
+[2] Gros Michel - $5 [Common]
+    +15 Mult
+
+[3] Crazy Joker - $4 [Common]
+    +12 Mult if hand is a Straight
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Bought Crazy Joker for $4
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $4
+
+Active Jokers (4/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+  [3] Scary Face (Sell: $2)
+      +30 Chips per face card scored
+  [4] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Crafty Joker - $4 [Common]
+    +80 Chips if hand is a Flush
+
+[2] Gros Michel - $5 [Common]
+    +15 Mult
+
+[3] [EMPTY SLOT]
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Sold Scary Face for $2
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $6
+
+Active Jokers (3/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+  [3] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Crafty Joker - $4 [Common]
+    +80 Chips if hand is a Flush
+
+[2] Gros Michel - $5 [Common]
+    +15 Mult
+
+[3] [EMPTY SLOT]
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Bought Crafty Joker for $4
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $2
+
+Active Jokers (4/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+  [3] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+  [4] Crafty Joker (Sell: $2)
+      +80 Chips if hand is a Flush
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] [EMPTY SLOT]
+
+[2] Gros Michel - $5 [Common]
+    +15 Mult
+
+[3] [EMPTY SLOT]
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+SHOP_ACTIONS: buy:Crazy Joker, sell:Scary Face, buy:Crafty Joker
+============================================================
+POKER GRID - Round 5/8
+Hands: 0/7 (Remaining: 7)
+Score: 27695 / 1000 (Round 5 Quota)
+============================================================
+
+      0    1    2    3    4  
+ 0 | 5[97m♠[0m  J[97m♠[0m* K[97m♣[0m  J[91m♦[0m* T[97m♣[0m 
+ 1 | 6[97m♣[0m  3[91m♦[0m  4[91m♥[0m  6[91m♦[0m  4[91m♦[0m 
+ 2 | 3[91m♦[0m  Q[97m♠[0m  5[97m♣[0m  A[97m♠[0m  6[97m♣[0m 
+ 3 | 6[91m♥[0m  9[97m♠[0m  J[91m♦[0m  4[97m♠[0m  3[97m♠[0m 
+ 4 | 5[97m♠[0m  2[97m♠[0m  A[97m♣[0m  4[97m♠[0m  9[97m♠[0m 
+
+AI froze: (0, 1), (0, 3)
+
+      0    1    2    3    4  
+ 0 | 5[97m♠[0m  J[97m♠[0m* K[97m♣[0m  J[91m♦[0m* T[97m♣[0m 
+ 1 | 6[97m♣[0m  3[91m♦[0m  4[91m♥[0m  6[91m♦[0m  4[91m♦[0m 
+ 2 | 3[91m♦[0m  Q[97m♠[0m  5[97m♣[0m  A[97m♠[0m  6[97m♣[0m 
+ 3 | 6[91m♥[0m  9[97m♠[0m  J[91m♦[0m  4[97m♠[0m  3[97m♠[0m 
+ 4 | 5[97m♠[0m  2[97m♠[0m  A[97m♣[0m  4[97m♠[0m  9[97m♠[0m 
+
+
+=== HAND 1/7 COMPLETE ===
+
+      0    1    2    3    4  
+ 0 |[93m 6♠  [0m[93m J♠ *[0m[93m 6♠  [0m[93m J♦ *[0m[93m 8♦  [0m
+ 1 | A♦   3♣   7♠  [96m 6♥  [0m T♠  
+ 2 |[95m J♠  [0m[95m 9♣  [0m[95m 9♥  [0m[96m Q♠  [0m[95m 4♥  [0m
+ 3 | 4♦   K♠   A♣  [96m J♦  [0m A♣  
+ 4 | 3♥   Q♠   3♣  [96m 5♣  [0m 2♥  
+
+
+┌────────────────────────────────────────┐
+│ 🥇 1st: Row 0 (Two Pair) 20 × 48 = 960 │
+│ 🥈 2nd: Col 3 (One Pair) 10 × 68 = 680 │
+│ 🥉 3rd: Row 2 (One Pair) 10 × 48 = 480 │
+├────────────────────────────────────────┤
+│ TOP 3 TOTAL: 2120 chips                │
+└────────────────────────────────────────┘
+------------------------------------------------------------
+SCORING BREAKDOWN:
+------------------------------------------------------------
+
+COLUMNS:
+  Col 0: High Card            (  5 × 24 =   120)
+  Col 1: High Card            (  5 × 64 =   320)
+  Col 2: High Card            (  5 ×  1 =     5)
+[96m  Col 3: One Pair             ( 10 × 68 =   680)[0m [96m(2nd)[0m
+  Col 4: High Card            (  5 ×  1 =     5)
+
+ROWS:
+[93m  Row 0: Two Pair             ( 20 × 48 =   960)[0m [93m(1st)[0m
+  Row 1: High Card            (  5 ×  1 =     5)
+[95m  Row 2: One Pair             ( 10 × 48 =   480)[0m [95m(3rd)[0m
+  Row 3: One Pair             ( 10 × 48 =   480)
+  Row 4: One Pair             ( 10 × 28 =   280)
+------------------------------------------------------------
+
+Cumulative Score: 29815 chips
+Hands Remaining: 6/7
+
+?? ROUND QUOTA REACHED! (29815/1000)
+Auto-ending round with 6 hands remaining...
+
+SUMMARY: Smart - Round 5: score 29815, hands left 6
+============================================================
+JOKER SHOP
+============================================================
+
+💰 Earned $6 from 6 unutilized hand(s)!
+💵 Money: $8
+
+Active Jokers (4/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+  [3] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+  [4] Crafty Joker (Sell: $2)
+      +80 Chips if hand is a Flush
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Clever Joker - $4 [Common]
+    +80 Chips if hand is a Two Pair
+
+[2] Mad Joker - $4 [Common]
+    +10 Mult if hand is a Two Pair
+
+[3] Gluttonous Joker - $5 [Common]
+    +3 Mult per Club card scored
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Bought Mad Joker for $4
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $4
+
+Active Jokers (5/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+  [3] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+  [4] Crafty Joker (Sell: $2)
+      +80 Chips if hand is a Flush
+  [5] Mad Joker (Sell: $2)
+      +10 Mult if hand is a Two Pair
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Clever Joker - $4 [Common]
+    +80 Chips if hand is a Two Pair
+
+[2] [EMPTY SLOT]
+
+[3] Gluttonous Joker - $5 [Common]
+    +3 Mult per Club card scored
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+SHOP_ACTIONS: buy:Mad Joker
+============================================================
+POKER GRID - Round 6/8
+Hands: 0/7 (Remaining: 7)
+Score: 29815 / 1350 (Round 6 Quota)
+============================================================
+
+      0    1    2    3    4  
+ 0 | 3[91m♦[0m  A[97m♠[0m* 2[97m♠[0m  9[97m♣[0m  3[91m♥[0m 
+ 1 | J[97m♣[0m  T[97m♣[0m  5[91m♥[0m  T[91m♦[0m  5[91m♦[0m 
+ 2 | 8[97m♠[0m  9[97m♠[0m  K[97m♣[0m  K[97m♠[0m  2[91m♦[0m 
+ 3 | 6[97m♠[0m  A[91m♥[0m* J[91m♦[0m  T[91m♦[0m  Q[97m♣[0m 
+ 4 | 2[97m♠[0m  J[91m♦[0m  6[91m♥[0m  2[97m♣[0m  5[91m♦[0m 
+
+AI froze: (0, 1), (2, 3)
+
+      0    1    2    3    4  
+ 0 | 3[91m♦[0m  A[97m♠[0m* 2[97m♠[0m  9[97m♣[0m  3[91m♥[0m 
+ 1 | J[97m♣[0m  T[97m♣[0m  5[91m♥[0m  T[91m♦[0m  5[91m♦[0m 
+ 2 | 8[97m♠[0m  9[97m♠[0m  K[97m♣[0m  K[97m♠[0m* 2[91m♦[0m 
+ 3 | 6[97m♠[0m  A[91m♥[0m  J[91m♦[0m  T[91m♦[0m  Q[97m♣[0m 
+ 4 | 2[97m♠[0m  J[91m♦[0m  6[91m♥[0m  2[97m♣[0m  5[91m♦[0m 
+
+
+=== HAND 1/7 COMPLETE ===
+
+      0    1    2    3    4  
+ 0 | 5♥   A♠ *[95m 3♣  [0m[93m A♣  [0m Q♠  
+ 1 | Q♠   6♦  [95m J♠  [0m[93m A♠  [0m 9♦  
+ 2 |[96m J♦  [0m[96m J♠  [0m[96m Q♣  [0m[93m K♠ *[0m[96m 7♦  [0m
+ 3 | 3♣   9♠  [95m K♣  [0m[93m T♠  [0m T♦  
+ 4 | 4♣   T♣  [95m 4♦  [0m[93m A♣  [0m 3♠  
+
+
+┌───────────────────────────────────────────────┐
+│ 🥇 1st: Col 3 (Three of a Kind) 30 × 32 = 960 │
+│ 🥈 2nd: Row 2 (One Pair) 10 × 88 = 880        │
+│ 🥉 3rd: Col 2 (High Card) 5 × 64 = 320        │
+├───────────────────────────────────────────────┤
+│ TOP 3 TOTAL: 2160 chips                       │
+└───────────────────────────────────────────────┘
+------------------------------------------------------------
+SCORING BREAKDOWN:
+------------------------------------------------------------
+
+COLUMNS:
+  Col 0: High Card            (  5 × 44 =   220)
+  Col 1: High Card            (  5 × 24 =   120)
+[95m  Col 2: High Card            (  5 × 64 =   320)[0m [95m(3rd)[0m
+[93m  Col 3: Three of a Kind      ( 30 × 32 =   960)[0m [93m(1st)[0m
+  Col 4: High Card            (  5 × 24 =   120)
+
+ROWS:
+  Row 0: One Pair             ( 10 × 28 =   280)
+  Row 1: High Card            (  5 × 44 =   220)
+[96m  Row 2: One Pair             ( 10 × 88 =   880)[0m [96m(2nd)[0m
+  Row 3: One Pair             ( 10 × 28 =   280)
+  Row 4: One Pair             ( 10 ×  2 =    20)
+------------------------------------------------------------
+
+Cumulative Score: 31975 chips
+Hands Remaining: 6/7
+
+?? ROUND QUOTA REACHED! (31975/1350)
+Auto-ending round with 6 hands remaining...
+
+SUMMARY: Smart - Round 6: score 31975, hands left 6
+============================================================
+JOKER SHOP
+============================================================
+
+💰 Earned $6 from 6 unutilized hand(s)!
+💵 Money: $10
+
+Active Jokers (5/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+  [3] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+  [4] Crafty Joker (Sell: $2)
+      +80 Chips if hand is a Flush
+  [5] Mad Joker (Sell: $2)
+      +10 Mult if hand is a Two Pair
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Runner - $5 [Common]
+    Gains +15 Chips per Straight scored (currently +0)
+
+[2] Sly Joker - $3 [Common]
+    +50 Chips if hand is a Pair
+
+[3] Droll Joker - $4 [Common]
+    +10 Mult if hand is a Flush
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Sold Crafty Joker for $2
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $12
+
+Active Jokers (4/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+  [3] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+  [4] Mad Joker (Sell: $2)
+      +10 Mult if hand is a Two Pair
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Runner - $5 [Common]
+    Gains +15 Chips per Straight scored (currently +0)
+
+[2] Sly Joker - $3 [Common]
+    +50 Chips if hand is a Pair
+
+[3] Droll Joker - $4 [Common]
+    +10 Mult if hand is a Flush
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Bought Sly Joker for $3
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $9
+
+Active Jokers (5/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+  [3] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+  [4] Mad Joker (Sell: $2)
+      +10 Mult if hand is a Two Pair
+  [5] Sly Joker (Sell: $1)
+      +50 Chips if hand is a Pair
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Runner - $5 [Common]
+    Gains +15 Chips per Straight scored (currently +0)
+
+[2] [EMPTY SLOT]
+
+[3] Droll Joker - $4 [Common]
+    +10 Mult if hand is a Flush
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Sold Sly Joker for $1
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $10
+
+Active Jokers (4/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+  [3] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+  [4] Mad Joker (Sell: $2)
+      +10 Mult if hand is a Two Pair
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Runner - $5 [Common]
+    Gains +15 Chips per Straight scored (currently +0)
+
+[2] [EMPTY SLOT]
+
+[3] Droll Joker - $4 [Common]
+    +10 Mult if hand is a Flush
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Bought Runner for $5
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $5
+
+Active Jokers (5/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+  [3] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+  [4] Mad Joker (Sell: $2)
+      +10 Mult if hand is a Two Pair
+  [5] Runner (Sell: $2)
+      Gains +15 Chips per Straight scored (currently +0)
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] [EMPTY SLOT]
+
+[2] [EMPTY SLOT]
+
+[3] Droll Joker - $4 [Common]
+    +10 Mult if hand is a Flush
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Sold Runner for $2
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $7
+
+Active Jokers (4/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+  [3] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+  [4] Mad Joker (Sell: $2)
+      +10 Mult if hand is a Two Pair
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] [EMPTY SLOT]
+
+[2] [EMPTY SLOT]
+
+[3] Droll Joker - $4 [Common]
+    +10 Mult if hand is a Flush
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Bought Droll Joker for $4
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $3
+
+Active Jokers (5/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+  [3] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+  [4] Mad Joker (Sell: $2)
+      +10 Mult if hand is a Two Pair
+  [5] Droll Joker (Sell: $2)
+      +10 Mult if hand is a Flush
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] [EMPTY SLOT]
+
+[2] [EMPTY SLOT]
+
+[3] [EMPTY SLOT]
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+SHOP_ACTIONS: sell:Crafty Joker, buy:Sly Joker, sell:Sly Joker, buy:Runner, sell:Runner, buy:Droll Joker
+============================================================
+POKER GRID - Round 7/8
+Hands: 0/7 (Remaining: 7)
+Score: 31975 / 1750 (Round 7 Quota)
+============================================================
+
+      0    1    2    3    4  
+ 0 | 8[97m♣[0m  T[91m♦[0m* 9[97m♣[0m  T[91m♥[0m* 7[97m♣[0m 
+ 1 | J[97m♣[0m  5[97m♣[0m  T[91m♦[0m  2[91m♦[0m  3[97m♣[0m 
+ 2 | 9[91m♥[0m  Q[91m♦[0m  2[91m♥[0m  2[91m♦[0m  T[97m♠[0m 
+ 3 | T[91m♦[0m  4[97m♠[0m  7[97m♠[0m  2[91m♦[0m  6[97m♣[0m 
+ 4 | 6[91m♥[0m  6[91m♦[0m  2[91m♦[0m  9[97m♠[0m  2[91m♦[0m 
+
+AI froze: (2, 1), (1, 0)
+
+      0    1    2    3    4  
+ 0 | 8[97m♣[0m  T[91m♦[0m  9[97m♣[0m  T[91m♥[0m  7[97m♣[0m 
+ 1 | J[97m♣[0m* 5[97m♣[0m  T[91m♦[0m  2[91m♦[0m  3[97m♣[0m 
+ 2 | 9[91m♥[0m  Q[91m♦[0m* 2[91m♥[0m  2[91m♦[0m  T[97m♠[0m 
+ 3 | T[91m♦[0m  4[97m♠[0m  7[97m♠[0m  2[91m♦[0m  6[97m♣[0m 
+ 4 | 6[91m♥[0m  6[91m♦[0m  2[91m♦[0m  9[97m♠[0m  2[91m♦[0m 
+
+
+=== HAND 1/7 COMPLETE ===
+
+      0    1    2    3    4  
+ 0 | 2♠   5♥   9♦  [95m K♠  [0m 7♦  
+ 1 |[96m J♣ *[0m[96m 4♣  [0m[96m T♠  [0m[96m K♥  [0m[96m K♣  [0m
+ 2 | T♦   Q♦ * 2♦  [95m 8♦  [0m A♥  
+ 3 | 6♠   6♥   J♣  [95m 4♦  [0m T♠  
+ 4 |[93m T♦  [0m[93m T♠  [0m[93m K♠  [0m[93m 9♠  [0m[93m 9♦  [0m
+
+
+┌────────────────────────────────────────┐
+│ 🥇 1st: Row 4 (Two Pair) 20 × 38 = 760 │
+│ 🥈 2nd: Row 1 (One Pair) 10 × 68 = 680 │
+│ 🥉 3rd: Col 3 (One Pair) 10 × 48 = 480 │
+├────────────────────────────────────────┤
+│ TOP 3 TOTAL: 1920 chips                │
+└────────────────────────────────────────┘
+------------------------------------------------------------
+SCORING BREAKDOWN:
+------------------------------------------------------------
+
+COLUMNS:
+  Col 0: One Pair             ( 10 × 28 =   280)
+  Col 1: High Card            (  5 × 24 =   120)
+  Col 2: High Card            (  5 × 44 =   220)
+[95m  Col 3: One Pair             ( 10 × 48 =   480)[0m [95m(3rd)[0m
+  Col 4: High Card            (  5 × 24 =   120)
+
+ROWS:
+  Row 0: High Card            (  5 × 24 =   120)
+[96m  Row 1: One Pair             ( 10 × 68 =   680)[0m [96m(2nd)[0m
+  Row 2: High Card            (  5 × 24 =   120)
+  Row 3: One Pair             ( 10 × 28 =   280)
+[93m  Row 4: Two Pair             ( 20 × 38 =   760)[0m [93m(1st)[0m
+------------------------------------------------------------
+
+Cumulative Score: 33895 chips
+Hands Remaining: 6/7
+
+?? ROUND QUOTA REACHED! (33895/1750)
+Auto-ending round with 6 hands remaining...
+
+SUMMARY: Smart - Round 7: score 33895, hands left 6
+============================================================
+JOKER SHOP
+============================================================
+
+💰 Earned $6 from 6 unutilized hand(s)!
+💵 Money: $9
+
+Active Jokers (5/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Photograph (Sell: $2)
+      First face card in each line gets ×2 Mult
+  [3] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+  [4] Mad Joker (Sell: $2)
+      +10 Mult if hand is a Two Pair
+  [5] Droll Joker (Sell: $2)
+      +10 Mult if hand is a Flush
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Jolly Joker - $3 [Common]
+    +8 Mult if hand is a Pair
+
+[2] ◆ Spare Trousers - $6 [Uncommon]
+    Gains +2 Mult per Two Pair scored (currently +0)
+
+[3] Wily Joker - $4 [Common]
+    +100 Chips if hand is a Three of a Kind
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Sold Photograph for $2
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $11
+
+Active Jokers (4/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+  [3] Mad Joker (Sell: $2)
+      +10 Mult if hand is a Two Pair
+  [4] Droll Joker (Sell: $2)
+      +10 Mult if hand is a Flush
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Jolly Joker - $3 [Common]
+    +8 Mult if hand is a Pair
+
+[2] ◆ Spare Trousers - $6 [Uncommon]
+    Gains +2 Mult per Two Pair scored (currently +0)
+
+[3] Wily Joker - $4 [Common]
+    +100 Chips if hand is a Three of a Kind
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Bought Jolly Joker for $3
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $8
+
+Active Jokers (5/5):
+  [1] Smiley Face (Sell: $2)
+      +5 Mult per face card scored
+  [2] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+  [3] Mad Joker (Sell: $2)
+      +10 Mult if hand is a Two Pair
+  [4] Droll Joker (Sell: $2)
+      +10 Mult if hand is a Flush
+  [5] Jolly Joker (Sell: $1)
+      +8 Mult if hand is a Pair
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] [EMPTY SLOT]
+
+[2] ◆ Spare Trousers - $6 [Uncommon]
+    Gains +2 Mult per Two Pair scored (currently +0)
+
+[3] Wily Joker - $4 [Common]
+    +100 Chips if hand is a Three of a Kind
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Sold Smiley Face for $2
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $10
+
+Active Jokers (4/5):
+  [1] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+  [2] Mad Joker (Sell: $2)
+      +10 Mult if hand is a Two Pair
+  [3] Droll Joker (Sell: $2)
+      +10 Mult if hand is a Flush
+  [4] Jolly Joker (Sell: $1)
+      +8 Mult if hand is a Pair
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] [EMPTY SLOT]
+
+[2] ◆ Spare Trousers - $6 [Uncommon]
+    Gains +2 Mult per Two Pair scored (currently +0)
+
+[3] Wily Joker - $4 [Common]
+    +100 Chips if hand is a Three of a Kind
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+V Bought Spare Trousers for $6
+============================================================
+JOKER SHOP
+============================================================
+💵 Money: $4
+
+Active Jokers (5/5):
+  [1] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+  [2] Mad Joker (Sell: $2)
+      +10 Mult if hand is a Two Pair
+  [3] Droll Joker (Sell: $2)
+      +10 Mult if hand is a Flush
+  [4] Jolly Joker (Sell: $1)
+      +8 Mult if hand is a Pair
+  [5] ◆ Spare Trousers (Sell: $3)
+      Gains +2 Mult per Two Pair scored (currently +0)
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] [EMPTY SLOT]
+
+[2] [EMPTY SLOT]
+
+[3] Wily Joker - $4 [Common]
+    +100 Chips if hand is a Three of a Kind
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+SHOP_ACTIONS: sell:Photograph, buy:Jolly Joker, sell:Smiley Face, buy:◆ Spare Trousers
+============================================================
+POKER GRID - Round 8/8
+Hands: 0/7 (Remaining: 7)
+Score: 33895 / 2200 (Round 8 Quota)
+============================================================
+
+      0    1    2    3    4  
+ 0 | 9[97m♣[0m  8[97m♠[0m  K[97m♠[0m* 6[97m♣[0m  Q[97m♠[0m 
+ 1 | Q[97m♣[0m  5[91m♥[0m  8[97m♣[0m  6[97m♣[0m  5[91m♦[0m 
+ 2 | 2[97m♠[0m  4[97m♣[0m  4[97m♣[0m  6[97m♠[0m  7[97m♣[0m 
+ 3 | 6[91m♦[0m  9[97m♣[0m  7[91m♦[0m  K[91m♥[0m  7[97m♠[0m 
+ 4 | 2[97m♠[0m  A[97m♣[0m  K[91m♦[0m* 7[97m♣[0m  7[91m♦[0m 
+
+AI froze: (4, 1)
+
+      0    1    2    3    4  
+ 0 | 9[97m♣[0m  8[97m♠[0m  K[97m♠[0m  6[97m♣[0m  Q[97m♠[0m 
+ 1 | Q[97m♣[0m  5[91m♥[0m  8[97m♣[0m  6[97m♣[0m  5[91m♦[0m 
+ 2 | 2[97m♠[0m  4[97m♣[0m  4[97m♣[0m  6[97m♠[0m  7[97m♣[0m 
+ 3 | 6[91m♦[0m  9[97m♣[0m  7[91m♦[0m  K[91m♥[0m  7[97m♠[0m 
+ 4 | 2[97m♠[0m  A[97m♣[0m* K[91m♦[0m  7[97m♣[0m  7[91m♦[0m 
+
+
+=== HAND 1/7 COMPLETE ===
+
+      0    1    2    3    4  
+ 0 | 6♠   6♥   9♥  [95m 7♥  [0m[93m A♠  [0m
+ 1 | A♦   8♣   7♥  [95m 2♥  [0m[93m 9♠  [0m
+ 2 | T♥   J♥   A♥  [95m Q♣  [0m[93m A♥  [0m
+ 3 |[96m 5♦  [0m[96m T♥  [0m[96m 5♦  [0m[96m T♦  [0m[93m 2♥  [0m
+ 4 | K♥   A♣ * 8♦  [95m 2♥  [0m[93m 2♦  [0m
+
+
+┌────────────────────────────────────────┐
+│ 🥇 1st: Col 4 (Two Pair) 20 × 14 = 280 │
+│ 🥈 2nd: Row 3 (Two Pair) 20 × 12 = 240 │
+│ 🥉 3rd: Col 3 (One Pair) 10 × 2 = 20   │
+├────────────────────────────────────────┤
+│ TOP 3 TOTAL: 540 chips                 │
+└────────────────────────────────────────┘
+------------------------------------------------------------
+SCORING BREAKDOWN:
+------------------------------------------------------------
+
+COLUMNS:
+  Col 0: High Card            (  5 ×  1 =     5)
+  Col 1: High Card            (  5 ×  1 =     5)
+  Col 2: High Card            (  5 ×  1 =     5)
+[95m  Col 3: One Pair             ( 10 ×  2 =    20)[0m [95m(3rd)[0m
+[93m  Col 4: Two Pair             ( 20 × 14 =   280)[0m [93m(1st)[0m
+
+ROWS:
+  Row 0: One Pair             ( 10 ×  2 =    20)
+  Row 1: High Card            (  5 ×  1 =     5)
+  Row 2: One Pair             ( 10 ×  2 =    20)
+[96m  Row 3: Two Pair             ( 20 × 12 =   240)[0m [96m(2nd)[0m
+  Row 4: One Pair             ( 10 ×  2 =    20)
+------------------------------------------------------------
+
+Cumulative Score: 34435 chips
+Hands Remaining: 6/7
+
+?? ROUND QUOTA REACHED! (34435/2200)
+Auto-ending round with 6 hands remaining...
+
+SUMMARY: Smart - Round 8: score 34435, hands left 6
+============================================================
+JOKER SHOP
+============================================================
+
+💰 Earned $6 from 6 unutilized hand(s)!
+💵 Money: $10
+
+Active Jokers (5/5):
+  [1] Crazy Joker (Sell: $2)
+      +12 Mult if hand is a Straight
+  [2] Mad Joker (Sell: $2)
+      +10 Mult if hand is a Two Pair
+  [3] Droll Joker (Sell: $2)
+      +10 Mult if hand is a Flush
+  [4] Jolly Joker (Sell: $1)
+      +8 Mult if hand is a Pair
+  [5] ◆ Spare Trousers (Sell: $3)
+      Gains +2 Mult per Two Pair scored (currently +4)
+
+------------------------------------------------------------
+SHOP INVENTORY:
+------------------------------------------------------------
+
+[1] Scary Face - $4 [Common]
+    +30 Chips per face card scored
+
+[2] Raised Fist - $5 [Common]
+    Adds 2× lowest held card rank to Mult
+
+[3] Lusty Joker - $5 [Common]
+    +3 Mult per Heart card scored
+
+------------------------------------------------------------
+Commands:
+  b <slot>  - Buy joker from slot (1-3)
+  s <slot>  - Sell active joker (1-5)
+  r         - Reroll shop ($5)
+  d         - Done shopping (continue to next round)
+------------------------------------------------------------
+
+============================================================
+SESSION RESULT
+============================================================
+Final score: 34435
+Active Jokers: ['Crazy Joker', 'Mad Joker', 'Droll Joker', 'Jolly Joker', '◆ Spare Trousers']

@@ -1,0 +1,100 @@
+  Let me recalculate:
+
+  Three of a Kind Upgrade Paths:
+
+  Path 1: Three → Four of a Kind
+  - Need: 1 more of the same rank
+  - Example: [K♠ K♥ K♣ 7♦ 2♠] → need one more K
+  - We can only change 1 card (one column)
+  - Chance: 1 remaining K out of 52 cards = ~2% ✅ POSSIBLE
+
+  Path 2: Three → Full House
+  - Need: Turn the other 2 cards into a pair
+  - Example: [K♠ K♥ K♣ 7♦ 2♠] → need to change BOTH 7 and 2 into matching pair
+  - We can only change 1 card!
+  - The 7 and 2 are in DIFFERENT columns
+  - IMPOSSIBLE with 1 reroll! ❌
+
+  So Three of a Kind should ONLY chase Four of a Kind, not Full House!
+
+  Revised Priorities:
+
+  Priority 1: Three of a Kind → Four of a Kind
+    - Change 1 card (non-triple) to match the triple
+    - Chance: ~2% (1 card out of 52)
+    - Rank jump: 7 → 3 (+4)
+
+  Priority 2: 4-to-Flush → Flush
+    - Change 1 off-suit card to matching suit
+    - Chance: ~20% (13 cards of that suit / 52)
+    - Rank jump: ~9 → 5 (+4)
+
+  Priority 3: Two Pair → Full House
+    - Change kicker to match one of the pairs
+    - Example: [K♠ K♥ 7♦ 7♣ 2♠] → change 2 to K or 7
+    - Chance: ~8% (2 Ks + 2 7s = 4 cards / 52)
+    - Rank jump: 8 → 4 (+4)
+
+  Priority 4: 4-to-Straight → Straight
+    - Change 1 card to complete sequence
+    - Chance: ~15-30% (depends on gaps)
+    - Rank jump: ~9 → 6 (+3)
+
+  Priority 5: One Pair → Three of a Kind
+    - Change 1 non-pair card to match the pair
+    - Chance: ~4% (2 remaining cards / 52)
+    - Rank jump: 9 → 7 (+2)
+
+  Priority 6: One Pair → Two Pair
+    - Change 1 non-pair card to create second pair
+    - Chance: ~23% (3 cards × 3 other ranks / 52)
+    - Rank jump: 9 → 8 (+1)
+
+  Priority 7: High Card → One Pair
+    - Change any card to match another
+    - Chance: ~31% (4 matching × 4 ranks / 52)
+    - Rank jump: 10 → 9 (+1)
+
+  New Priority Ordering by Value:
+
+  Considering rank_jump × realistic_chance:
+
+  1. 4-to-Flush → Flush (rank +4, ~20% chance = 0.8 EV) ★★★★★
+  2. Two Pair → Full House (rank +4, ~8% chance = 0.32 EV) ★★★★
+  3. Three → Four of a Kind (rank +4, ~2% chance = 0.08 EV) ★★★
+  4. 4-to-Straight → Straight (rank +3, ~20% chance = 0.6 EV) ★★★★
+  5. One Pair → Two Pair (rank +1, ~23% chance = 0.23 EV) ★★
+  6. One Pair → Three (rank +2, ~4% chance = 0.08 EV) ★★
+  7. High Card → Pair (rank +1, ~31% chance = 0.31 EV) ★
+
+  Hmm, actually:
+
+  If we go by Expected Value (rank × probability):
+  1. 4-to-Flush (0.8) ← BEST
+  2. 4-to-Straight (0.6)
+  3. Two Pair → Full House (0.32)
+  4. High Card → Pair (0.31)
+  5. One Pair → Two Pair (0.23)
+
+  But that feels wrong... should we really prioritize High Card over Three of a Kind?
+
+  What do you think? Should I use:
+  - EV-based (probability × value)?
+  - Rank-jump based (ignore probability, just chase biggest upgrades)?
+  - Hybrid (tier system where big jumps take priority even if low probability)?
+
+> ev based probably is best 
+
+● Perfect! EV-based it is!
+
+  Final Strategy: EV-Based Priority
+
+  UPGRADE_EV = {
+      "4-to-Flush": 0.8,           # Priority 1 ★★★★★
+      "4-to-Straight": 0.6,        # Priority 2 ★★★★
+      "Two Pair": 0.32,            # Priority 3 ★★★
+      "High Card": 0.31,           # Priority 4 ★★
+      "One Pair (→Two Pair)": 0.23, # Priority 5 ★★
+      "Three of a Kind": 0.08,     # Priority 6 ★
+      "One Pair (→Three)": 0.08,   # Priority 7 ★
+  }

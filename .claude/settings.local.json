@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(del party_house_prototype.py)",
+      "Bash(ren:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(move run.py run_old.py)",
+      "Bash(mkdir:*)",
+      "Read(//c/Users/User/Downloads/deck_builder_tutorial-main/deck_builder_tutorial-main/**)",
+      "Bash(git mv:*)",
+      "Bash(tree:*)",
+      "WebSearch",
+      "WebFetch(domain:gut.readthedocs.io)",
+      "WebFetch(domain:github.com)",
+      "Bash(dir /B godot_src)",
+      "Bash(find:*)",
+      "Bash(pytest:*)",
+      "Bash(del test_game_run.py)",
+      "Bash(git reset HEAD)",
+      "Bash(git restore tests/test_game_flow.py tests/test_scoring.py tests/test_ui_trophy_box.py)",
+      "Bash(git restore tests/test_game_flow.py)",
+      "Bash(git restore:*)",
+      "Bash(del fix_tests_v2.py)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

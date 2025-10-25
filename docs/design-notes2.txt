@@ -1,0 +1,85 @@
+  What We ACTUALLY Want to Know:
+
+  Simple Question:
+  "What is the probability distribution of poker hands when players can reroll columns?"
+
+  That's it! No quota, no top-3, no cumulative scoring.
+
+  The Real Simulation:
+
+  Simulate 100k grids:
+
+  Scenario 0: No rerolls (baseline)
+  ├─ Deal 5×5 grid
+  ├─ Evaluate 10 hands (5 rows + 5 cols)
+  └─ Record hand types
+
+  Scenario 1: 1 reroll
+  ├─ Deal 5×5 grid
+  ├─ Smart reroll 1 column (which improves grid most)
+  ├─ Evaluate 10 hands
+  └─ Record hand types
+
+  Scenario 2: 2 rerolls
+  ├─ Deal 5×5 grid
+  ├─ Smart reroll 2 columns
+  ├─ Evaluate 10 hands
+  └─ Record hand types
+
+  Scenario 3: 3 rerolls
+  ├─ Deal 5×5 grid
+  ├─ Smart reroll 3 columns
+  ├─ Evaluate 10 hands
+  └─ Record hand types
+
+  Output:
+
+  For each scenario (0, 1, 2, 3 rerolls):
+
+  Hand Distribution:
+  - High Card: X%
+  - One Pair: Y%
+  - Two Pair: Z%
+  - ...
+  - Royal Flush: 0.0X%
+
+  Stats per grid:
+  - Min/Max/Median/Mean of each hand type per grid
+
+  Comparison:
+                    0 Rerolls  1 Reroll  2 Rerolls  3 Rerolls
+  High Card           45.2%      42.1%      38.5%      35.2%
+  One Pair            38.5%      39.2%      37.8%      36.1%
+  Two Pair             8.3%       9.1%      10.5%      11.8%
+  Three of a Kind      4.2%       4.8%       5.6%       6.5%
+  Flush                2.1%       2.5%       3.2%       4.1%
+  Full House           1.1%       1.5%       2.1%       2.9%
+  ...
+
+  Shows: "How much does each reroll improve hand quality?"
+
+  Reroll Strategy (Simplified):
+
+  def smart_reroll(grid, num_rerolls):
+      """
+      For each reroll:
+      1. Evaluate all 10 hands
+      2. Find which column contributes to most low-value hands
+      3. Reroll that column
+      4. Repeat
+      """
+
+  Much simpler! No top-3 logic needed!
+
+  Confirmed Spec:
+
+  - ✅ 100k grids per scenario
+  - ✅ 4 scenarios (0, 1, 2, 3 rerolls)
+  - ✅ Track all 10 hands per grid
+  - ✅ Report distribution + stats (min/max/median/mean)
+  - ✅ Compare scenarios side-by-side
+  - ❌ No quota scoring
+  - ❌ No top-3 filtering
+  - ❌ No cumulative anything
+
+  Ready to code this? 🚀
