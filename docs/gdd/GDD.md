@@ -110,8 +110,9 @@ Manage resources across both decks in a fluid round where every decision matters
 
 ### 1️⃣ Deck Splitting
 
-- **Starting Split:** Perfect 26/26 — Left Deck (Red ♥♦) vs Right Deck (Black ♣♠).
-- **Future TODO:** Randomized or asymmetric splits for unique deck identities.
+- **Starting Split:** Random 26/26 split — One 52-card deck randomly splits into Left Deck (26 cards) and Right Deck (26 cards).
+- Each run has a unique deck composition per side, creating different strategic opportunities.
+- **Future TODO:** Asymmetric splits (e.g., 20/32) or themed splits for unique deck identities.
 
 ### 2️⃣ Card Drawing System
 
