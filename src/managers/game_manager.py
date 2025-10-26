@@ -11,6 +11,7 @@ from src.resources.hand_resource import HandResource
 from src.managers.deck_manager import DeckManager
 from src.managers.token_manager import TokenManager
 from src.managers.scoring_manager import ScoringManager
+from src.managers.trade_manager import TradeManager
 
 
 class GameManager:
@@ -36,6 +37,7 @@ class GameManager:
         self.deck_manager = DeckManager(config, self.state)
         self.token_manager = TokenManager(config, self.state)
         self.scoring_manager = ScoringManager(config, self.state)
+        self.trade_manager = TradeManager(config, self.state)  # PHASE B
 
         # Track hands played this round
         self._hands_played: List[HandResource] = []
@@ -103,6 +105,39 @@ class GameManager:
             "hand": hand
         }
 
+    def trade_cards(self, source_deck: int, card_indices: List[int]) -> Dict[str, Any]:
+        """
+        Trade cards from source deck to receiving deck (PHASE B: GDD 4-4).
+
+        Args:
+            source_deck: Index of deck giving cards (0-indexed)
+            card_indices: Indices of cards in visible_cards to trade
+
+        Returns:
+            Dict with:
+                - success: bool (True if trade successful)
+                - error: str (if failure)
+        """
+        # Validate trade
+        if not self.trade_manager.can_trade(source_deck, len(card_indices)):
+            # Determine error reason
+            if self.state.trade_tokens <= 0:
+                error = "No trade tokens remaining"
+            else:
+                error = "Receiving deck would exceed 8 cards"
+
+            return {
+                "success": False,
+                "error": error
+            }
+
+        # Execute trade
+        success = self.trade_manager.trade_cards(source_deck, card_indices)
+
+        return {
+            "success": success
+        }
+
     def calculate_round_score(self) -> int:
         """
         Calculate total score for the round.
@@ -135,6 +170,7 @@ class GameManager:
         return {
             "round": self.state.current_round,
             "hand_tokens": self.state.hand_tokens,
+            "trade_tokens": self.state.trade_tokens,  # PHASE B
             "hands_played_per_deck": self.state.hands_played_per_deck,
             "hands_this_round": len(self._hands_played),
             "current_score": self.calculate_round_score()
