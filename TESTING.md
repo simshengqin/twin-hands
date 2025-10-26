@@ -168,6 +168,43 @@ class TestMyClass:
 4. **Use descriptive names** - test names should explain what they verify
 5. **Check GDD when unsure** - tests verify against GDD specs
 
+## Key Lesson: Test Behavior, Not Just Mechanisms
+
+**What we tested:** "Does the mechanism work?" ✅
+**What we missed:** "Does the RIGHT thing happen?" ❌
+
+### Example (Card Selection Bug):
+
+**Mechanism test (what we had):**
+```python
+def test_play_hand_refills_cards():
+    game.play_hand(deck_index=0, card_indices=[0, 1])
+    assert len(deck.visible_cards) == 4  # ✅ Cards refilled
+```
+✅ Mechanism works (cards refill)
+❌ Didn't check if CORRECT cards were removed
+
+**Behavior test (what we missed):**
+```python
+def test_correct_cards_removed_and_kept():
+    ui.display_decks()  # Player sees sorted: [9♣, A♦, K♥, 3♠]
+    card_1 = deck.visible_cards[0]  # 9♣ (will play)
+    card_2 = deck.visible_cards[1]  # A♦ (will play)
+    card_3 = deck.visible_cards[2]  # K♥ (should stay)
+    card_4 = deck.visible_cards[3]  # 3♠ (should stay)
+
+    game.play_hand(deck_index=0, card_indices=[0, 1])  # Play [1][2]
+
+    remaining = deck.visible_cards
+    assert card_1 not in remaining  # ✅ Played card gone
+    assert card_2 not in remaining  # ✅ Played card gone
+    assert card_3 in remaining      # ✅ Other card stayed
+    assert card_4 in remaining      # ✅ Other card stayed
+```
+✅ Tests correctness (right cards removed AND right cards kept)
+
+**Rule:** Don't just test "does it do something" - test "does it do the RIGHT thing".
+
 ## Porting to Godot
 
 These tests will translate to Godot's GUT (Godot Unit Test) framework:
