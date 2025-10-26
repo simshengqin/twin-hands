@@ -16,6 +16,13 @@
    - [4-3 Token System](#4-3-token-system-shared-between-decks)
    - [4-4 Trading System](#4-4-trading-system)
    - [4-5 Joker System](#4-5-joker-system)
+     - [4-5-1 Slot Structure](#4-5-1-slot-structure-fixed)
+     - [4-5-2 Universal Jokers](#4-5-2-universal-jokers)
+     - [4-5-3 Effects & Terminology](#4-5-3-joker-effects--terminology)
+     - [4-5-4 Placement Rules](#4-5-4-joker-placement-rules)
+     - [4-5-5 Trigger Order](#4-5-5-trigger-order)
+     - [4-5-6 Example Round](#4-5-6-example-round-with-joker-triggers)
+     - [4-5-7 Joker Library](#4-5-7-example-joker-library-scaling-tiers)
    - [4-6 Round Flow](#4-6-round-flow)
    - [4-7 Poker Hand Scoring](#4-7-poker-hand-scoring-1-4-cards)
 5. [Progression & Economy](#5-progression--economy)
@@ -197,7 +204,7 @@ All tokens are shared resources between both decks:
 
 ### 4-5 Joker System
 
-#### Slot Structure (Fixed)
+#### 4-5-1 Slot Structure (Fixed)
 
 ```
 ╔════════════════════════════════════════════════════════════╗
@@ -214,7 +221,7 @@ All tokens are shared resources between both decks:
 - Bridge (Shared): 2 Joker slots
 - Total: 8 Joker slots (configurable for N decks in future modes)
 
-#### Universal Jokers
+#### 4-5-2 Universal Jokers
 
 **ANY Joker can be placed in ANY slot** — there are no "deck-specific" or "bridge-specific" Joker types.
 
@@ -233,7 +240,7 @@ All tokens are shared resources between both decks:
 - Common, Uncommon, Rare, Legendary
 - Higher rarity = stronger effects (pricing TBD)
 
-#### Joker Effects & Terminology
+#### 4-5-3 Joker Effects & Terminology
 
 **Per-Deck Scoring System (Balatro-Inspired):**
 
@@ -266,7 +273,7 @@ Final Score = Sum of all deck scores
 - "Twin Hands" = "Two Balatro hands working together"
 - Easy to predict: Calculate each deck's score separately, then add
 
-#### Joker Placement Rules
+#### 4-5-4 Joker Placement Rules
 
 - **When:** Jokers can be freely moved and reordered **during Shop Phase only**.
 - **Once Round Starts:** Jokers are locked in position for the entire round.
@@ -278,7 +285,7 @@ Final Score = Sum of all deck scores
 - Enforces strategic planning rather than tactical optimization
 - Aligns with Design Goal #1 (Casual Friendly) — less cognitive load mid-round
 
-#### Trigger Order
+#### 4-5-5 Trigger Order
 
 **For Each Deck (processed in order: Deck 1, then Deck 2, ...):**
 1. Calculate base points from all hands played by this deck
@@ -289,7 +296,7 @@ Final Score = Sum of all deck scores
 **Final Calculation:**
 - **Final Score = Sum of all deck scores**
 
-#### Example Round with Joker Triggers
+#### 4-5-6 Example: Round with Joker Triggers
 
 **Setup:**
 - Deck 1 J1: "+50 points per Flush played"
@@ -321,7 +328,7 @@ Final Score = Sum of all deck scores
 
 **Key Insight:** Bridge Joker triggered for ALL decks (+0.3 to each deck), making it N× as valuable as a regular Joker slot!
 
-#### Example Joker Library (Scaling Tiers)
+#### 4-5-7 Example Joker Library (Scaling Tiers)
 
 **Design Philosophy:** Jokers scale from flat bonuses (early game) → multiplicative (mid game) → exponential conditionals (late game).
 
