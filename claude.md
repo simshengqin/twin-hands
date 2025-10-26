@@ -127,30 +127,59 @@ class TerminalUI:
 ```python
 # ✅ GOOD - multiplayer-ready (GDD Section 6 co-op compatible)
 class GameManager:
-    def play_hand(self, deck_side: str, card_indices: List[int]):
+    def play_hand(self, deck_index: int, card_indices: List[int]):
         """
-        Solo: Player controls both "left" and "right"
-        Co-op: Player 1 = "left", Player 2 = "right" (GDD 6)
+        Solo: Player controls all decks (0, 1, ...)
+        Co-op: Player i controls deck i (GDD 6)
         """
         # Validate action
-        if not self._can_play_hand(deck_side):
+        if not self._can_play_hand(deck_index):
             return False
 
         # Execute deterministically (same input = same output)
-        hand = self._evaluate_hand(deck_side, card_indices)
-        self.state.update_score(deck_side, hand.score)
+        hand = self._evaluate_hand(deck_index, card_indices)
+        self.state.scores[deck_index] += hand.score
 
         # Communicate via events (can be networked)
-        Events.emit_hand_played(deck_side, hand)
+        Events.emit_hand_played(deck_index, hand)
         return True
 ```
+
+**Configurable Deck Count:**
+```python
+# ✅ GOOD - generic for N decks (GDD specifies 2, but configurable!)
+class TwinHandsConfig:
+    num_decks: int = 2  # Default 2, but configurable
+
+class TwinHandsState:
+    decks: List[DeckResource]  # Works for 2, 3, 4+ decks
+    scores: List[int]  # Indexed by deck
+
+# Clean iteration, no branching
+def trigger_jokers(self):
+    for i, deck in enumerate(self.state.decks):
+        self._trigger_jokers_for_deck(i)
+
+# ❌ BAD - hardcoded left/right
+class TwinHandsState:
+    left_deck: DeckResource
+    right_deck: DeckResource  # Locked to 2 decks forever
+```
+
+**Benefits:**
+- Solo: Player controls all N decks (default 2)
+- Co-op: Player i controls deck i (GDD Section 6)
+- Code is cleaner (loops vs branching)
+- Future modes (3-4 player, competitive) already work
 
 **Rules:**
 - State is single source of truth (can be synced)
 - All actions are pure data (serializable/networkable)
 - Logic is deterministic (same state + action = same result)
 - Communication via events (can be network messages)
-- `deck_side` parameter already maps to players in co-op (GDD 6)
+- Use `deck_index: int` not `deck_side: str` ("left"/"right")
+- Use `for deck in decks` not separate left/right logic
+- GDD still specifies 2 decks - we test with 2!
 
 **We won't implement multiplayer now, but this pattern is already natural for our game design.**
 

@@ -1,5 +1,5 @@
 """
-Pytest configuration and shared fixtures
+Pytest configuration and shared fixtures for Twin Hands
 Designed to port easily to Godot GUT
 """
 import sys
@@ -9,32 +9,9 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 import pytest
-from src.managers.game_manager import GameManager
-from src.resources.game_config_resource import GameConfigResource
 from src.resources.card_resource import CardResource
 from src.resources.deck_resource import DeckResource
 from src.utils.card_factory import CardFactory
-
-
-@pytest.fixture
-def config():
-    """Standard game configuration"""
-    return GameConfigResource()
-
-
-@pytest.fixture
-def fresh_game():
-    """Fresh GameManager for each test"""
-    config = GameConfigResource()
-    return GameManager(config)
-
-
-@pytest.fixture
-def started_game(fresh_game):
-    """GameManager with round started and auto-freeze disabled for testing"""
-    fresh_game.config.auto_freeze_highest_pair = False
-    fresh_game.start_new_round()
-    return fresh_game
 
 
 @pytest.fixture
