@@ -122,13 +122,13 @@ When these conflict with Tier 1, **Tier 1 wins.** Otherwise, preserve these.
 
 Build two poker engines from one deck. Trade cards freely, trigger shared Jokers, and break escalating quotas.
 
-A roguelike poker builder where one 52-card deck splits into two specialized hands (Red ♥♦ vs Black ♣♠) that grow, diverge, and synergize.
+A roguelike poker builder where one 52-card deck splits into two hands that grow, diverge, and synergize.
 
 Manage resources across both decks in a fluid round where every decision matters.
 
 ## 3. CORE CONCEPT
 
-- **Deck Splitting:** One 52-card deck splits into Left (Red ♥♦) and Right (Black ♣♠) decks of 26 cards each.
+- **Deck Splitting:** One 52-card deck randomly splits into two decks of 26 cards each (Deck 1 and Deck 2).
 - **Free-Form Rounds:** Play, discard, and trade cards in any order using shared tokens.
 - **Joker Systems:** Each deck has 3 dedicated Joker slots, plus 2 shared Bridge Joker slots that affect both decks.
 - **Escalating Quotas:** Combined score from both decks must meet or exceed quota to advance. Fail = game over.
@@ -139,8 +139,9 @@ Manage resources across both decks in a fluid round where every decision matters
 
 ### 4-1 Deck Splitting
 
-- **Starting Split:** Random 26/26 split — One 52-card deck randomly splits into Left Deck (26 cards) and Right Deck (26 cards).
-- Each run has a unique deck composition per side, creating different strategic opportunities.
+- **Starting Split:** Random 26/26 split — One 52-card deck randomly splits into Deck 1 (26 cards) and Deck 2 (26 cards).
+- Each run has a unique deck composition, creating different strategic opportunities.
+- **Default:** 2 decks (configurable for future modes: 3-player co-op, 4-player competitive)
 - **Future TODO:** Asymmetric splits (e.g., 20/32) or themed splits for unique deck identities.
 
 ### 4-2 Card Drawing System
@@ -201,33 +202,32 @@ All tokens are shared resources between both decks:
 ```
 ╔════════════════════════════════════════════════════════════╗
 ║ JOKERS                                                     ║
-║ LEFT:   [J1] [J2] [J3]  ┐                                 ║
-║ RIGHT:  [J4] [J5] [J6]   ├─→ BRIDGE: [B1] [B2]            ║
+║ DECK 1:  [J1] [J2] [J3]  ┐                                ║
+║ DECK 2:  [J4] [J5] [J6]  ├─→ BRIDGE: [B1] [B2]            ║
 ║                          ┘                                 ║
 ╚════════════════════════════════════════════════════════════╝
 ```
 
 **Slot Configuration:**
-- Left Deck: 3 Joker slots
-- Right Deck: 3 Joker slots
+- Deck 1: 3 Joker slots
+- Deck 2: 3 Joker slots
 - Bridge (Shared): 2 Joker slots
-- Total: 8 Joker slots (configurable for future expansion)
+- Total: 8 Joker slots (configurable for N decks in future modes)
 
 #### Universal Jokers
 
 **ANY Joker can be placed in ANY slot** — there are no "deck-specific" or "bridge-specific" Joker types.
 
 **Slot determines trigger behavior:**
-- **Left Slot:** Joker triggers once during left deck scoring
-- **Right Slot:** Joker triggers once during right deck scoring
-- **Bridge Slot:** Joker triggers TWICE — once during left deck scoring, once during right deck scoring
+- **Deck-Specific Slot:** Joker triggers once during that deck's scoring
+- **Bridge Slot:** Joker triggers ONCE per deck — triggers during each deck's scoring phase
 
 **Strategic Choice:** Bridge slots are premium because Joker effects stack (trigger twice per round).
 
 **Example:**
 - Joker: "+0.2 mult"
-- Placed in Left slot → Triggers once → Global mult becomes 1.2
-- Placed in Bridge slot → Triggers twice → Global mult becomes 1.4 (1.0 + 0.2 + 0.2)
+- Placed in Deck 1 slot → Triggers once → Deck 1 mult becomes 1.2
+- Placed in Bridge slot → Triggers for both decks → Each deck's mult becomes 1.2
 
 **Rarity Tiers:**
 - Common, Uncommon, Rare, Legendary
@@ -239,9 +239,9 @@ All tokens are shared resources between both decks:
 
 Each deck scores independently like a Balatro hand:
 ```
-Left Score = Left Points × Left Mult
-Right Score = Right Points × Right Mult
-Final Score = Left Score + Right Score
+Deck 1 Score = Deck 1 Points × Deck 1 Mult
+Deck 2 Score = Deck 2 Points × Deck 2 Mult
+Final Score = Sum of all deck scores
 ```
 
 **Jokers modify two components:**
@@ -256,10 +256,10 @@ Final Score = Left Score + Right Score
 - Each deck's mult starts at 1.0
 
 **Bridge Jokers are Premium:**
-- Trigger for BOTH decks (once per deck)
-- Add to both Left Mult AND Right Mult
-- Example: Bridge Joker "+0.2 mult" → Left gets +0.2, Right gets +0.2
-- **This makes Bridge slots 2× as valuable!**
+- Trigger for ALL decks (once per deck)
+- Add to each deck's mult
+- Example: Bridge Joker "+0.2 mult" → Deck 1 gets +0.2, Deck 2 gets +0.2
+- **This makes Bridge slots N× as valuable (where N = number of decks)!**
 
 **Casual Friendly Design:**
 - Each deck = one Balatro hand (familiar mental model)
@@ -280,52 +280,46 @@ Final Score = Left Score + Right Score
 
 #### Trigger Order
 
-**Left Deck Scoring:**
-1. Calculate base points from all hands played
-2. Trigger Left slot Jokers (J1 → J2 → J3) — modify points or mult
+**For Each Deck (processed in order: Deck 1, then Deck 2, ...):**
+1. Calculate base points from all hands played by this deck
+2. Trigger deck-specific Jokers (J1 → J2 → J3) — modify points or mult
 3. Trigger Bridge slot Jokers (B1 → B2) — modify points or mult
-4. **Calculate: Left Points × Left Mult = Left Score**
-
-**Right Deck Scoring:**
-1. Calculate base points from all hands played
-2. Trigger Right slot Jokers (J4 → J5 → J6) — modify points or mult
-3. Trigger Bridge slot Jokers (B1 → B2) — **triggers again** — modify points or mult
-4. **Calculate: Right Points × Right Mult = Right Score**
+4. **Calculate: Deck Points × Deck Mult = Deck Score**
 
 **Final Calculation:**
-- **Final Score = Left Score + Right Score**
+- **Final Score = Sum of all deck scores**
 
 #### Example Round with Joker Triggers
 
 **Setup:**
-- Left J1: "+50 points per Flush played"
-- Left J2: "+0.2 mult per hand played"
+- Deck 1 J1: "+50 points per Flush played"
+- Deck 1 J2: "+0.2 mult per hand played"
 - Bridge B1: "+0.3 mult per Pair played"
-- Right J4: "+30 points per Two Pair played"
+- Deck 2 J4: "+30 points per Two Pair played"
 
 **Round Play:**
-- Left deck plays 2 hands: Flush (20 base) + Pair (6 base)
-- Right deck plays 2 hands: Two Pair (10 base) + Pair (6 base)
+- Deck 1 plays 2 hands: Flush (20 base) + Pair (6 base)
+- Deck 2 plays 2 hands: Two Pair (10 base) + Pair (6 base)
 
 **Scoring:**
 
-**Left Deck Scoring:**
+**Deck 1 Scoring:**
 1. Base points: 20 (Flush) + 6 (Pair) = 26 points
-2. Left J1 triggers: +50 (Flush) → 76 points
-3. Left J2 triggers: +0.2 mult × 2 hands → Left Mult = 1.0 + 0.4 = 1.4
-4. Bridge B1 triggers: +0.3 mult (Pair played) → Left Mult = 1.4 + 0.3 = 1.7
-5. **Left Score: 76 × 1.7 = 129**
+2. Deck 1 J1 triggers: +50 (Flush) → 76 points
+3. Deck 1 J2 triggers: +0.2 mult × 2 hands → Deck 1 Mult = 1.0 + 0.4 = 1.4
+4. Bridge B1 triggers: +0.3 mult (Pair played) → Deck 1 Mult = 1.4 + 0.3 = 1.7
+5. **Deck 1 Score: 76 × 1.7 = 129**
 
-**Right Deck Scoring:**
+**Deck 2 Scoring:**
 1. Base points: 10 (Two Pair) + 6 (Pair) = 16 points
-2. Right J4 triggers: +30 (Two Pair) → 46 points
-3. Bridge B1 triggers again: +0.3 mult (Pair played) → Right Mult = 1.0 + 0.3 = 1.3
-4. **Right Score: 46 × 1.3 = 60**
+2. Deck 2 J4 triggers: +30 (Two Pair) → 46 points
+3. Bridge B1 triggers: +0.3 mult (Pair played) → Deck 2 Mult = 1.0 + 0.3 = 1.3
+4. **Deck 2 Score: 46 × 1.3 = 60**
 
 **Final:**
 - **Final Score: 129 + 60 = 189**
 
-**Key Insight:** Bridge Joker triggered for BOTH decks (+0.3 to left, +0.3 to right), making it twice as valuable as a regular Joker slot!
+**Key Insight:** Bridge Joker triggered for ALL decks (+0.3 to each deck), making it N× as valuable as a regular Joker slot!
 
 #### Example Joker Library (Scaling Tiers)
 
@@ -402,26 +396,26 @@ Game-warping effects, build-defining.
 - Hand upgrades: Flush Level 3 (40 base), Pair Level 2 (10 base)
 - Bridge B1: "Twin Boost" (+0.3 mult if both decks played)
 - Bridge B2: "Bridge Troll" (+0.4 mult per Bridge Joker)
-- Left J1: "Flush Fund" (+60 per Flush)
-- Left J2: "Suit Synergy" (×1.3 if all same suit)
-- Right J4: "Pair Producer" (+0.3 mult per Pair)
+- Deck 1 J1: "Flush Fund" (+60 per Flush)
+- Deck 1 J2: "Suit Synergy" (×1.3 if all same suit)
+- Deck 2 J4: "Pair Producer" (+0.3 mult per Pair)
 
 **Round 7 Play (Quota: 1,448):**
 
-**LEFT DECK:**
+**DECK 1:**
 - Plays 2 Flushes: 40 + 40 = 80 base
 - Flush Fund: +60 + 60 = +120 → 200 points
-- Suit Synergy: ×1.3 → Left Mult = 1.3
-- Bridge B1: +0.3 (both played) → Left Mult = 1.6
-- Bridge B2: +0.4 × 2 Jokers = +0.8 → Left Mult = 2.4
-- **Left Score: 200 × 2.4 = 480**
+- Suit Synergy: ×1.3 → Deck 1 Mult = 1.3
+- Bridge B1: +0.3 (both played) → Deck 1 Mult = 1.6
+- Bridge B2: +0.4 × 2 Jokers = +0.8 → Deck 1 Mult = 2.4
+- **Deck 1 Score: 200 × 2.4 = 480**
 
-**RIGHT DECK:**
+**DECK 2:**
 - Plays 2 Pairs: 10 + 10 = 20 base
-- Pair Producer: +0.3 + 0.3 = +0.6 → Right Mult = 1.6
-- Bridge B1: +0.3 (both played) → Right Mult = 1.9
-- Bridge B2: +0.8 (triggers again) → Right Mult = 2.7
-- **Right Score: 20 × 2.7 = 54**
+- Pair Producer: +0.3 + 0.3 = +0.6 → Deck 2 Mult = 1.6
+- Bridge B1: +0.3 (both played) → Deck 2 Mult = 1.9
+- Bridge B2: +0.8 → Deck 2 Mult = 2.7
+- **Deck 2 Score: 20 × 2.7 = 54**
 
 **FINAL: 480 + 54 = 534 points** ❌
 
@@ -432,38 +426,33 @@ Game-warping effects, build-defining.
 Rounds are **free-form** — you can play or trade in any order until tokens are exhausted.
 
 **1. Round Start:**
-- Both decks draw 4 cards each (8 cards visible total).
+- Each deck draws 4 cards.
 - Tokens available: 4 hands, 3 trades.
 
 **2. Free Play Phase:**
-- **Play:** Choose left or right deck, select 1-4 cards, form a poker hand (uses 1 hand token).
+- **Play:** Choose a deck, select 1-4 cards, form a poker hand (uses 1 hand token).
   - Played cards are removed and replaced from that deck immediately.
   - **Max 2 hands per deck per round.**
-- **Trade:** Choose source deck, give 1-4 cards to the other deck (uses 1 trade token).
+- **Trade:** Choose source deck, give 1-4 cards to another deck (uses 1 trade token).
   - Giving deck draws replacements immediately (stays at 4).
   - Receiving deck accumulates cards (max 8).
 - Repeat in any order until you've used all tokens or choose to end the round.
 
 **3. Scoring (Per-Deck System):**
-- **Left Deck Scoring:**
-  - Sum base points from all hands played
-  - Trigger Left slot Jokers (J1 → J2 → J3) — modify points or Left Mult
-  - Trigger Bridge slot Jokers (B1 → B2) — modify points or Left Mult
-  - **Calculate: Left Score = Left Points × Left Mult**
-- **Right Deck Scoring:**
-  - Sum base points from all hands played
-  - Trigger Right slot Jokers (J4 → J5 → J6) — modify points or Right Mult
-  - Trigger Bridge slot Jokers (B1 → B2) **again** — modify points or Right Mult
-  - **Calculate: Right Score = Right Points × Right Mult**
+- **For Each Deck:**
+  - Sum base points from all hands played by this deck
+  - Trigger deck-specific Jokers — modify points or deck mult
+  - Trigger Bridge slot Jokers — modify points or deck mult
+  - **Calculate: Deck Score = Deck Points × Deck Mult**
 - **Final Calculation:**
-  - **Final Score = Left Score + Right Score**
+  - **Final Score = Sum of all deck scores**
   - Compare to quota: Pass = advance to shop, Fail = game over.
 
 **4. Shop Phase:**
 - **4 random Jokers** offered (Common/Uncommon/Rare/Legendary mix).
 - **1 Planet Pack** offered (upgrade one hand type globally).
 - Purchase Jokers (see pricing below) — immediately choose which slot to place them in.
-- **Freely move and reorder ALL Jokers** between any slots (Left/Right/Bridge).
+- **Freely move and reorder ALL Jokers** between any slots (deck-specific or Bridge).
 - Shop refresh costs $4 (rerolls both Jokers AND Planet Pack).
 - Purchase permanent card trades ($8).
 - Proceed to next round.
@@ -586,15 +575,15 @@ Co-op is planned but not part of the current solo prototype. Future design consi
 
 | Element | Solo (Current) | Co-op (Future) |
 |---------|----------------|----------------|
-| **Decks** | One player manages both. | Each player controls one deck. |
-| **Jokers** | Two personal sets + shared bridge jokers. | Each player manages their own Jokers; shared bridge jokers affect all. |
+| **Decks** | One player manages all N decks (default 2). | Each player controls one deck. |
+| **Jokers** | N deck-specific sets + shared bridge jokers. | Each player manages their own Jokers; shared bridge jokers affect all. |
 | **Shop & Money** | Single wallet. | Shared team wallet and shop inventory. |
 | **Quota** | Combined total of all decks. | Scales with player count (BaseQuota × N × 1.3). |
-| **Trades** | Internal swaps. | Cross-player trades require mutual confirmation. |
+| **Trades** | Internal swaps between decks. | Cross-player trades require mutual confirmation. |
 
 ## 7. UNIQUE SELL POINTS
 
-- **Dual-deck poker engine** where both sides matter every round.
+- **Multi-deck poker engine** (default 2 decks) where all decks matter every round.
 - **Free-form action economy** — play, discard, trade in any order.
 - **Bridge Jokers** create cross-deck synergies and global scaling.
 - **1-4 card hands** enable flexible tactical plays.

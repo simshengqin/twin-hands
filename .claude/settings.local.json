@@ -7,7 +7,11 @@
       "Bash(dir:*)",
       "Bash(tree:*)",
       "Bash(python -m pytest:*)",
-      "Bash(pip install:*)"
+      "Bash(pip install:*)",
+      "Bash(mv:*)",
+      "Bash(rmdir:*)",
+      "Bash(rm:*)",
+      "Bash(pytest:*)"
     ],
     "deny": [],
     "ask": []
