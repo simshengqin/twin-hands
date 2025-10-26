@@ -3,10 +3,20 @@ Terminal UI for Twin Hands (Balatro-inspired layout).
 Clean, information-dense display optimized for 2-deck gameplay.
 """
 
+import sys
 from typing import List
 from src.managers.game_manager import GameManager
 from src.resources.card_resource import CardResource
 from src.resources.hand_resource import HandResource
+
+# Fix Windows console encoding for emoji support
+if sys.platform == 'win32':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except AttributeError:
+        # Python < 3.7
+        import codecs
+        sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer, 'strict')
 
 
 class TerminalUI:
@@ -30,13 +40,16 @@ class TerminalUI:
     WHITE = "\033[97m"
     GRAY = "\033[90m"
 
-    # Suit symbols (Windows-safe ASCII)
+    # Suit symbols (emoji with fallback)
     SUITS = {
-        "hearts": "H",
-        "diamonds": "D",
-        "clubs": "C",
-        "spades": "S"
+        "hearts": "♥",
+        "diamonds": "♦",
+        "clubs": "♣",
+        "spades": "♠"
     }
+
+    # Suit order for sorting
+    SUIT_ORDER = ["clubs", "diamonds", "hearts", "spades"]  # ♣ ♦ ♥ ♠
 
     SUIT_COLORS = {
         "hearts": RED,
@@ -134,12 +147,24 @@ class TerminalUI:
             print(f"    {self.CYAN}Deck {deck_num}:{self.RESET} {status_color}{status}{self.RESET} hands played")
         print()
 
+    def _sort_cards(self, cards: List[CardResource]) -> List[CardResource]:
+        """Sort cards by suit (clubs, diamonds, hearts, spades) then rank."""
+        rank_order = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+
+        def sort_key(card):
+            suit_idx = self.SUIT_ORDER.index(card.suit) if card.suit in self.SUIT_ORDER else 99
+            rank_idx = rank_order.index(card.rank) if card.rank in rank_order else 99
+            return (suit_idx, rank_idx)
+
+        return sorted(cards, key=sort_key)
+
     def display_decks(self):
         """Display both decks side-by-side (Balatro card layout style)."""
         print(f"{self.BOLD}{'-'*70}{self.RESET}")
 
         for deck_idx in range(self.game.config.num_decks):
-            cards = self.game.get_visible_cards(deck_idx)
+            cards_raw = self.game.get_visible_cards(deck_idx)
+            cards = self._sort_cards(cards_raw)  # Sort by suit then rank
             deck_num = deck_idx + 1
 
             # Deck header
@@ -156,10 +181,12 @@ class TerminalUI:
             print(f"\n  {status} {deck_color}{self.BOLD}DECK {deck_num}{self.RESET} "
                   f"{self.GRAY}({hands_played}/{max_hands} played){self.RESET}")
 
-            # Cards in a row
+            # Cards in a row with unified indexing (1-6 for 2 decks)
             card_str = "    "
             for i, card in enumerate(cards):
-                card_str += self.format_card(card, i) + "  "
+                # Unified index: Deck 0 = 1-4, Deck 1 = 5-8
+                unified_idx = (deck_idx * 4) + i + 1  # 1-indexed
+                card_str += self.format_card(card, unified_idx) + "  "
             print(card_str)
 
         print(f"\n{self.BOLD}{'-'*70}{self.RESET}\n")
@@ -178,9 +205,9 @@ class TerminalUI:
         """Display available commands (Balatro-style: compact, clear)."""
         print(f"{self.BOLD}{'-'*70}{self.RESET}")
         print(f"  {self.BOLD}Commands:{self.RESET}")
-        print(f"    {self.YELLOW}play <deck> <cards>{self.RESET}  {self.GRAY}->{self.RESET}  "
-              f"Play cards from a deck (e.g., {self.CYAN}play 1 0 1 2{self.RESET})")
-        print(f"    {self.YELLOW}end{self.RESET}                 {self.GRAY}->{self.RESET}  "
+        print(f"    {self.YELLOW}<card numbers>{self.RESET}  {self.GRAY}->{self.RESET}  "
+              f"Play cards (e.g., {self.CYAN}123{self.RESET} or {self.CYAN}1456{self.RESET})")
+        print(f"    {self.YELLOW}end{self.RESET}              {self.GRAY}->{self.RESET}  "
               f"End round and calculate score")
         print(f"{self.BOLD}{'-'*70}{self.RESET}\n")
 
