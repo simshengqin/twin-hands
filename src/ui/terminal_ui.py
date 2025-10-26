@@ -155,13 +155,13 @@ class TerminalUI:
         print()
 
     def _sort_cards(self, cards: List[CardResource]) -> List[CardResource]:
-        """Sort cards by suit (clubs, diamonds, hearts, spades) then rank."""
+        """Sort cards by rank first, then suit."""
         rank_order = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
         def sort_key(card):
-            suit_idx = self.SUIT_ORDER.index(card.suit) if card.suit in self.SUIT_ORDER else 99
             rank_idx = rank_order.index(card.rank) if card.rank in rank_order else 99
-            return (suit_idx, rank_idx)
+            suit_idx = self.SUIT_ORDER.index(card.suit) if card.suit in self.SUIT_ORDER else 99
+            return (rank_idx, suit_idx)  # Rank first, suit second
 
         return sorted(cards, key=sort_key)
 
