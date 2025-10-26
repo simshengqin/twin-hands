@@ -332,6 +332,8 @@ Final Score = Sum of all deck scores
 
 **Design Philosophy:** Jokers scale from flat bonuses (early game) → multiplicative (mid game) → exponential conditionals (late game).
 
+**IMPORTANT:** See [JOKER_DESIGN_PHILOSOPHY.md](JOKER_DESIGN_PHILOSOPHY.md) for the 10 principles of Joker design (from Balatro creator LocalThunk). All Jokers must follow these guidelines.
+
 ##### **COMMON JOKERS** (Cost: $5)
 Flat bonuses, always useful, never gamebreaking.
 
