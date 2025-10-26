@@ -2,6 +2,10 @@
 
 ## � CRITICAL: THREE NON-NEGOTIABLE RULES
 
+### RULE 0: NEVER COMMIT WITHOUT PERMISSION
+
+**ALWAYS ask before running `git commit`.** Show changes first, wait for user approval.
+
 ### RULE 1: ALWAYS REFER TO GDD - NEVER ASSUME
 
 **When implementing ANY feature:**

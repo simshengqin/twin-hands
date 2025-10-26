@@ -76,13 +76,18 @@ def play_round(game: GameManager, ui: TerminalUI):
         if user_input == "end":
             break
 
-        # Handle trade command (PHASE B)
-        if user_input.startswith("trade "):
-            trade_input = user_input.replace("trade ", "").strip()
+        # Handle trade command (PHASE B) - accepts "trade 123" or "t 123"
+        if user_input.startswith("trade ") or user_input.startswith("t "):
+            # Extract card numbers after "trade " or "t "
+            if user_input.startswith("trade "):
+                trade_input = user_input[6:].strip()  # Remove "trade "
+            else:
+                trade_input = user_input[2:].strip()  # Remove "t "
+
             parsed = parse_card_selection(trade_input, game.config.num_decks)
 
             if parsed is None:
-                ui.display_error("Invalid trade. Enter card numbers from ONE deck (e.g., 'trade 12' or 'trade 567')")
+                ui.display_error("Invalid trade. Enter card numbers from ONE deck (e.g., 't 12' or 't 567')")
                 input("\nPress Enter to continue...")
                 continue
 
@@ -104,11 +109,16 @@ def play_round(game: GameManager, ui: TerminalUI):
 
             continue
 
-        # Parse play command (just card numbers)
+        # Parse play command (ONLY numbers, no other characters)
+        if not user_input.isdigit():
+            ui.display_error("Invalid input. Enter only card numbers (e.g., '123' or '5678')")
+            input("\nPress Enter to continue...")
+            continue
+
         parsed = parse_card_selection(user_input, game.config.num_decks)
 
         if parsed is None:
-            ui.display_error("Invalid input. Enter card numbers from ONE deck (e.g., '123' or '5678')")
+            ui.display_error("Invalid selection. Cards must be from ONE deck (e.g., '123' or '5678')")
             input("\nPress Enter to continue...")
             continue
 
@@ -143,26 +153,27 @@ def main():
     game = GameManager(config)
     ui = TerminalUI(game)
 
-    # Welcome screen
-    ui.clear_screen()
-    print(f"\n{ui.BOLD}{'='*70}{ui.RESET}")
-    print(f"{ui.YELLOW}{ui.BOLD}  TWIN HANDS{ui.RESET} {ui.GRAY}|{ui.RESET} {ui.CYAN}Phase B: Core Loop (Trading){ui.RESET}")
-    print(f"{ui.BOLD}{'='*70}{ui.RESET}\n")
-    print(f"  {ui.BOLD}Goal:{ui.RESET} Play poker hands from 2 decks to beat the quota!\n")
-    print(f"  {ui.BOLD}Rules:{ui.RESET}")
-    print(f"    • 4 hand tokens per round (max 2 per deck)")
-    print(f"    • 3 trade tokens per round")
-    print(f"    • Play 1-4 cards to form poker hands")
-    print(f"    • Trade cards between decks to set up combos")
-    print(f"    • Beat Round 1 quota: {ui.CYAN}300 points{ui.RESET}\n")
-    print(f"  {ui.BOLD}How to Play:{ui.RESET}")
-    print(f"    • Cards numbered {ui.CYAN}1-4{ui.RESET} (Deck 1) and {ui.CYAN}5-8{ui.RESET} (Deck 2)")
-    print(f"    • Play hand: Type {ui.CYAN}123{ui.RESET} or {ui.CYAN}5678{ui.RESET}")
-    print(f"    • Trade cards: Type {ui.CYAN}trade 12{ui.RESET} (gives 2 cards to other deck)")
-    print(f"    • End round: Type {ui.CYAN}end{ui.RESET}\n")
-    print(f"{ui.BOLD}{'='*70}{ui.RESET}\n")
+    # Welcome screen (can be skipped for testing)
+    if not config.skip_welcome_screen:
+        ui.clear_screen()
+        print(f"\n{ui.BOLD}{'='*70}{ui.RESET}")
+        print(f"{ui.YELLOW}{ui.BOLD}  TWIN HANDS{ui.RESET} {ui.GRAY}|{ui.RESET} {ui.CYAN}Phase B: Core Loop (Trading){ui.RESET}")
+        print(f"{ui.BOLD}{'='*70}{ui.RESET}\n")
+        print(f"  {ui.BOLD}Goal:{ui.RESET} Play poker hands from 2 decks to beat the quota!\n")
+        print(f"  {ui.BOLD}Rules:{ui.RESET}")
+        print(f"    • 4 hand tokens per round (max 2 per deck)")
+        print(f"    • 3 trade tokens per round")
+        print(f"    • Play 1-4 cards to form poker hands")
+        print(f"    • Trade cards between decks to set up combos")
+        print(f"    • Beat Round 1 quota: {ui.CYAN}300 points{ui.RESET}\n")
+        print(f"  {ui.BOLD}How to Play:{ui.RESET}")
+        print(f"    • Cards numbered {ui.CYAN}1-4{ui.RESET} (Deck 1) and {ui.CYAN}5-8{ui.RESET} (Deck 2)")
+        print(f"    • Play hand: Type {ui.CYAN}123{ui.RESET} or {ui.CYAN}5678{ui.RESET}")
+        print(f"    • Trade cards: Type {ui.CYAN}t 12{ui.RESET} or {ui.CYAN}trade 12{ui.RESET}")
+        print(f"    • End round: Type {ui.CYAN}end{ui.RESET}\n")
+        print(f"{ui.BOLD}{'='*70}{ui.RESET}\n")
 
-    input("Press Enter to start...")
+        input("Press Enter to start...")
 
     # Play round
     play_round(game, ui)

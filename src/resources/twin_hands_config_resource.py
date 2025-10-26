@@ -33,6 +33,9 @@ class TwinHandsConfig:
     max_rounds: int = 8             # Maximum number of rounds
     quota_scaling: float = 1.3      # Round quota multiplier (1.3×)
 
+    # === UI/UX ===
+    skip_welcome_screen: bool = True  # Skip welcome screen for testing
+
     # === HAND SCORES (GDD 4-7) ===
     # Class constant - UPPERCASE
     HAND_SCORES = {
