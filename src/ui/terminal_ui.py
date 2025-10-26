@@ -40,7 +40,7 @@ class TerminalUI:
     WHITE = "\033[97m"
     GRAY = "\033[90m"
 
-    # Suit symbols (emoji with fallback)
+    # Suit symbols (emoji)
     SUITS = {
         "hearts": "♥",
         "diamonds": "♦",
@@ -51,11 +51,13 @@ class TerminalUI:
     # Suit order for sorting
     SUIT_ORDER = ["clubs", "diamonds", "hearts", "spades"]  # ♣ ♦ ♥ ♠
 
+    # Suit colors for better visibility
+    # Red vs Blue makes suits much easier to distinguish
     SUIT_COLORS = {
-        "hearts": RED,
-        "diamonds": RED,
-        "clubs": WHITE,
-        "spades": WHITE
+        "hearts": RED,        # ♥ Red
+        "diamonds": YELLOW,   # ♦ Yellow (orange-ish)
+        "clubs": CYAN,        # ♣ Cyan (light blue)
+        "spades": BLUE        # ♠ Blue
     }
 
     def __init__(self, game: GameManager):
