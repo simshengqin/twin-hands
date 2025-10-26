@@ -87,8 +87,10 @@ After:   [1] 9♣  [2] A♦  [3] K♥  [4] 3♠
 
 **After:**
 ```
-> 123    # Play cards 1,2,3 (from Deck 1)
-> 5678   # Play cards 5,6,7,8 (from Deck 2)
+> 123    # Play cards 1,2,3 from Deck 1
+> 5678   # Play all 4 cards from Deck 2
+> 14     # Play cards 1,4 from Deck 1
+> 56     # Play cards 5,6 from Deck 2
 ```
 
 **Why Better:**
@@ -103,15 +105,22 @@ After:   [1] 9♣  [2] A♦  [3] K♥  [4] 3♠
 3. Validate all cards from same deck
 4. Auto-detect which deck to play from
 
-**Examples:**
+**Valid Examples:**
 ```
-123   → Deck 0, cards [0,1,2] ✅
-5678  → Deck 1, cards [0,1,2,3] ✅
-14    → Deck 0, cards [0,3] ✅
-56    → Deck 1, cards [0,1] ✅
-15    → REJECTED (mixed decks) ❌
-999   → REJECTED (out of range) ❌
+123   → Deck 1, cards [0,1,2] ✅ (Three of a Kind potential!)
+5678  → Deck 2, cards [0,1,2,3] ✅ (All 4 cards)
+14    → Deck 1, cards [0,3] ✅ (Pair potential!)
+56    → Deck 2, cards [0,1] ✅ (Two cards)
 ```
+
+**Invalid Examples:**
+```
+15    → REJECTED ❌ (Can't mix Deck 1 card [1] with Deck 2 card [5]!)
+1456  → REJECTED ❌ (Can't mix Deck 1 [1,4] with Deck 2 [5,6]!)
+999   → REJECTED ❌ (Out of range - only 1-8)
+```
+
+**Important:** All cards in one play must be from the SAME deck!
 
 ---
 

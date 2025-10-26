@@ -591,31 +591,6 @@ Co-op is planned but not part of the current solo prototype. Future design consi
 
 ## 8. IMPLEMENTATION ROADMAP
 
-### Phase 1: Python Terminal Prototype (Current)
-- Core mechanics: dual decks, one-directional trading, poker evaluation
-- Token system: 4 hands (max 2 per deck) + 3 trades
-- 4 visible cards per deck (max 8 with trades)
-- Basic Joker system (simple effects)
-- Terminal UI with clear info display
-- 8-round progression with linear quota scaling (240 → 1920)
-
-### Phase 2: Godot Port
-- Godot 4.5 architecture (Resources, Managers, Signals)
-- Visual card UI with drag-and-drop
-- Animated scoring and Joker effects
-- Polished shop interface
-
-### Phase 3: Content Expansion
-- 50+ unique Jokers across all rarities
-- Unlockable deck splits and modifiers
-- Endless mode post-Round 8
-- Balanced economy tuning
-
-### Phase 4: Co-op (Future)
-- Multiplayer infrastructure
-- Scaled quotas and shared resources
-- Cross-player trade confirmation UI
-
 ## 9. TARGET AUDIENCE
 
 - **Balatro Fans:** Familiar poker-roguelike feel with deeper strategic layers.

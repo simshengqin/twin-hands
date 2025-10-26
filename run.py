@@ -80,7 +80,7 @@ def play_round(game: GameManager, ui: TerminalUI):
         parsed = parse_card_selection(user_input, game.config.num_decks)
 
         if parsed is None:
-            ui.display_error("Invalid input. Enter card numbers (e.g., '123' or '1456')")
+            ui.display_error("Invalid input. Enter card numbers from ONE deck (e.g., '123' or '5678')")
             input("\nPress Enter to continue...")
             continue
 
