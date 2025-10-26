@@ -163,8 +163,11 @@ class TerminalUI:
         print(f"{self.BOLD}{'-'*70}{self.RESET}")
 
         for deck_idx in range(self.game.config.num_decks):
-            cards_raw = self.game.get_visible_cards(deck_idx)
-            cards = self._sort_cards(cards_raw)  # Sort by suit then rank
+            # Sort the actual visible_cards list (modifies state)
+            # This ensures displayed order matches actual indices
+            deck = self.game.state.decks[deck_idx]
+            deck.visible_cards = self._sort_cards(deck.visible_cards)
+            cards = deck.visible_cards
             deck_num = deck_idx + 1
 
             # Deck header
