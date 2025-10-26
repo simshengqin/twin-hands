@@ -63,20 +63,48 @@ def parse_card_selection(input_str: str, num_decks: int = 2):
 
 
 def play_round(game: GameManager, ui: TerminalUI):
-    """Play one round with Balatro-style UI."""
+    """Play one round with Balatro-style UI (PHASE B: with Trading)."""
     game.start_game()
 
-    while game.state.hand_tokens > 0:
+    while game.state.hand_tokens > 0 or game.state.trade_tokens > 0:
         # Display full state (all-in-one screen like Balatro)
         ui.display_full_state()
 
         # Get player input
-        user_input = ui.prompt_input().strip()
+        user_input = ui.prompt_input().strip().lower()
 
         if user_input == "end":
             break
 
-        # Parse simplified command (just card numbers)
+        # Handle trade command (PHASE B)
+        if user_input.startswith("trade "):
+            trade_input = user_input.replace("trade ", "").strip()
+            parsed = parse_card_selection(trade_input, game.config.num_decks)
+
+            if parsed is None:
+                ui.display_error("Invalid trade. Enter card numbers from ONE deck (e.g., 'trade 12' or 'trade 567')")
+                input("\nPress Enter to continue...")
+                continue
+
+            deck_index, card_indices = parsed
+
+            try:
+                result = game.trade_cards(deck_index, card_indices)
+
+                if result["success"]:
+                    ui.display_trade_result(len(card_indices), deck_index)
+                    input("\nPress Enter to continue...")
+                else:
+                    ui.display_error(result["error"])
+                    input("\nPress Enter to continue...")
+
+            except (ValueError, IndexError) as e:
+                ui.display_error(f"Error trading cards - {e}")
+                input("\nPress Enter to continue...")
+
+            continue
+
+        # Parse play command (just card numbers)
         parsed = parse_card_selection(user_input, game.config.num_decks)
 
         if parsed is None:
@@ -118,18 +146,20 @@ def main():
     # Welcome screen
     ui.clear_screen()
     print(f"\n{ui.BOLD}{'='*70}{ui.RESET}")
-    print(f"{ui.YELLOW}{ui.BOLD}  TWIN HANDS{ui.RESET} {ui.GRAY}|{ui.RESET} {ui.CYAN}Phase A: Minimal Playable{ui.RESET}")
+    print(f"{ui.YELLOW}{ui.BOLD}  TWIN HANDS{ui.RESET} {ui.GRAY}|{ui.RESET} {ui.CYAN}Phase B: Core Loop (Trading){ui.RESET}")
     print(f"{ui.BOLD}{'='*70}{ui.RESET}\n")
     print(f"  {ui.BOLD}Goal:{ui.RESET} Play poker hands from 2 decks to beat the quota!\n")
     print(f"  {ui.BOLD}Rules:{ui.RESET}")
-    print(f"    • 4 hand tokens per round")
-    print(f"    • Max 2 hands per deck")
+    print(f"    • 4 hand tokens per round (max 2 per deck)")
+    print(f"    • 3 trade tokens per round")
     print(f"    • Play 1-4 cards to form poker hands")
+    print(f"    • Trade cards between decks to set up combos")
     print(f"    • Beat Round 1 quota: {ui.CYAN}300 points{ui.RESET}\n")
     print(f"  {ui.BOLD}How to Play:{ui.RESET}")
-    print(f"    • Cards are numbered {ui.CYAN}1-4{ui.RESET} (Deck 1) and {ui.CYAN}5-8{ui.RESET} (Deck 2)")
-    print(f"    • Type card numbers to play: {ui.CYAN}123{ui.RESET} or {ui.CYAN}5678{ui.RESET}")
-    print(f"    • Type {ui.CYAN}end{ui.RESET} to end the round\n")
+    print(f"    • Cards numbered {ui.CYAN}1-4{ui.RESET} (Deck 1) and {ui.CYAN}5-8{ui.RESET} (Deck 2)")
+    print(f"    • Play hand: Type {ui.CYAN}123{ui.RESET} or {ui.CYAN}5678{ui.RESET}")
+    print(f"    • Trade cards: Type {ui.CYAN}trade 12{ui.RESET} (gives 2 cards to other deck)")
+    print(f"    • End round: Type {ui.CYAN}end{ui.RESET}\n")
     print(f"{ui.BOLD}{'='*70}{ui.RESET}\n")
 
     input("Press Enter to start...")

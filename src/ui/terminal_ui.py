@@ -124,10 +124,15 @@ class TerminalUI:
         state = self.game.get_game_state_summary()
 
         # Hand tokens (like Balatro's "Hands: 3") - Windows-safe
-        token_color = self.YELLOW if state["hand_tokens"] > 0 else self.GRAY
-        token_icons = "[H]" * state["hand_tokens"] + self.GRAY + "[_]" * (4 - state["hand_tokens"]) + self.RESET
+        hand_color = self.YELLOW if state["hand_tokens"] > 0 else self.GRAY
+        hand_icons = "[H]" * state["hand_tokens"] + self.GRAY + "[_]" * (4 - state["hand_tokens"]) + self.RESET
 
-        print(f"  {self.BOLD}Hand Tokens:{self.RESET} {token_color}{state['hand_tokens']}/4{self.RESET} {token_icons}\n")
+        # Trade tokens (PHASE B)
+        trade_color = self.CYAN if state["trade_tokens"] > 0 else self.GRAY
+        trade_icons = "[T]" * state["trade_tokens"] + self.GRAY + "[_]" * (3 - state["trade_tokens"]) + self.RESET
+
+        print(f"  {self.BOLD}Hand Tokens:{self.RESET} {hand_color}{state['hand_tokens']}/4{self.RESET} {hand_icons}")
+        print(f"  {self.BOLD}Trade Tokens:{self.RESET} {trade_color}{state['trade_tokens']}/3{self.RESET} {trade_icons}\n")
 
     def display_deck_status(self):
         """Display per-deck hand counts (unique to Twin Hands)."""
@@ -212,6 +217,8 @@ class TerminalUI:
         print(f"  {self.BOLD}Commands:{self.RESET}")
         print(f"    {self.YELLOW}<card numbers>{self.RESET}  {self.GRAY}->{self.RESET}  "
               f"Play cards (e.g., {self.CYAN}123{self.RESET} or {self.CYAN}5678{self.RESET})")
+        print(f"    {self.YELLOW}trade <cards>{self.RESET}  {self.GRAY}->{self.RESET}  "
+              f"Trade cards (e.g., {self.CYAN}trade 12{self.RESET} gives 2 cards to other deck)")
         print(f"    {self.YELLOW}end{self.RESET}              {self.GRAY}->{self.RESET}  "
               f"End round and calculate score")
         print(f"{self.BOLD}{'-'*70}{self.RESET}\n")
@@ -234,6 +241,12 @@ class TerminalUI:
         # Show cards played
         cards_str = " ".join(self.format_card(card) for card in hand.cards)
         print(f"  {self.GRAY}Cards:{self.RESET} {cards_str}\n")
+
+    def display_trade_result(self, num_cards: int, source_deck: int):
+        """Display trade result (PHASE B)."""
+        receiving_deck = 1 - source_deck
+        print(f"\n  {self.CYAN}{self.BOLD}[TRADE SUCCESSFUL!]{self.RESET}")
+        print(f"  {self.GRAY}Traded {num_cards} card{'s' if num_cards > 1 else ''} from Deck {source_deck + 1} → Deck {receiving_deck + 1}{self.RESET}\n")
 
     def display_error(self, message: str):
         """Display error message."""
