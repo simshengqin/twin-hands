@@ -470,12 +470,12 @@ Players can form hands using 1-4 cards from a single deck. Hand rankings and bas
 | Rank | Hand | Base Score | Notes |
 |------|------|------------|-------|
 | 1 | Royal Flush | 60 | A-K-Q-J of same suit (requires 4 cards) |
-| 2 | Straight Flush | 50 | Sequential ranks, same suit |
+| 2 | Straight Flush | 50 | 4 cards: sequential ranks, same suit |
 | 3 | Four of a Kind | 30 | All 4 cards same rank |
-| 4 | Flush | 20 | All cards same suit |
+| 4 | Flush | 20 | 4 cards: all same suit |
 | 5 | Straight | 18 | Sequential ranks (A-2-3-4, 2-3-4-5, etc.) |
 | 6 | Three of a Kind | 15 | Three cards same rank |
-| 7 | Two Pair | 10 | Two different pairs |
+| 7 | Two Pair | 10 | Two different pairs (requires 4 cards) |
 | 8 | Pair | 6 | Two cards same rank |
 | 9 | High Card | 3 | No matching pattern |
 

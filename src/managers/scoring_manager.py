@@ -115,14 +115,6 @@ class ScoringManager:
             if max(rank_counts.values()) == 3:
                 return "Three of a Kind"
 
-            # Straight Flush
-            if is_flush and is_straight:
-                return "Straight Flush"
-
-            # Flush
-            if is_flush:
-                return "Flush"
-
             # Straight
             if is_straight:
                 return "Straight"
@@ -139,10 +131,6 @@ class ScoringManager:
             # Pair
             if max(rank_counts.values()) == 2:
                 return "Pair"
-
-            # Flush (2 cards same suit)
-            if is_flush:
-                return "Flush"
 
             # Straight (2 sequential cards)
             if is_straight:

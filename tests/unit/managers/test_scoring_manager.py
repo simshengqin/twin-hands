@@ -65,6 +65,33 @@ class TestScoringManager:
         assert hand.hand_type == "Flush"
         assert hand.base_score == 20
 
+    def test_2_cards_same_suit_not_flush(self, setup):
+        """GDD 4-7: 2 cards same suit should NOT be Flush (requires 4 cards)."""
+        config, state, manager = setup
+
+        cards = [
+            CardResource(rank="2", suit="hearts"),
+            CardResource(rank="5", suit="hearts")
+        ]
+
+        hand = manager.evaluate_hand(cards)
+        assert hand.hand_type == "High Card"  # Not Flush
+        assert hand.base_score == 3
+
+    def test_3_cards_same_suit_not_flush(self, setup):
+        """GDD 4-7: 3 cards same suit should NOT be Flush (requires 4 cards)."""
+        config, state, manager = setup
+
+        cards = [
+            CardResource(rank="2", suit="hearts"),
+            CardResource(rank="5", suit="hearts"),
+            CardResource(rank="9", suit="hearts")
+        ]
+
+        hand = manager.evaluate_hand(cards)
+        assert hand.hand_type == "High Card"  # Not Flush
+        assert hand.base_score == 3
+
     def test_evaluate_high_card(self, setup):
         """GDD 4-7: High Card should score 3 points."""
         config, state, manager = setup
