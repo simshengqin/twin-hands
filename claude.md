@@ -1,6 +1,6 @@
 # Claude Instructions for Twin Hands
 
-## † CRITICAL: THREE NON-NEGOTIABLE RULES
+## ÔøΩ CRITICAL: THREE NON-NEGOTIABLE RULES
 
 ### RULE 1: ALWAYS REFER TO GDD - NEVER ASSUME
 
@@ -37,12 +37,12 @@ L Wrong implementation, wasted time
   - 4-7: Hand Scoring
 - Progression: Section 5
 
-### RULE 2: TEST-FIRST ARCHITECTURE (RED í GREEN í REFACTOR)
+### RULE 2: TEST-FIRST ARCHITECTURE (RED ÔøΩ GREEN ÔøΩ REFACTOR)
 
 **EVERY new component follows this cycle:**
 
 1. **=4 RED:** Write test first (it fails)
-2. **=‚ GREEN:** Write minimal code to pass test
+2. **=ÔøΩ GREEN:** Write minimal code to pass test
 3. **=5 REFACTOR:** Make it Godot-ready, add signals, clean up
 
 ### RULE 3: GODOT-READY ARCHITECTURE
@@ -55,9 +55,108 @@ L Wrong implementation, wasted time
 
 **See poker-grid/src/docs/GODOT_ARCHITECTURE.md for full details**
 
+### RULE 4: EVERYTHING CONFIGURABLE
+
+**Make ALL game parameters configurable:**
+- Token counts (hand tokens, trade tokens)
+- Slot limits (joker slots, max hands per deck)
+- Scoring values (hand scores, multipliers)
+- Progression values (round quotas, scaling)
+
+**Config Pattern:**
+```python
+# ‚úÖ GOOD - configurable
+class TwinHandsConfig:
+    hand_tokens_per_round: int = 4  # Lowercase instance attr
+    trade_tokens_per_round: int = 3
+    max_hands_per_deck: int = 2
+
+    HAND_SCORES = {...}  # UPPERCASE class constants
+
+# ‚úÖ GOOD - use config values
+def play_hand(self):
+    if hands_played >= self.config.max_hands_per_deck:  # From config
+        return False
+
+# ‚ùå BAD - hardcoded magic numbers
+def play_hand(self):
+    if hands_played >= 2:  # Magic number!
+        return False
+```
+
+**Benefits:**
+- Easy balancing and testing
+- Fast iteration on game feel
+- No hunting through code to change values
+
+### RULE 5: i18n-READY (Not implemented, but architected for)
+
+**We focus on English/solo now, but design so i18n is painless later:**
+
+**Pattern: Separate data from text**
+```python
+# ‚ùå BAD - NOT i18n-ready
+class GameManager:
+    def start_round(self):
+        print("Round 5 started!")  # Hardcoded English in logic
+
+# ‚úÖ GOOD - i18n-ready
+class GameManager:
+    def start_round(self):
+        Events.emit_round_started(self.state.current_round)  # Just data
+
+# UI layer formats the text
+class TerminalUI:
+    def on_round_started(self, round_num):
+        print(f"Round {round_num} started!")  # Text only in UI
+```
+
+**Rules:**
+- All UI strings ONLY in UI layer (never in managers/resources)
+- Emit data via events, let UI format it
+- Use dict keys for hand names: `hand.name = "Royal Flush"` (key for lookup)
+- Future: UI swaps out text dict based on language
+
+**We won't implement i18n now, but this pattern costs nothing and saves massive refactoring later.**
+
+### RULE 6: MULTIPLAYER-READY (Not implemented, but architected for)
+
+**We focus on solo now, but design so co-op/competitive is painless later:**
+
+**Pattern: State as truth, deterministic logic, event communication**
+```python
+# ‚úÖ GOOD - multiplayer-ready (GDD Section 6 co-op compatible)
+class GameManager:
+    def play_hand(self, deck_side: str, card_indices: List[int]):
+        """
+        Solo: Player controls both "left" and "right"
+        Co-op: Player 1 = "left", Player 2 = "right" (GDD 6)
+        """
+        # Validate action
+        if not self._can_play_hand(deck_side):
+            return False
+
+        # Execute deterministically (same input = same output)
+        hand = self._evaluate_hand(deck_side, card_indices)
+        self.state.update_score(deck_side, hand.score)
+
+        # Communicate via events (can be networked)
+        Events.emit_hand_played(deck_side, hand)
+        return True
+```
+
+**Rules:**
+- State is single source of truth (can be synced)
+- All actions are pure data (serializable/networkable)
+- Logic is deterministic (same state + action = same result)
+- Communication via events (can be network messages)
+- `deck_side` parameter already maps to players in co-op (GDD 6)
+
+**We won't implement multiplayer now, but this pattern is already natural for our game design.**
+
 ---
 
-## <Ø BUILD STRATEGY: PLAYABLE FIRST
+## <ÔøΩ BUILD STRATEGY: PLAYABLE FIRST
 
 ### Phase A: MINIMAL PLAYABLE (2-3 days)
 **Priority:** Get playable ASAP to test feel
@@ -86,7 +185,7 @@ L Wrong implementation, wasted time
 
 ---
 
-## =À IMPLEMENTATION ORDER (Phase A)
+## =ÔøΩ IMPLEMENTATION ORDER (Phase A)
 
 ### Day 1: Foundation
 1. Copy reusable files from poker-grid
@@ -106,7 +205,7 @@ L Wrong implementation, wasted time
 
 ---
 
-## =® WHEN TO ASK QUESTIONS
+## =ÔøΩ WHEN TO ASK QUESTIONS
 
 **Always ask if:**
 - GDD wording is ambiguous
@@ -122,7 +221,7 @@ L Wrong implementation, wasted time
 
 ---
 
-## =÷ QUICK REFERENCE
+## =ÔøΩ QUICK REFERENCE
 
 **GDD Location:** `docs/gdd/GDD.md`
 
@@ -165,10 +264,10 @@ L Wrong implementation, wasted time
 
 ---
 
-## <ì THE THREE COMMANDMENTS
+## <ÔøΩ THE THREE COMMANDMENTS
 
 1. **READ GDD FIRST** - Every feature, every time
-2. **TEST FIRST** - RED í GREEN í REFACTOR
+2. **TEST FIRST** - RED ÔøΩ GREEN ÔøΩ REFACTOR
 3. **GODOT-READY** - Follow poker-grid patterns
 
 **When in doubt:**
@@ -179,4 +278,4 @@ L Wrong implementation, wasted time
 5. Implement
 6. Make Godot-ready
 
-**LET'S BUILD! =Ä**
+**LET'S BUILD! =ÔøΩ**
