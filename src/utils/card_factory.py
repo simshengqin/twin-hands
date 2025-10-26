@@ -27,11 +27,14 @@ class CardFactory:
     def create_deck() -> List['CardResource']:
         """Create a standard 52-card deck."""
         from src.resources.card_resource import CardResource
-        from src.resources.game_config_resource import GameConfigResource
+
+        # Standard poker deck constants
+        SUITS = ["hearts", "diamonds", "clubs", "spades"]
+        RANKS = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
         deck = []
-        for suit in GameConfigResource.SUITS:
-            for rank in GameConfigResource.RANKS:
+        for suit in SUITS:
+            for rank in RANKS:
                 deck.append(CardResource(rank=rank, suit=suit))
         return deck
 
@@ -49,14 +52,3 @@ class CardFactory:
         deck = CardFactory.create_deck()
         CardFactory.shuffle_deck(deck)
         return deck
-
-    @staticmethod
-    def create_deck_resource() -> 'DeckResource':
-        """
-        Create a single DeckResource with standard 52 cards.
-        Cards are NOT shuffled - draw_random() handles randomness.
-        """
-        from src.resources.deck_resource import DeckResource
-
-        deck = CardFactory.create_deck()
-        return DeckResource(cards=deck)
