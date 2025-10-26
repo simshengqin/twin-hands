@@ -216,9 +216,9 @@ class TerminalUI:
         print(f"{self.BOLD}{'-'*70}{self.RESET}")
         print(f"  {self.BOLD}Commands:{self.RESET}")
         print(f"    {self.YELLOW}<card numbers>{self.RESET}  {self.GRAY}->{self.RESET}  "
-              f"Play cards (e.g., {self.CYAN}123{self.RESET} or {self.CYAN}5678{self.RESET})")
-        print(f"    {self.YELLOW}t <cards>{self.RESET}        {self.GRAY}->{self.RESET}  "
-              f"Trade cards (e.g., {self.CYAN}t 12{self.RESET} gives 2 cards to other deck)")
+              f"Play 1-4 cards (e.g., {self.CYAN}123{self.RESET} or {self.CYAN}10 11{self.RESET})")
+        print(f"    {self.YELLOW}t<cards>{self.RESET}         {self.GRAY}->{self.RESET}  "
+              f"Trade 1-4 cards (e.g., {self.CYAN}t123{self.RESET} or {self.CYAN}t 10 11{self.RESET})")
         print(f"    {self.YELLOW}end{self.RESET}              {self.GRAY}->{self.RESET}  "
               f"End round and calculate score")
         print(f"{self.BOLD}{'-'*70}{self.RESET}\n")
