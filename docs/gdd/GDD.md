@@ -186,10 +186,18 @@ All tokens are shared resources between both decks:
 **Key Rules:**
 
 - **Minimum 1 hand per deck per round** (enforced, but round ends early if quota hit)
+- **Maximum 2 hands per deck per round** (prevents degenerate "stack one side" strategies)
 - A hand can only be formed from one deck's cards (no mixing)
 - Tokens are flexible: use anytime during the round
 - Trades can stack cards into one deck (e.g., 7 baseline → 8-9 after trades)
 - All tokens reset each round
+
+**Why Max 2 Hands Per Deck?**
+
+- Prevents optimal strategy from being "stack all 6 Jokers on one side, play 1-3 or 1-4 every round"
+- Forces both decks to remain relevant throughout the game (aligns with "Twin Hands" identity)
+- Still allows asymmetry (1-2 split valid if one deck stronger)
+- Preserves strategic depth without degenerate play patterns
 
 ### 4-4 Trading System
 
@@ -507,17 +515,81 @@ Game-warping effects, build-defining.
 - **Straight Flush** - Highlights sequential ranks of same suit
 - **Full House** - Highlights 3-of-a-kind + pair combinations
 
-**Visual Indicators:**
-- 🟢 **Green highlight:** Hand is ready (5 cards available to play)
-- 🟡 **Yellow highlight:** Close to ready (4/5 cards, "need one more")
+**Visual Indicators (By Cards Missing):**
+- 🟢 **Green highlight:** Hand is complete and playable
+- 🟡 **Yellow highlight:** Need 1 more card to complete
+- 🟠 **Orange highlight:** Need 2 more cards to complete
 - No highlight: Hand not available with current cards
+
+**Examples by Hand Type:**
+
+**Flush:**
+- 🟢 Green: 5 same suit (complete)
+- 🟡 Yellow: 4 same suit (need 1 more)
+- 🟠 Orange: 3 same suit (need 2 more)
+
+**Straight:**
+- 🟢 Green: 5 sequential cards (complete)
+- 🟡 Yellow: 4 sequential (need 1 more)
+- 🟠 Orange: 3 sequential (need 2 more)
+
+**Straight Flush:**
+- 🟢 Green: 5 sequential same suit (complete)
+- 🟡 Yellow: 4 sequential same suit (need 1 more)
+- 🟠 Orange: 3 sequential same suit (need 2 more)
+
+**Three of a Kind:**
+- 🟢 Green: 3 same rank (complete, playable now)
+
+**Four of a Kind:**
+- 🟢 Green: 4 same rank (complete)
+- 🟡 Yellow: 3 same rank (need 1 more for 4-of-a-kind)
+
+**Full House:**
+- 🟢 Green: 3-of-a-kind + pair (complete)
+- 🟡 Yellow: 3-of-a-kind only (need any pair to complete)
+
+**Progressive Check Logic:**
+- **Highlight highest match only per hand type:** If 5-card flush exists (green), don't also show 4-card (yellow) for same suit
+- **Multiple combos at same level:** Highlight all (e.g., 3♥ and 3♠ both show orange for flush)
+
+**Real-Time Updates:**
+- **Recalculate highlighting AFTER every action** once cards are redrawn:
+  - After playing a hand → Redraw → Update highlights for that deck
+  - After discarding → Redraw → Update highlights for that deck
+  - After trading → Redraw → **Update highlights for BOTH decks** (giving deck AND receiving deck)
+- Ensures highlights always reflect current hand state
+- Critical for trades: receiving deck gains card, must recalculate combos
 
 **Design Rationale:**
 - **Eliminates busywork:** Scanning 14 cards (7 per deck) for suit/sequence patterns is cognitive load, not strategy
 - **Preserves strategic depth:** Game depth is in token management, Joker synergies, and deck allocation decisions
+- **"3 away" is actionable:** Helps identify "don't trade these away if building toward flush/straight"
 - **Casual-friendly:** New players won't miss obvious combos
 - **Follows Balatro's precedent:** Auto-highlighting doesn't reduce depth when depth comes from other systems
 - **Per-deck independence:** Supports asymmetric strategies (e.g., Deck 1 = Flush specialist, Deck 2 = Pair engine)
+
+**Implementation Notes:**
+
+**Detection Logic (By Cards Missing):**
+- **Color = cards missing to complete**, not hand type
+- Check complete hands first (green), then 1-away (yellow), then 2-away (orange)
+- **Per hand type:** Highlight highest completion level only (don't show green AND yellow for same combo)
+- **Multiple combos at same level:** Highlight all (e.g., 3♥ and 3♠ both orange if filtering for flush)
+
+**Hand-Specific Detection:**
+- **Flush:** 5 complete (green), 4 cards (yellow), 3 cards (orange)
+- **Straight:** 5 complete (green), 4 cards (yellow), 3 cards (orange)
+- **Straight Flush:** 5 complete (green), 4 cards (yellow), 3 cards (orange)
+- **Three of a Kind:** 3 complete (green only, no partial)
+- **Four of a Kind:** 4 complete (green), 3 cards (yellow)
+- **Full House:** 3-of-a-kind + pair (green), 3-of-a-kind only (yellow)
+
+**Testing Edge Cases:**
+- Trade from Deck 1 → Deck 2: Both decks must recalculate highlights
+- Multiple combos at same completion level: Highlight all (e.g., 3♥ and 3♠ both orange)
+- Don't show multiple colors for same hand type combo (e.g., if 5♥ complete, only green, not yellow/orange)
+- Round ends immediately when quota hit (no highlight freeze needed)
 
 **What's NOT Highlighted:**
 - **Pairs:** Too obvious (2 same rank = instantly visible)
