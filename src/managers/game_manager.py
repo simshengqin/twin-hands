@@ -109,6 +109,67 @@ class GameManager:
             "hand": hand
         }
 
+    def discard_cards(self, deck_index: int, card_indices: List[int]) -> Dict[str, Any]:
+        """
+        Discard 1-5 cards from the specified deck (GDD v6.1 4-3).
+
+        GDD v6.1: Discard → discard pile → redraw from draw pile.
+        Costs 1 discard token per use (regardless of card count).
+
+        Args:
+            deck_index: Which deck to discard from (0-indexed)
+            card_indices: Indices of cards in visible_cards to discard
+
+        Returns:
+            Dict with:
+                - success: bool (True if discard successful)
+                - error: str (if failure)
+        """
+        # Validate can discard
+        if not self.token_manager.can_discard():
+            return {
+                "success": False,
+                "error": "No discard tokens remaining (GDD v6.1: 3 per round)"
+            }
+
+        # Validate 1-5 cards
+        if len(card_indices) < 1 or len(card_indices) > 5:
+            return {
+                "success": False,
+                "error": f"Can only discard 1-5 cards (you selected {len(card_indices)})"
+            }
+
+        # Get cards from visible_cards
+        deck = self.state.decks[deck_index]
+        try:
+            cards = [deck.visible_cards[i] for i in card_indices]
+        except IndexError:
+            return {
+                "success": False,
+                "error": "Invalid card indices"
+            }
+
+        # Remove discarded cards from visible_cards
+        # Sort indices in reverse to avoid index shifting
+        discarded_cards = []
+        for i in sorted(card_indices, reverse=True):
+            discarded_cards.append(deck.visible_cards.pop(i))
+
+        # Move discarded cards to discard pile (GDD v6.1 deckbuilder model)
+        self.deck_manager.discard_to_pile(deck_index, discarded_cards)
+
+        # Draw replacement cards (GDD v6.1: redraw from draw pile, auto-reshuffle if empty)
+        num_to_draw = len(card_indices)
+        self.deck_manager.draw_cards(deck_index, num_to_draw)
+
+        # Spend discard token
+        self.token_manager.spend_discard_token()
+
+        return {
+            "success": True,
+            "num_cards": len(card_indices)
+        }
+
     def trade_card(self, source_deck: int, target_deck: int, card_index: int) -> Dict[str, Any]:
         """
         Trade ONE card from source deck to target deck (GDD v6.1 4-4).

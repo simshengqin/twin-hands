@@ -43,7 +43,7 @@ class PokerEvaluator:
 
         if len(cards) < 1 or len(cards) > 5:
             # Invalid hand
-            return HandResource(cards=cards, hand_type="Invalid", chips=0, mult=1)
+            return HandResource(cards=cards, hand_type="Invalid", base_score=0, mult=1.0)
 
         # Sort cards by value for easier evaluation
         sorted_cards = sorted(cards, key=lambda c: c.get_rank_value(), reverse=True)
@@ -109,11 +109,11 @@ class PokerEvaluator:
             hand_type = "High Card"
 
         # Get base score from TwinHandsConfig (GDD v6.1 4-7)
-        chips = TwinHandsConfig.HAND_SCORES[hand_type]
-        # Base mult is always 1 (Jokers modify mult per-deck, GDD 4-5-3)
-        mult = 1
+        base_score = TwinHandsConfig.HAND_SCORES[hand_type]
+        # Base mult is always 1.0 (Jokers will modify this in Phase B - GDD 4-5-3)
+        mult = 1.0
 
-        return HandResource(cards=sorted_cards, hand_type=hand_type, chips=chips, mult=mult)
+        return HandResource(cards=sorted_cards, hand_type=hand_type, base_score=base_score, mult=mult)
 
     # Helper methods for hand detection
 

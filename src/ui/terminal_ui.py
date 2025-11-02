@@ -4,10 +4,11 @@ Clean, information-dense display optimized for 2-deck gameplay.
 """
 
 import sys
-from typing import List
+from typing import List, Optional
 from src.managers.game_manager import GameManager
 from src.resources.card_resource import CardResource
 from src.resources.hand_resource import HandResource
+from src.utils.hand_highlight_detector import HandHighlightDetector
 
 # Fix Windows console encoding for emoji support
 if sys.platform == 'win32':
@@ -30,7 +31,7 @@ class TerminalUI:
     BOLD = "\033[1m"
     DIM = "\033[2m"
 
-    # Colors
+    # Text Colors
     RED = "\033[91m"
     GREEN = "\033[92m"
     YELLOW = "\033[93m"
@@ -39,6 +40,11 @@ class TerminalUI:
     CYAN = "\033[96m"
     WHITE = "\033[97m"
     GRAY = "\033[90m"
+
+    # Background Colors (for highlighting)
+    BG_GREEN = "\033[42m"    # Green background (0 cards missing)
+    BG_YELLOW = "\033[43m"   # Yellow background (1 card missing)
+    BG_ORANGE = "\033[41m"   # Red/Orange background (2 cards missing)
 
     # Suit symbols (emoji)
     SUITS = {
@@ -63,19 +69,32 @@ class TerminalUI:
     def __init__(self, game: GameManager):
         """Initialize UI with game manager."""
         self.game = game
+        # GDD v6.1: Hand highlighting filters (per-deck toggleable)
+        # Default to Flush and Straight (most visual impact)
+        self.enabled_filters = {
+            0: ["Flush", "Straight"],  # Deck 0
+            1: ["Flush", "Straight"]   # Deck 1
+        }
+
+        # Available hand types for filtering
+        self.available_hand_types = [
+            "Flush", "Straight", "Four of a Kind",
+            "Three of a Kind", "Two Pair", "Pair"
+        ]
 
     def clear_screen(self):
         """Clear terminal (cross-platform)."""
         import os
         os.system('cls' if os.name == 'nt' else 'clear')
 
-    def format_card(self, card: CardResource, index: int = None) -> str:
+    def format_card(self, card: CardResource, index: int = None, bg_color: str = None) -> str:
         """
         Format a card with suit symbol and color (Balatro style).
 
         Args:
             card: CardResource to format
             index: Optional index to show [0], [1], etc.
+            bg_color: Optional background color for highlighting
 
         Returns:
             Formatted string like "[0] K♥" (red) or "[1] 3♠" (white)
@@ -86,7 +105,11 @@ class TerminalUI:
         # Pad rank to 2 chars for alignment (10 is special)
         rank_str = f"{card.rank:>2}"
 
-        card_str = f"{suit_color}{rank_str}{suit_symbol}{self.RESET}"
+        # Apply background color if provided (for highlighting)
+        if bg_color:
+            card_str = f"{bg_color}{suit_color}{rank_str}{suit_symbol}{self.RESET}"
+        else:
+            card_str = f"{suit_color}{rank_str}{suit_symbol}{self.RESET}"
 
         if index is not None:
             return f"{self.GRAY}[{index}]{self.RESET} {card_str}"
@@ -131,7 +154,7 @@ class TerminalUI:
         trade_color = self.CYAN if state["trade_tokens"] > 0 else self.GRAY
         trade_icons = "[T]" * state["trade_tokens"] + self.GRAY + "[_]" * (2 - state["trade_tokens"]) + self.RESET
 
-        print(f"  {self.BOLD}Discard Tokens:{self.RESET} {discard_color}{state['discard_tokens']}/3{self.RESET} {discard_icons} {self.GRAY}(not implemented){self.RESET}")
+        print(f"  {self.BOLD}Discard Tokens:{self.RESET} {discard_color}{state['discard_tokens']}/3{self.RESET} {discard_icons}")
         print(f"  {self.BOLD}Trade Tokens:{self.RESET} {trade_color}{state['trade_tokens']}/2{self.RESET} {trade_icons}\n")
 
     def display_deck_status(self):
@@ -166,7 +189,7 @@ class TerminalUI:
         return sorted(cards, key=sort_key)
 
     def display_decks(self):
-        """Display both decks side-by-side (Balatro card layout style)."""
+        """Display both decks with hand highlighting (GDD v6.1)."""
         print(f"{self.BOLD}{'-'*70}{self.RESET}")
 
         for deck_idx in range(self.game.config.num_decks):
@@ -191,12 +214,31 @@ class TerminalUI:
             print(f"\n  {status} {deck_color}{self.BOLD}DECK {deck_num}{self.RESET} "
                   f"{self.GRAY}({hands_played}/{max_hands} played){self.RESET}")
 
-            # Cards in a row with unified indexing (1-6 for 2 decks)
+            # GDD v6.1: Detect highlights for this deck
+            filters = self.enabled_filters.get(deck_idx, [])
+            highlight_match = HandHighlightDetector.detect_best_highlight(cards, filters)
+
+            # Build highlight map (index -> background color)
+            highlight_map = {}
+            if highlight_match:
+                # Map cards_needed to background color
+                bg_color = {
+                    0: self.BG_GREEN,   # Complete hand (0 missing)
+                    1: self.BG_YELLOW,  # Need 1 more card
+                    2: self.BG_ORANGE   # Need 2 more cards
+                }.get(highlight_match.cards_needed, None)
+
+                if bg_color:
+                    for idx in highlight_match.matching_indices:
+                        highlight_map[idx] = bg_color
+
+            # Cards in a row with unified indexing and highlighting
             card_str = "    "
             for i, card in enumerate(cards):
-                # Unified index: Deck 0 = 1-4, Deck 1 = 5-8
-                unified_idx = (deck_idx * 4) + i + 1  # 1-indexed
-                card_str += self.format_card(card, unified_idx) + "  "
+                # Unified index: Deck 0 = 1-7, Deck 1 = 8-14 (v6.1: 7 cards)
+                unified_idx = (deck_idx * 7) + i + 1  # 1-indexed
+                bg_color = highlight_map.get(i, None)
+                card_str += self.format_card(card, unified_idx, bg_color) + "  "
             print(card_str)
 
         print(f"\n{self.BOLD}{'-'*70}{self.RESET}\n")
@@ -216,9 +258,15 @@ class TerminalUI:
         print(f"{self.BOLD}{'-'*70}{self.RESET}")
         print(f"  {self.BOLD}Commands:{self.RESET}")
         print(f"    {self.YELLOW}<card numbers>{self.RESET}  {self.GRAY}->{self.RESET}  "
-              f"Play 1-4 cards (e.g., {self.CYAN}123{self.RESET} or {self.CYAN}10 11{self.RESET})")
-        print(f"    {self.YELLOW}t<cards>{self.RESET}         {self.GRAY}->{self.RESET}  "
-              f"Trade 1-4 cards (e.g., {self.CYAN}t123{self.RESET} or {self.CYAN}t 10 11{self.RESET})")
+              f"Play 1-5 cards (e.g., {self.CYAN}123{self.RESET} or {self.CYAN}10 11{self.RESET})")
+        print(f"    {self.YELLOW}d<cards>{self.RESET}         {self.GRAY}->{self.RESET}  "
+              f"Discard 1-5 cards (e.g., {self.CYAN}d123{self.RESET} or {self.CYAN}d 10 11{self.RESET})")
+        print(f"    {self.YELLOW}t<card>{self.RESET}          {self.GRAY}->{self.RESET}  "
+              f"Trade 1 card (e.g., {self.CYAN}t1{self.RESET} or {self.CYAN}t 10{self.RESET})")
+        print(f"    {self.YELLOW}f<deck> <type>{self.RESET}   {self.GRAY}->{self.RESET}  "
+              f"Toggle filter (e.g., {self.CYAN}f1 Flush{self.RESET}, {self.CYAN}f2 Pair{self.RESET})")
+        print(f"    {self.YELLOW}filters{self.RESET}          {self.GRAY}->{self.RESET}  "
+              f"Show current filter settings")
         print(f"    {self.YELLOW}end{self.RESET}              {self.GRAY}->{self.RESET}  "
               f"End round and calculate score")
         print(f"{self.BOLD}{'-'*70}{self.RESET}\n")
@@ -276,6 +324,43 @@ class TerminalUI:
             print(f"  {self.RED}-{diff:,} short of quota{self.RESET}")
 
         print(f"\n{self.BOLD}{'='*70}{self.RESET}\n")
+
+    def toggle_filter(self, deck_index: int, hand_type: str) -> bool:
+        """
+        Toggle a hand type filter for a specific deck.
+
+        Args:
+            deck_index: Which deck (0-indexed)
+            hand_type: Hand type to toggle (e.g., "Flush", "Pair")
+
+        Returns:
+            True if filter is now enabled, False if now disabled
+        """
+        if deck_index not in self.enabled_filters:
+            self.enabled_filters[deck_index] = []
+
+        filters = self.enabled_filters[deck_index]
+
+        if hand_type in filters:
+            filters.remove(hand_type)
+            return False
+        else:
+            filters.append(hand_type)
+            return True
+
+    def display_filter_status(self):
+        """Display current filter settings for all decks."""
+        print(f"  {self.BOLD}Hand Highlighting Filters:{self.RESET}")
+        for deck_idx in range(self.game.config.num_decks):
+            deck_num = deck_idx + 1
+            filters = self.enabled_filters.get(deck_idx, [])
+
+            if filters:
+                filter_str = ", ".join(filters)
+                print(f"    {self.CYAN}Deck {deck_num}:{self.RESET} {self.GREEN}{filter_str}{self.RESET}")
+            else:
+                print(f"    {self.CYAN}Deck {deck_num}:{self.RESET} {self.GRAY}None{self.RESET}")
+        print()
 
     def prompt_input(self) -> str:
         """Get user input with styled prompt."""

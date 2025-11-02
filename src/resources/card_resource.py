@@ -62,8 +62,8 @@ class CardResource:
 
     def get_rank_value(self) -> int:
         """Returns numeric value for comparison (from config)."""
-        from src.resources.game_config_resource import GameConfigResource
-        return GameConfigResource.RANK_VALUES[self.rank]
+        from src.resources.twin_hands_config_resource import TwinHandsConfig
+        return TwinHandsConfig.RANK_VALUES[self.rank]
 
     def duplicate(self) -> 'CardResource':
         """Create a copy of this card (Resource pattern)."""

@@ -38,6 +38,13 @@ class TwinHandsConfig:
     # === UI/UX ===
     skip_welcome_screen: bool = True  # Skip welcome screen for testing
 
+    # === RANK VALUES (for comparison/sorting) ===
+    # Class constant - UPPERCASE
+    RANK_VALUES = {
+        "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10,
+        "J": 11, "Q": 12, "K": 13, "A": 14
+    }
+
     # === HAND SCORES (GDD v6.1 4-7) ===
     # Class constant - UPPERCASE
     # GDD v6.1: Flushes and straights now require 5 cards (was 4 in v6.0)

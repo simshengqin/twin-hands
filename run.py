@@ -75,13 +75,15 @@ def play_round(game: GameManager, ui: TerminalUI):
     """Play one round with Balatro-style UI (GDD v6.1: with Trading)."""
     game.start_game()
 
-    # GDD v6.1: Check if can still play hands (max 2 per deck) OR have trade tokens
+    # GDD v6.1: Check if can still play hands (max 2 per deck) OR have trade/discard tokens
     def can_continue():
         # Can play if any deck hasn't hit max hands
         can_play = any(game.token_manager.can_play_hand(i) for i in range(game.config.num_decks))
         # Can trade if have trade tokens
         can_trade = game.state.trade_tokens > 0
-        return can_play or can_trade
+        # Can discard if have discard tokens
+        can_discard = game.state.discard_tokens > 0
+        return can_play or can_trade or can_discard
 
     while can_continue():
         # Display full state (all-in-one screen like Balatro)
@@ -92,6 +94,123 @@ def play_round(game: GameManager, ui: TerminalUI):
 
         if user_input == "end":
             break
+
+        # Handle filters command - show current filter settings
+        if user_input == "filters":
+            ui.clear_screen()
+            ui.display_header()
+            ui.display_filter_status()
+            print(f"  {ui.BOLD}Available Hand Types:{ui.RESET}")
+            for hand_type in ui.available_hand_types:
+                print(f"    {ui.GRAY}•{ui.RESET} {hand_type}")
+            print()
+            input("Press Enter to continue...")
+            continue
+
+        # Handle filter toggle command - "f1 Flush", "f2 Pair", etc.
+        if user_input.startswith("f") and len(user_input) > 1 and user_input[1].isdigit():
+            try:
+                # Parse "f1 Flush" -> deck_num=1, hand_type="Flush"
+                parts = user_input[1:].split(maxsplit=1)
+                if len(parts) != 2:
+                    ui.display_error("Invalid filter command. Use format: f<deck> <type> (e.g., 'f1 Flush')")
+                    input("\nPress Enter to continue...")
+                    continue
+
+                deck_num = int(parts[0])
+                hand_type_input = parts[1].strip()
+
+                # Validate deck number
+                if deck_num < 1 or deck_num > game.config.num_decks:
+                    ui.display_error(f"Invalid deck number. Use 1-{game.config.num_decks}")
+                    input("\nPress Enter to continue...")
+                    continue
+
+                # Find matching hand type (case-insensitive, partial match)
+                hand_type = None
+                hand_type_lower = hand_type_input.lower()
+                for available_type in ui.available_hand_types:
+                    if available_type.lower().startswith(hand_type_lower):
+                        hand_type = available_type
+                        break
+
+                if hand_type is None:
+                    ui.display_error(f"Unknown hand type: '{hand_type_input}'. Use 'filters' to see available types.")
+                    input("\nPress Enter to continue...")
+                    continue
+
+                # Toggle the filter
+                deck_idx = deck_num - 1
+                enabled = ui.toggle_filter(deck_idx, hand_type)
+
+                # Show result
+                status = f"{ui.GREEN}enabled{ui.RESET}" if enabled else f"{ui.GRAY}disabled{ui.RESET}"
+                print(f"\n  {ui.CYAN}{ui.BOLD}[FILTER TOGGLED]{ui.RESET}")
+                print(f"  {ui.GRAY}Deck {deck_num} - {hand_type}: {status}{ui.RESET}\n")
+                input("Press Enter to continue...")
+                continue
+
+            except (ValueError, IndexError) as e:
+                ui.display_error(f"Error toggling filter - {e}")
+                input("\nPress Enter to continue...")
+                continue
+
+        # Handle discard command - accepts "d123", "d 123", "discard 123"
+        if user_input.startswith("discard") or (user_input.startswith("d") and not user_input.startswith("d ")):
+            # Avoid conflicting with "deck" or other "d" commands - only trigger if d followed by number
+            if user_input.startswith("d") and len(user_input) > 1 and not user_input[1].isdigit() and user_input[1] != ' ':
+                # Not a discard command, fall through
+                pass
+            else:
+                # Extract card numbers after "discard" or "d"
+                if user_input.startswith("discard"):
+                    if len(user_input) > 7 and user_input[7] == ' ':
+                        discard_input = user_input[8:].strip()  # "discard 123"
+                    else:
+                        discard_input = user_input[7:].strip()  # "discard123"
+                elif user_input.startswith("d"):
+                    if len(user_input) > 1 and user_input[1] == ' ':
+                        discard_input = user_input[2:].strip()  # "d 123"
+                    else:
+                        discard_input = user_input[1:].strip()  # "d123"
+
+                # Skip if it's just "d" or "discard" with no cards
+                if not discard_input:
+                    ui.display_error("Invalid discard. Enter card numbers (e.g., 'd123' or 'd 10 11')")
+                    input("\nPress Enter to continue...")
+                    continue
+
+                parsed = parse_card_selection(discard_input, game)
+
+                if parsed is None:
+                    ui.display_error("Invalid discard. Enter 1-5 cards from ONE deck (e.g., 'd123' or 'd 10 11')")
+                    input("\nPress Enter to continue...")
+                    continue
+
+                deck_index, card_indices, num_cards = parsed
+
+                # Validate 1-5 cards
+                if num_cards < 1 or num_cards > 5:
+                    ui.display_error(f"Can only discard 1-5 cards (you selected {num_cards})")
+                    input("\nPress Enter to continue...")
+                    continue
+
+                try:
+                    result = game.discard_cards(deck_index, card_indices)
+
+                    if result["success"]:
+                        print(f"\n  {ui.YELLOW}{ui.BOLD}[DISCARDED!]{ui.RESET}")
+                        print(f"  {ui.GRAY}Discarded {result['num_cards']} card{'s' if result['num_cards'] > 1 else ''} from Deck {deck_index + 1}{ui.RESET}\n")
+                        input("Press Enter to continue...")
+                    else:
+                        ui.display_error(result["error"])
+                        input("\nPress Enter to continue...")
+
+                except (ValueError, IndexError) as e:
+                    ui.display_error(f"Error discarding cards - {e}")
+                    input("\nPress Enter to continue...")
+
+                continue
 
         # Handle trade command (PHASE B) - accepts "t123", "t 123", "trade 123"
         if user_input.startswith("trade") or user_input.startswith("t"):
@@ -175,6 +294,18 @@ def play_round(game: GameManager, ui: TerminalUI):
             if result["success"]:
                 hand = result["hand"]
                 ui.display_hand_result(hand)
+
+                # GDD 4-6: Check if quota reached (round ends immediately)
+                current_score = game.calculate_round_score()
+                quota = game.config.round_quotas[game.state.current_round - 1]
+
+                if current_score >= quota:
+                    print(f"  {ui.GREEN}{ui.BOLD}[QUOTA REACHED!]{ui.RESET}")
+                    print(f"  {ui.GRAY}Score: {current_score:,} / {quota:,}{ui.RESET}")
+                    print(f"  {ui.GRAY}Round ending automatically (GDD 4-6)...{ui.RESET}\n")
+                    input("Press Enter to continue...")
+                    break  # End round immediately
+
                 input("\nPress Enter to continue...")
             else:
                 ui.display_error(result["error"])
