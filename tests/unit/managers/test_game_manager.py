@@ -34,12 +34,12 @@ class TestGameManager:
         assert game.state.decks[0] is not None
         assert game.state.decks[1] is not None
 
-        # Each deck should have 4 visible cards
-        assert len(game.state.decks[0].visible_cards) == 4
-        assert len(game.state.decks[1].visible_cards) == 4
+        # Each deck should have N visible cards (config-driven)
+        assert len(game.state.decks[0].visible_cards) == game.config.visible_cards_per_deck
+        assert len(game.state.decks[1].visible_cards) == game.config.visible_cards_per_deck
 
     def test_play_hand_basic_flow(self, game):
-        """play_hand should evaluate hand, spend token, draw cards."""
+        """play_hand should evaluate hand, record play, draw cards."""
         game.start_game()
 
         # Get initial visible cards from deck 0
@@ -53,14 +53,11 @@ class TestGameManager:
         assert result["success"] == True
         assert "hand" in result
 
-        # Hand token should be spent
-        assert game.state.hand_tokens == 3
-
-        # Hands played counter should increment
+        # GDD v6.1: Hand tokens unlimited, but hands played tracked
         assert game.state.hands_played_per_deck[0] == 1
 
-        # Visible cards should be refilled to 4
-        assert len(game.state.decks[0].visible_cards) == 4
+        # Visible cards should be refilled (config-driven)
+        assert len(game.state.decks[0].visible_cards) == game.config.visible_cards_per_deck
 
     def test_play_hand_respects_max_hands_per_deck(self, game):
         """GDD 4-3: Cannot play more than 2 hands per deck."""
@@ -75,22 +72,25 @@ class TestGameManager:
         assert result["success"] == False
         assert "error" in result
 
-    def test_play_hand_respects_hand_token_limit(self, game):
-        """GDD 4-3: Cannot play more than 4 hands total."""
+    def test_play_hand_unlimited_within_max_per_deck(self, game):
+        """GDD v6.1 4-3: Hand tokens unlimited, only max per deck enforced."""
         game.start_game()
 
-        # Play 4 hands (2 from each deck)
-        game.play_hand(deck_index=0, card_indices=[0, 1])
-        game.play_hand(deck_index=0, card_indices=[0, 1])
-        game.play_hand(deck_index=1, card_indices=[0, 1])
-        game.play_hand(deck_index=1, card_indices=[0, 1])
+        # Play 2 hands from each deck (max 2 per deck)
+        result1 = game.play_hand(deck_index=0, card_indices=[0, 1])
+        result2 = game.play_hand(deck_index=0, card_indices=[0, 1])
+        result3 = game.play_hand(deck_index=1, card_indices=[0, 1])
+        result4 = game.play_hand(deck_index=1, card_indices=[0, 1])
 
-        # No tokens left
-        assert game.state.hand_tokens == 0
+        # All 4 should succeed (hand tokens unlimited)
+        assert result1["success"] == True
+        assert result2["success"] == True
+        assert result3["success"] == True
+        assert result4["success"] == True
 
-        # 5th attempt should fail
-        result = game.play_hand(deck_index=0, card_indices=[0, 1])
-        assert result["success"] == False
+        # Both decks should be at max
+        assert game.state.hands_played_per_deck[0] == game.config.max_hands_per_deck
+        assert game.state.hands_played_per_deck[1] == game.config.max_hands_per_deck
 
     def test_calculate_round_score(self, game):
         """calculate_round_score should sum all hands played."""
@@ -113,8 +113,9 @@ class TestGameManager:
         cards_deck_0 = game.get_visible_cards(deck_index=0)
         cards_deck_1 = game.get_visible_cards(deck_index=1)
 
-        assert len(cards_deck_0) == 4
-        assert len(cards_deck_1) == 4
+        # Config-driven: verify visible cards match config
+        assert len(cards_deck_0) == game.config.visible_cards_per_deck
+        assert len(cards_deck_1) == game.config.visible_cards_per_deck
 
     def test_manager_is_logic_only(self, game):
         """RULE 3: Manager is logic only, stores manager refs."""

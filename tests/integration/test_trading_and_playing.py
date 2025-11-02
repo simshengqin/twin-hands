@@ -1,8 +1,10 @@
 """
-Integration tests for trading + playing workflow.
+Integration tests for trading + playing workflow (GDD v6.1).
 
 Tests the interaction between TradeManager and GameManager,
 especially with dynamic card indexing after deck sizes change.
+
+GDD v6.1: One-directional trading, 1 card at a time, receiving deck accumulates.
 """
 
 import pytest
@@ -15,101 +17,101 @@ def test_trade_then_play_from_enlarged_deck():
     """
     CRITICAL: Test dynamic card indexing after trading.
 
-    This test catches the bug where card indices weren't updated
-    after trading enlarged a deck from 4 to 8 cards.
-
-    Scenario:
-    1. Trade 4 cards from Deck 1 → Deck 2
-    2. Deck 2 now has 8 cards (was 4, now 8)
-    3. Play cards from Deck 2 using indices for the new cards
-    4. Verify correct cards are played (not "mixed deck" error)
+    GDD v6.1 Scenario:
+    1. Trade 1 card from Deck 0 → Deck 1
+    2. Deck 1 now has 8 cards (was 7, now 8)
+    3. Play cards from Deck 1 using indices for the new cards
+    4. Verify correct cards are played
     """
-    config = TwinHandsConfig()
+    config = TwinHandsConfig(
+        trade_tokens_per_round=2,
+        visible_cards_per_deck=7
+    )
     game = GameManager(config)
     ui = TerminalUI(game)
     game.start_game()
 
-    # Snapshot Deck 2 before trading
-    deck_2_before = game.state.decks[1].visible_cards.copy()
-    assert len(deck_2_before) == 4, "Deck 2 should start with 4 cards"
+    # Snapshot Deck 1 before trading
+    deck_1_before = game.state.decks[1].visible_cards.copy()
+    assert len(deck_1_before) == config.visible_cards_per_deck, "Deck 1 should start with 7 cards"
 
-    # Trade 4 cards from Deck 1 → Deck 2
-    result = game.trade_cards(source_deck=0, card_indices=[0, 1, 2, 3])
+    # Trade 1 card from Deck 0 → Deck 1
+    result = game.trade_card(source_deck=0, target_deck=1, card_index=0)
     assert result["success"] == True, "Trade should succeed"
 
-    # Deck 2 should now have 8 cards (4 original + 4 traded)
-    deck_2_after_trade = game.state.decks[1].visible_cards
-    assert len(deck_2_after_trade) == 8, "Deck 2 should have 8 cards after trade"
+    # Deck 1 should now have 8 cards (7 original + 1 traded)
+    deck_1_after_trade = game.state.decks[1].visible_cards
+    assert len(deck_1_after_trade) == 8, "Deck 1 should have 8 cards after trade"
 
-    # Now play 4 cards from Deck 2
-    # If indexing is broken, this will fail with "mixed deck" error
-    # Because it would think indices 5-8 are valid but 9+ are not
+    # Now play cards from Deck 1
+    # If indexing is broken, this will fail
 
     # Sort cards for display (simulating UI)
     ui.display_decks()
 
-    # Try to play the last 4 cards from Deck 2 (indices 4-7 in deck, displayed as positions 9-12)
-    # In the UI, these would be shown as [9][10][11][12]
-    # In the deck, they're at indices [4][5][6][7]
+    # Try to play the last 4 cards from Deck 1 (indices 4-7)
     result = game.play_hand(deck_index=1, card_indices=[4, 5, 6, 7])
 
     assert result["success"] == True, "Should be able to play from enlarged deck"
     assert len(result["hand"].cards) == 4, "Should play 4 cards"
 
-    # Deck 2 should now have 8 cards again (4 remaining + 4 drawn)
-    assert len(game.state.decks[1].visible_cards) == 8, "Deck should refill to 8 (max was 8)"
+    # Deck 1 should refill to 8 cards (4 remaining + 4 drawn)
+    assert len(game.state.decks[1].visible_cards) == 8, "Deck should refill to 8"
 
 
 def test_trade_multiple_times_then_play():
     """
-    Test trading multiple times, then playing from the receiving deck.
+    GDD v6.1: Test trading multiple times (1 card each), then playing from receiving deck.
     """
-    config = TwinHandsConfig()
+    config = TwinHandsConfig(
+        trade_tokens_per_round=2,
+        visible_cards_per_deck=7
+    )
     game = GameManager(config)
     ui = TerminalUI(game)
     game.start_game()
 
-    # Trade 2 cards from Deck 1 → Deck 2
-    game.trade_cards(source_deck=0, card_indices=[0, 1])
-    assert len(game.state.decks[1].visible_cards) == 6  # 4 + 2
+    # Trade 1 card from Deck 0 → Deck 1
+    game.trade_card(source_deck=0, target_deck=1, card_index=0)
+    assert len(game.state.decks[1].visible_cards) == 8  # 7 + 1
 
-    # Trade 2 more cards from Deck 1 → Deck 2
-    game.trade_cards(source_deck=0, card_indices=[0, 1])
-    assert len(game.state.decks[1].visible_cards) == 8  # 4 + 2 + 2
+    # Trade 1 more card from Deck 0 → Deck 1
+    game.trade_card(source_deck=0, target_deck=1, card_index=0)
+    assert len(game.state.decks[1].visible_cards) == 9  # 7 + 1 + 1
 
     # Display to sort
     ui.display_decks()
 
-    # Play from Deck 2 (should work with all 8 cards)
+    # Play from Deck 1 (should work with all 9 cards)
     result = game.play_hand(deck_index=1, card_indices=[0, 1, 2, 3])
     assert result["success"] == True
 
-    # Deck 2 should still have 8 cards (4 played, 4 drawn)
-    assert len(game.state.decks[1].visible_cards) == 8
+    # Deck 1 should refill to 9 cards (5 remaining + 4 drawn)
+    assert len(game.state.decks[1].visible_cards) == 9
 
 
 def test_trade_both_directions():
     """
-    Test trading in both directions, then playing from both decks.
+    GDD v6.1: Test trading in both directions, then playing from both decks.
     """
-    config = TwinHandsConfig()
+    config = TwinHandsConfig(
+        trade_tokens_per_round=2,
+        visible_cards_per_deck=7
+    )
     game = GameManager(config)
     ui = TerminalUI(game)
     game.start_game()
 
-    # Trade 2 cards: Deck 1 → Deck 2
-    game.trade_cards(source_deck=0, card_indices=[0, 1])
+    # Trade 1 card: Deck 0 → Deck 1
+    game.trade_card(source_deck=0, target_deck=1, card_index=0)
 
-    # Trade 2 cards: Deck 2 → Deck 1
-    game.trade_cards(source_deck=1, card_indices=[0, 1])
+    # Trade 1 card: Deck 1 → Deck 0
+    game.trade_card(source_deck=1, target_deck=0, card_index=0)
 
-    # Both decks should have 6 cards (4 - 2 + 4 drawn, then + 2 from trade)
-    # Actually: giving deck draws immediately, so both stay at 4
-    # Then receiving deck gets +2
-    # So: Deck 1: 4 - 2 (gave) + 2 (drew) + 2 (received) = 6
-    #     Deck 2: 4 + 2 (received) - 2 (gave) + 2 (drew) = 6
-    assert len(game.state.decks[0].visible_cards) == 6
-    assert len(game.state.decks[1].visible_cards) == 6
+    # Deck 0: Gave 1 (redrew 1, stayed at 7), then received 1 = 8 cards
+    # Deck 1: Received 1 (8 cards), then gave 1 (redrew 1, stayed at 8)
+    assert len(game.state.decks[0].visible_cards) == 8
+    assert len(game.state.decks[1].visible_cards) == 8
 
     # Display to sort
     ui.display_decks()

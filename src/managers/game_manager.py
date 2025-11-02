@@ -65,11 +65,11 @@ class GameManager:
                 - hand: HandResource (if success)
                 - error: str (if failure)
         """
-        # Validate can spend token
-        if not self.token_manager.can_spend_hand_token(deck_index):
+        # Validate can play hand (GDD v6.1: unlimited hands, but max 2 per deck)
+        if not self.token_manager.can_play_hand(deck_index):
             return {
                 "success": False,
-                "error": "Cannot play hand: No tokens or max hands per deck reached"
+                "error": "Cannot play hand: Max hands per deck reached (GDD v6.1: max 2)"
             }
 
         # Get cards from visible_cards
@@ -85,15 +85,19 @@ class GameManager:
         # Evaluate hand
         hand = self.scoring_manager.evaluate_hand(cards)
 
-        # Spend token
-        self.token_manager.spend_hand_token(deck_index)
+        # Record hand played (GDD v6.1: no token spending, just tracking)
+        self.token_manager.record_hand_played(deck_index)
 
         # Remove played cards from visible_cards
         # Sort indices in reverse to avoid index shifting
+        played_cards = []
         for i in sorted(card_indices, reverse=True):
-            deck.visible_cards.pop(i)
+            played_cards.append(deck.visible_cards.pop(i))
 
-        # Draw replacement cards
+        # Move played cards to discard pile (GDD v6.1 deckbuilder model)
+        self.deck_manager.discard_to_pile(deck_index, played_cards)
+
+        # Draw replacement cards (GDD v6.1: redraw from draw pile, auto-reshuffle if empty)
         num_to_draw = len(card_indices)
         self.deck_manager.draw_cards(deck_index, num_to_draw)
 
@@ -105,13 +109,16 @@ class GameManager:
             "hand": hand
         }
 
-    def trade_cards(self, source_deck: int, card_indices: List[int]) -> Dict[str, Any]:
+    def trade_card(self, source_deck: int, target_deck: int, card_index: int) -> Dict[str, Any]:
         """
-        Trade cards from source deck to receiving deck (PHASE B: GDD 4-4).
+        Trade ONE card from source deck to target deck (GDD v6.1 4-4).
+
+        GDD v6.1: One-directional, 1 card at a time, can stack to 8-9+ cards.
 
         Args:
-            source_deck: Index of deck giving cards (0-indexed)
-            card_indices: Indices of cards in visible_cards to trade
+            source_deck: Index of deck giving card (0-indexed)
+            target_deck: Index of deck receiving card (0-indexed)
+            card_index: Index of card in source deck's visible_cards to trade
 
         Returns:
             Dict with:
@@ -119,20 +126,22 @@ class GameManager:
                 - error: str (if failure)
         """
         # Validate trade
-        if not self.trade_manager.can_trade(source_deck, len(card_indices)):
+        if not self.trade_manager.can_trade(source_deck, target_deck):
             # Determine error reason
             if self.state.trade_tokens <= 0:
-                error = "No trade tokens remaining"
+                error = "No trade tokens remaining (GDD v6.1: 2 per round)"
+            elif source_deck == target_deck:
+                error = "Cannot trade to same deck"
             else:
-                error = "Receiving deck would exceed 8 cards"
+                error = "Source deck has no visible cards"
 
             return {
                 "success": False,
                 "error": error
             }
 
-        # Execute trade
-        success = self.trade_manager.trade_cards(source_deck, card_indices)
+        # Execute trade (GDD v6.1: 1 card only)
+        success = self.trade_manager.trade_card(source_deck, target_deck, card_index)
 
         return {
             "success": success

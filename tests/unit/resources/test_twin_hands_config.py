@@ -12,15 +12,15 @@ def test_config_defaults_match_gdd():
     # GDD 5-2: max 8 rounds
     assert config.max_rounds == 8
 
-    # GDD 4-3: 4 hand tokens, 3 trade tokens
-    assert config.hand_tokens_per_round == 4
-    assert config.trade_tokens_per_round == 3
+    # GDD v6.1 4-3: Hand tokens unlimited, discard 3, trade 2
+    assert config.discard_tokens_per_round == 3
+    assert config.trade_tokens_per_round == 2
 
-    # GDD 4-3: max 2 hands per deck
+    # GDD v6.1 4-3: max 2 hands per deck
     assert config.max_hands_per_deck == 2
 
-    # GDD 4-4: max 8 visible per deck (4 base + 4 from trades)
-    assert config.max_visible_per_deck == 8
+    # GDD v6.1 4-2: 7 visible cards per deck (base, can grow with trades)
+    assert config.visible_cards_per_deck == 7
 
     # GDD 5-3: 1.3× quota scaling
     assert config.quota_scaling == 1.3
@@ -62,7 +62,9 @@ def test_config_is_godot_ready():
 
     # Instance attributes are lowercase (will be @export in Godot)
     assert hasattr(config, 'max_rounds')
-    assert hasattr(config, 'hand_tokens_per_round')
+    assert hasattr(config, 'discard_tokens_per_round')
+    assert hasattr(config, 'trade_tokens_per_round')
+    assert hasattr(config, 'visible_cards_per_deck')
 
     # Class constants are UPPERCASE
     assert hasattr(TwinHandsConfig, 'HAND_SCORES')

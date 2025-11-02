@@ -38,9 +38,9 @@ class TestDeckManager:
 
         manager.split_deck()
 
-        # Each deck should have 26 cards total (undrawn + visible)
-        deck_0_total = len(state.decks[0].undrawn_cards) + len(state.decks[0].visible_cards)
-        deck_1_total = len(state.decks[1].undrawn_cards) + len(state.decks[1].visible_cards)
+        # Each deck should have 26 cards total (draw_pile + visible + discard)
+        deck_0_total = len(state.decks[0].draw_pile) + len(state.decks[0].visible_cards) + len(state.decks[0].discard_pile)
+        deck_1_total = len(state.decks[1].draw_pile) + len(state.decks[1].visible_cards) + len(state.decks[1].discard_pile)
 
         assert deck_0_total == 26
         assert deck_1_total == 26
@@ -51,11 +51,12 @@ class TestDeckManager:
 
         manager.split_deck()
 
-        # Collect all cards from both decks
+        # Collect all cards from both decks (GDD v6.1: 3 piles per deck)
         all_cards = []
         for deck in state.decks:
-            all_cards.extend(deck.undrawn_cards)
+            all_cards.extend(deck.draw_pile)
             all_cards.extend(deck.visible_cards)
+            all_cards.extend(deck.discard_pile)
 
         # Should have exactly 52 unique cards
         assert len(all_cards) == 52
@@ -80,38 +81,41 @@ class TestDeckManager:
         # If this test is flaky, we can test distributions statistically
         # For now, this is a smoke test for randomness
 
-    def test_initial_draw_4_visible_cards(self, setup):
-        """GDD 4-2: Each deck starts with 4 visible cards."""
+    def test_initial_draw_visible_cards(self, setup):
+        """GDD v6.1 4-2: Each deck starts with N visible cards (config-driven)."""
         config, state, manager = setup
 
         manager.split_deck()
 
-        assert len(state.decks[0].visible_cards) == 4
-        assert len(state.decks[1].visible_cards) == 4
+        # Config-driven: verify visible cards match config
+        assert len(state.decks[0].visible_cards) == config.visible_cards_per_deck
+        assert len(state.decks[1].visible_cards) == config.visible_cards_per_deck
 
-    def test_draw_cards_refills_to_4(self, setup):
-        """GDD 4-2: Drawing cards refills visible cards to 4."""
+    def test_draw_cards_refills_correctly(self, setup):
+        """GDD v6.1 4-2: Drawing cards adds to visible cards (config-driven)."""
         config, state, manager = setup
 
         manager.split_deck()
+
+        initial_count = len(state.decks[0].visible_cards)
 
         # Remove 2 cards from deck 0's visible cards
         removed_cards = [state.decks[0].visible_cards.pop() for _ in range(2)]
 
-        # Now deck 0 has 2 visible cards
-        assert len(state.decks[0].visible_cards) == 2
+        # Now deck 0 has (initial - 2) visible cards
+        assert len(state.decks[0].visible_cards) == initial_count - 2
 
-        # Draw should refill to 4
+        # Draw should refill by 2
         manager.draw_cards(deck_index=0, count=2)
-        assert len(state.decks[0].visible_cards) == 4
+        assert len(state.decks[0].visible_cards) == initial_count
 
-    def test_draw_cards_from_undrawn_pile(self, setup):
-        """GDD 4-2: Draw cards should come from undrawn pile."""
+    def test_draw_cards_from_draw_pile(self, setup):
+        """GDD v6.1 4-2: Draw cards should come from draw pile."""
         config, state, manager = setup
 
         manager.split_deck()
 
-        initial_undrawn_count = len(state.decks[0].undrawn_cards)
+        initial_draw_pile_count = len(state.decks[0].draw_pile)
 
         # Remove 3 cards from visible
         for _ in range(3):
@@ -120,8 +124,8 @@ class TestDeckManager:
         # Draw 3 cards
         manager.draw_cards(deck_index=0, count=3)
 
-        # Undrawn pile should have 3 fewer cards
-        assert len(state.decks[0].undrawn_cards) == initial_undrawn_count - 3
+        # Draw pile should have 3 fewer cards
+        assert len(state.decks[0].draw_pile) == initial_draw_pile_count - 3
 
     def test_manager_is_logic_only(self, setup):
         """RULE 3: Manager is logic only, no data storage."""

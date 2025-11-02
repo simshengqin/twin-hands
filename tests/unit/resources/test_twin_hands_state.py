@@ -36,15 +36,17 @@ class TestTwinHandsState:
         assert len(state.hands_played_per_deck) == 3
 
     def test_token_initialization(self):
-        """Tokens should initialize from config (Phase A: hand tokens only)."""
+        """Tokens should initialize from config (GDD v6.1: discard + trade tokens)."""
         config = TwinHandsConfig(
-            hand_tokens_per_round=4,
-            trade_tokens_per_round=3  # Phase B, but still in config
+            discard_tokens_per_round=3,
+            trade_tokens_per_round=2
         )
         state = TwinHandsState(config)
 
-        assert state.hand_tokens == 4
-        # Phase A: trade tokens exist in state, but won't be used yet
+        # Config-driven: verify state matches config, not hardcoded values
+        assert state.discard_tokens == config.discard_tokens_per_round
+        assert state.trade_tokens == config.trade_tokens_per_round
+        # GDD v6.1: Hand tokens unlimited (no tracking)
 
     def test_round_starts_at_1(self):
         """GDD 5-3: Rounds start at 1, not 0."""
@@ -72,5 +74,6 @@ class TestTwinHandsState:
         # This is verified by code review, not a runtime test
         assert hasattr(state, 'decks')
         assert hasattr(state, 'scores')
-        assert hasattr(state, 'hand_tokens')
+        assert hasattr(state, 'discard_tokens')  # GDD v6.1
+        assert hasattr(state, 'trade_tokens')    # GDD v6.1
         assert hasattr(state, 'current_round')

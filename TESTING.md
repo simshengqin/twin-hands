@@ -167,6 +167,42 @@ class TestMyClass:
 3. **Keep tests simple** - one assertion per concept
 4. **Use descriptive names** - test names should explain what they verify
 5. **Check GDD when unsure** - tests verify against GDD specs
+6. **CRITICAL: Tests MUST be config-driven** - NEVER hardcode values that exist in TwinHandsConfig
+
+### Config-Driven Testing (CRITICAL RULE)
+
+**❌ BAD - Hardcoded values:**
+```python
+def test_token_initialization():
+    state = TwinHandsState(config)
+    assert state.discard_tokens == 3  # WRONG! Hardcoded value
+    assert state.trade_tokens == 2    # WRONG! Hardcoded value
+```
+
+**✅ GOOD - Config-driven:**
+```python
+def test_token_initialization():
+    config = TwinHandsConfig(
+        discard_tokens_per_round=3,
+        trade_tokens_per_round=2
+    )
+    state = TwinHandsState(config)
+    assert state.discard_tokens == config.discard_tokens_per_round  # ✅ From config
+    assert state.trade_tokens == config.trade_tokens_per_round      # ✅ From config
+```
+
+**Why this matters:**
+- If we change config defaults, tests still pass (they test the behavior, not the values)
+- Tests verify "does state match config" not "does state have magic number 3"
+- Makes tests resilient to balance changes
+
+**Exception:** GDD compliance tests can use hardcoded values to verify GDD specs:
+```python
+def test_gdd_defaults_match_spec():
+    """GDD v6.1 4-3: Default discard tokens = 3"""
+    config = TwinHandsConfig()  # Default values
+    assert config.discard_tokens_per_round == 3  # ✅ OK - testing GDD spec
+```
 
 ## Key Lesson: Test Behavior, Not Just Mechanisms
 
