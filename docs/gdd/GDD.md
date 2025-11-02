@@ -1,6 +1,4 @@
-# 🃏 TWIN HANDS (v6.0 – Design Goals Edition)
-
----
+# 🃏 TWIN HANDS (v6.1 – Design Goals Edition)
 
 ## TABLE OF CONTENTS
 
@@ -51,6 +49,7 @@
 When these conflict with other goals, **Tier 1 always wins.**
 
 #### **#1: Satisfying Progression (Exponential Power Fantasy)**
+
 - **Players feel godlike by Round 8:** Scores scale from hundreds → thousands
 - **Exponential scaling:** Jokers multiply power, not just add
 - **Visible growth:** Every Joker purchase makes you noticeably stronger
@@ -58,6 +57,7 @@ When these conflict with other goals, **Tier 1 always wins.**
 - **Success Metric:** Round 8 feels EPIC, not impossible. Players say "I'm so OP!"
 
 #### **#2: Meaningful Decisions Over Busywork**
+
 - **Every action matters:** No repetitive grinding or "going through motions"
 - **Visible impact:** Show exactly how each Joker/hand affects score
 - **Quality > Quantity:** 4 impactful hands better than 10 tedious ones
@@ -65,6 +65,7 @@ When these conflict with other goals, **Tier 1 always wins.**
 - **Success Metric:** Players think "this choice matters" not "whatever, next"
 
 #### **#3: Casual Friendly Entry (Easy to Start)**
+
 - **Poker familiarity:** Everyone knows poker hands already
 - **No tutorial needed:** Start playing Round 1 immediately
 - **Clear goals:** "Beat the quota" is instantly understandable
@@ -78,6 +79,7 @@ When these conflict with other goals, **Tier 1 always wins.**
 When these conflict with Tier 1, **Tier 1 wins.** Otherwise, preserve these.
 
 #### **#4: Strategic Depth (Emergent, Not Taught)**
+
 - **No obvious optimal play:** Multiple viable strategies each round
 - **Depth from interactions:** Joker combos create complexity, not rules
 - **Learnable patterns:** High-level strategies emerge through play
@@ -85,6 +87,7 @@ When these conflict with Tier 1, **Tier 1 wins.** Otherwise, preserve these.
 - **Success Metric:** Community discusses strategies. "I'm running X build" pride.
 
 #### **#5: Highly Replayable (One More Run Loop)**
+
 - **Short sessions:** 20-40 min runs (8 rounds)
 - **Variety:** Random Joker shops make every run unique
 - **Discovery:** Players find new synergies across runs
@@ -92,11 +95,13 @@ When these conflict with Tier 1, **Tier 1 wins.** Otherwise, preserve these.
 - **Success Metric:** Players play 5+ runs in one sitting
 
 **Sub-goal 5a: Session Length & Flow**
+
 - Target: 25-35 min per complete run
 - 3-5 min per round average
 - Can pause/resume between rounds
 
 #### **#6: No RNG Bloat (Player Agency)**
+
 - **Tools to fight bad luck:** Shop refresh, trades, dual decks
 - **Skill > Luck:** Good play beats bad RNG consistently
 - **Never feel helpless:** Always have options to adapt
@@ -104,6 +109,7 @@ When these conflict with Tier 1, **Tier 1 wins.** Otherwise, preserve these.
 - **Success Metric:** Win rate increases with skill, not just luck
 
 **Sub-goal 6a: Comeback Mechanics**
+
 - Bad rounds don't doom entire run
 - Shop flexibility allows pivots
 - Can recover with smart Joker repositioning
@@ -113,12 +119,14 @@ When these conflict with Tier 1, **Tier 1 wins.** Otherwise, preserve these.
 ### 1-3 TIER 3: Sub-Goals (Nice to Have)
 
 #### **Player Expression / Build Identity**
+
 - Players CAN pursue archetypes (Flush specialist, Pair engine)
 - BUT adaptation to RNG is equally valid
 - "This is MY strategy" feeling emerges naturally
 - Not forced — expression is possible, not required
 
 #### **Risk vs Reward Tension**
+
 - Optional high-risk plays available
 - Unspent tokens = money (conservative play rewarded)
 - Future: Hard mode rounds for bonus rewards
@@ -151,56 +159,62 @@ Manage resources across both decks in a fluid round where every decision matters
 - **Default:** 2 decks (configurable for future modes: 3-player co-op, 4-player competitive)
 - **Future TODO:** Asymmetric splits (e.g., 20/32) or themed splits for unique deck identities.
 
-### 4-2 Card Drawing System
+### 4-2 Card Drawing System (v6.1 - EXPERIMENTAL)
 
-- Each deck maintains **4 visible cards** at a time.
-- When you play cards, you immediately draw replacements from that deck.
-- **Example:** Play 3 cards from left deck → draw 3 new cards from left deck → back to 4 visible.
-- Each deck's 26 cards cycle independently throughout the round.
+**TESTING: 7 visible cards per deck (increased from 4 in v6.0). If playtesting shows too much choice paralysis, revert to 4.**
+
+**Deckbuilder Model:**
+- Each deck: 26 cards split between **draw pile** and **discard pile**
+- **Round Start:** 26 cards in draw pile, 0 in discard pile
+- Deal 7 visible cards per deck from draw piles
+
+**During Play:**
+- Play/discard cards → Discard pile → Redraw from draw pile → Maintain 7 visible baseline
+- **Trades can increase visible cards** (e.g., trade cards into one deck → 8-9 visible)
+- **If draw pile empty during redraw:** Shuffle discard pile → Becomes new draw pile → Continue drawing
 
 ### 4-3 Token System (Shared Between Decks)
 
 All tokens are shared resources between both decks:
 
-| Token Type | Amount | Usage | Max Per Deck |
-|------------|--------|-------|--------------|
-| **Hand Tokens** | 4 per round | Play 1-4 cards to form a poker hand | **Max 2 hands per deck** |
-| **Trade Tokens** | 3 per round | Give 1-4 cards one direction (temporary) | 8 card visible limit per deck |
+| Token Type          | Amount    | Usage                                  |
+| ------------------- | --------- | -------------------------------------- |
+| **Hand Tokens**     | Unlimited | Play 1-5 cards to form poker hand      |
+| **Discard Tokens**  | 3 per round | Discard 1-5 cards to refresh hand    |
+| **Trade Tokens**    | 2 per round | Give 1 card from one deck to another |
 
 **Key Rules:**
-- You can use tokens in any order throughout the round.
-- A hand can only be formed from one deck's cards (no mixing).
-- **Maximum 2 hands per deck** prevents degenerate "stack-one-side" strategies.
-- Each deck has a **hard cap of 8 visible cards** (4 base + 4 from trades max).
-- Trade tokens reset each round; traded cards return to their original decks.
 
-**Why Max 2 Hands Per Deck?**
-- Prevents optimal strategy from being "stack all 6 Jokers on one side, play 3-0 every round"
-- Forces both decks to remain relevant throughout the game
-- Encourages 3-3 Joker split or strategic 4-2 splits
-- Aligns with Design Goal #4 (Strategic Depth) — no single dominant strategy
+- **Minimum 1 hand per deck per round** (enforced, but round ends early if quota hit)
+- A hand can only be formed from one deck's cards (no mixing)
+- Tokens are flexible: use anytime during the round
+- Trades can stack cards into one deck (e.g., 7 baseline → 8-9 after trades)
+- All tokens reset each round
 
 ### 4-4 Trading System
 
 **Temporary Trades (During Round):**
-- **One-directional only:** Choose a source deck and give 1-4 cards to the other deck.
-- **Giving deck:** Immediately draws replacement cards equal to cards given (stays at 4 visible).
-- **Receiving deck:** Accumulates cards up to the 8 card hard cap.
-- **Cannot trade if:** Receiving deck would exceed 8 cards.
+
+- **One-directional giving:** Choose source deck, give 1 card to the other deck
+- **Giving deck:** Immediately redraws 1 card (stays at 7 visible)
+- **Receiving deck:** Accumulates cards (can grow to 8, 9+ visible)
+- **2 trade tokens per round** (shared resource)
 - **Strategic use:**
-  - "Trade away bad cards" = Refresh your hand by giving cards away
-  - "Feed the engine" = Stack cards into the deck with better Jokers
-  - **Example:** Left has 3 hearts. Right has Flush Joker. Trade 3 hearts from left → right. Left draws 3 new cards. Right now has 7 cards (4 + 3).
+  - Stack cards into one deck for better combos (e.g., trade 2 cards → 9 visible for flush potential)
+  - Refresh giving deck by trading away bad cards
+  - Move key cards to the deck with better Jokers
+  - Want to swap? Use 2 tokens (A→B, then B→A)
 
 **Temporary Trades Reset:**
-- At round end, all traded cards return to their original decks.
-- Both decks reset to 4 visible cards each for the next round.
+
+- At round end, all traded cards return to their original decks
+- Both decks reset to 7 visible cards each for the next round
 
 **Permanent Trades (Shop Phase):**
-- Purchase permanent card transfers in the shop (cost TBD).
-- Moves a specific card permanently from one deck to the other.
-- One-way transfer: receiving deck cannot give cards back in the same transaction.
-- **Example:** Buy "Move A♠ from Right to Left" = A♠ permanently joins left deck for the entire run.
+
+- Purchase permanent card transfers in the shop ($8)
+- Moves a specific card permanently from one deck to the other
+- **Example:** Buy "Move A♠ from Right to Left" = A♠ permanently joins left deck for the entire run
 
 ### 4-5 Joker System
 
@@ -216,6 +230,7 @@ All tokens are shared resources between both decks:
 ```
 
 **Slot Configuration:**
+
 - Deck 1: 3 Joker slots
 - Deck 2: 3 Joker slots
 - Bridge (Shared): 2 Joker slots
@@ -226,17 +241,20 @@ All tokens are shared resources between both decks:
 **ANY Joker can be placed in ANY slot** — there are no "deck-specific" or "bridge-specific" Joker types.
 
 **Slot determines trigger behavior:**
+
 - **Deck-Specific Slot:** Joker triggers once during that deck's scoring
 - **Bridge Slot:** Joker triggers ONCE per deck — triggers during each deck's scoring phase
 
 **Strategic Choice:** Bridge slots are premium because Joker effects stack (trigger twice per round).
 
 **Example:**
+
 - Joker: "+0.2 mult"
 - Placed in Deck 1 slot → Triggers once → Deck 1 mult becomes 1.2
 - Placed in Bridge slot → Triggers for both decks → Each deck's mult becomes 1.2
 
 **Rarity Tiers:**
+
 - Common, Uncommon, Rare, Legendary
 - Higher rarity = stronger effects (pricing TBD)
 
@@ -245,6 +263,7 @@ All tokens are shared resources between both decks:
 **Per-Deck Scoring System (Balatro-Inspired):**
 
 Each deck scores independently like a Balatro hand:
+
 ```
 Deck 1 Score = Deck 1 Points × Deck 1 Mult
 Deck 2 Score = Deck 2 Points × Deck 2 Mult
@@ -254,21 +273,25 @@ Final Score = Sum of all deck scores
 **Jokers modify two components:**
 
 **Points (Additive):**
+
 - Add to deck's total points
 - Example: "+50 points when Flush is played"
 
 **Mult (Additive to Deck Multiplier):**
+
 - Add to that deck's multiplier
 - Example: "+0.3 mult when Pair is played"
 - Each deck's mult starts at 1.0
 
 **Bridge Jokers are Premium:**
+
 - Trigger for ALL decks (once per deck)
 - Add to each deck's mult
 - Example: Bridge Joker "+0.2 mult" → Deck 1 gets +0.2, Deck 2 gets +0.2
 - **This makes Bridge slots N× as valuable (where N = number of decks)!**
 
 **Casual Friendly Design:**
+
 - Each deck = one Balatro hand (familiar mental model)
 - "Twin Hands" = "Two Balatro hands working together"
 - Easy to predict: Calculate each deck's score separately, then add
@@ -281,6 +304,7 @@ Final Score = Sum of all deck scores
 - **Movement:** During Shop Phase, you can move any Joker between any slots freely.
 
 **Why Lock During Rounds?**
+
 - Prevents tedious micromanagement (moving Jokers before every hand)
 - Enforces strategic planning rather than tactical optimization
 - Aligns with Design Goal #1 (Casual Friendly) — less cognitive load mid-round
@@ -288,29 +312,34 @@ Final Score = Sum of all deck scores
 #### 4-5-5 Trigger Order
 
 **For Each Deck (processed in order: Deck 1, then Deck 2, ...):**
+
 1. Calculate base points from all hands played by this deck
 2. Trigger deck-specific Jokers (J1 → J2 → J3) — modify points or mult
 3. Trigger Bridge slot Jokers (B1 → B2) — modify points or mult
 4. **Calculate: Deck Points × Deck Mult = Deck Score**
 
 **Final Calculation:**
+
 - **Final Score = Sum of all deck scores**
 
 #### 4-5-6 Example: Round with Joker Triggers
 
 **Setup:**
+
 - Deck 1 J1: "+50 points per Flush played"
 - Deck 1 J2: "+0.2 mult per hand played"
 - Bridge B1: "+0.3 mult per Pair played"
 - Deck 2 J4: "+30 points per Two Pair played"
 
 **Round Play:**
+
 - Deck 1 plays 2 hands: Flush (20 base) + Pair (6 base)
 - Deck 2 plays 2 hands: Two Pair (10 base) + Pair (6 base)
 
 **Scoring:**
 
 **Deck 1 Scoring:**
+
 1. Base points: 20 (Flush) + 6 (Pair) = 26 points
 2. Deck 1 J1 triggers: +50 (Flush) → 76 points
 3. Deck 1 J2 triggers: +0.2 mult × 2 hands → Deck 1 Mult = 1.0 + 0.4 = 1.4
@@ -318,12 +347,14 @@ Final Score = Sum of all deck scores
 5. **Deck 1 Score: 76 × 1.7 = 129**
 
 **Deck 2 Scoring:**
+
 1. Base points: 10 (Two Pair) + 6 (Pair) = 16 points
 2. Deck 2 J4 triggers: +30 (Two Pair) → 46 points
 3. Bridge B1 triggers: +0.3 mult (Pair played) → Deck 2 Mult = 1.0 + 0.3 = 1.3
 4. **Deck 2 Score: 46 × 1.3 = 60**
 
 **Final:**
+
 - **Final Score: 129 + 60 = 189**
 
 **Key Insight:** Bridge Joker triggered for ALL decks (+0.3 to each deck), making it N× as valuable as a regular Joker slot!
@@ -335,14 +366,17 @@ Final Score = Sum of all deck scores
 **IMPORTANT:** See [JOKER_DESIGN_PHILOSOPHY.md](JOKER_DESIGN_PHILOSOPHY.md) for the 10 principles of Joker design (from Balatro creator LocalThunk). All Jokers must follow these guidelines.
 
 ##### **COMMON JOKERS** (Cost: $5)
+
 Flat bonuses, always useful, never gamebreaking.
 
 1. **"Chip Stack"**
+
    - Effect: +30 points per hand played
    - Scaling: Additive only
    - Best in: Early game (Rounds 1-3)
 
 2. **"Lucky Seven"**
+
    - Effect: +15 points if hand contains a 7
    - Scaling: Conditional flat bonus
    - Best in: Early-mid game
@@ -353,14 +387,17 @@ Flat bonuses, always useful, never gamebreaking.
    - Best in: Pair-focused builds
 
 ##### **UNCOMMON JOKERS** (Cost: $8)
+
 Conditional bonuses or small multipliers.
 
 4. **"Flush Fund"**
+
    - Effect: +60 points per Flush played
    - Scaling: Higher flat bonus with condition
    - Best in: Flush specialist builds
 
 5. **"Twin Boost"**
+
    - Effect: +0.2 mult if both decks played at least 1 hand this round
    - Scaling: Conditional mult (great in Bridge slot)
    - Best in: Balanced 2-2 hand splits
@@ -371,14 +408,17 @@ Conditional bonuses or small multipliers.
    - Best in: High-volume play (playing all 4 hands)
 
 ##### **RARE JOKERS** (Cost: $12)
+
 Multiplicative scaling or strong conditionals.
 
 7. **"Suit Synergy"**
+
    - Effect: ×1.3 mult if all hands played this round were same suit type
    - Scaling: Multiplicative
    - Best in: Specialist builds (all Flushes or mono-suit focus)
 
 8. **"High Roller"**
+
    - Effect: ×1.5 mult if round score > 500 before this Joker triggers
    - Scaling: Exponential (triggers after other Jokers)
    - Best in: Late game (Rounds 6-8)
@@ -389,6 +429,7 @@ Multiplicative scaling or strong conditionals.
    - Best in: Bridge-focused builds
 
 ##### **LEGENDARY JOKERS** (Cost: $18)
+
 Game-warping effects, build-defining.
 
 10. **"Twin Flames"**
@@ -402,6 +443,7 @@ Game-warping effects, build-defining.
 **Late Game Synergy Example (Round 7):**
 
 **Setup:**
+
 - Hand upgrades: Flush Level 3 (40 base), Pair Level 2 (10 base)
 - Bridge B1: "Twin Boost" (+0.3 mult if both decks played)
 - Bridge B2: "Bridge Troll" (+0.4 mult per Bridge Joker)
@@ -412,6 +454,7 @@ Game-warping effects, build-defining.
 **Round 7 Play (Quota: 1,448):**
 
 **DECK 1:**
+
 - Plays 2 Flushes: 40 + 40 = 80 base
 - Flush Fund: +60 + 60 = +120 → 200 points
 - Suit Synergy: ×1.3 → Deck 1 Mult = 1.3
@@ -420,6 +463,7 @@ Game-warping effects, build-defining.
 - **Deck 1 Score: 200 × 2.4 = 480**
 
 **DECK 2:**
+
 - Plays 2 Pairs: 10 + 10 = 20 base
 - Pair Producer: +0.3 + 0.3 = +0.6 → Deck 2 Mult = 1.6
 - Bridge B1: +0.3 (both played) → Deck 2 Mult = 1.9
@@ -432,20 +476,75 @@ Game-warping effects, build-defining.
 
 ### 4-6 Round Flow
 
-Rounds are **free-form** — you can play or trade in any order until tokens are exhausted.
+**Round Structure (Standard Deckbuilder Model):**
 
 **1. Round Start:**
-- Each deck draws 4 cards.
-- Tokens available: 4 hands, 3 trades.
+- Each deck: 26 cards in draw pile, 0 in discard pile
+- Deal 7 cards per deck from draw piles
 
-**2. Free Play Phase:**
-- **Play:** Choose a deck, select 1-4 cards, form a poker hand (uses 1 hand token).
-  - Played cards are removed and replaced from that deck immediately.
-  - **Max 2 hands per deck per round.**
-- **Trade:** Choose source deck, give 1-4 cards to another deck (uses 1 trade token).
-  - Giving deck draws replacements immediately (stays at 4).
-  - Receiving deck accumulates cards (max 8).
-- Repeat in any order until you've used all tokens or choose to end the round.
+**2. Play Phase (Free-Form Actions):**
+- **Play hand** (1-5 cards) → Discard pile → Redraw from draw pile
+- **Discard** (1-5 cards) → Discard pile → Redraw from draw pile (3 tokens per round)
+- **Trade** (give 1 card from X→Y) → Giving deck redraws, receiving deck accumulates (2 tokens per round)
+- Tokens are flexible: use in any order, anytime during the round
+- **MUST play minimum 1 hand from each deck before round can end**
+- If draw pile empty during redraw: Shuffle discard pile → Becomes new draw pile → Continue drawing
+- **Round ends immediately when quota reached** (like Balatro)
+
+**Hand Highlighting System (UX Polish):**
+
+**Purpose:** Reduce cognitive load by auto-highlighting potential poker hands per deck. Players focus on strategic decisions, not pattern-scanning.
+
+**Per-Deck Filters:**
+- Each deck has **independent hand filter setting** (remembered globally across games/rounds)
+- Players can switch filter type anytime during play
+- **Example:** Deck 1 filters for Flush (has Flush Jokers), Deck 2 filters for Straight (has Straight Jokers)
+
+**Filter Options:**
+- **Best Hand** (default) - Auto-detects highest-value hand currently available
+- **Flush** - Highlights 5+ cards of same suit
+- **Straight** - Highlights sequential ranks
+- **Straight Flush** - Highlights sequential ranks of same suit
+- **Full House** - Highlights 3-of-a-kind + pair combinations
+
+**Visual Indicators:**
+- 🟢 **Green highlight:** Hand is ready (5 cards available to play)
+- 🟡 **Yellow highlight:** Close to ready (4/5 cards, "need one more")
+- No highlight: Hand not available with current cards
+
+**Design Rationale:**
+- **Eliminates busywork:** Scanning 14 cards (7 per deck) for suit/sequence patterns is cognitive load, not strategy
+- **Preserves strategic depth:** Game depth is in token management, Joker synergies, and deck allocation decisions
+- **Casual-friendly:** New players won't miss obvious combos
+- **Follows Balatro's precedent:** Auto-highlighting doesn't reduce depth when depth comes from other systems
+- **Per-deck independence:** Supports asymmetric strategies (e.g., Deck 1 = Flush specialist, Deck 2 = Pair engine)
+
+**What's NOT Highlighted:**
+- **Pairs:** Too obvious (2 same rank = instantly visible)
+- **Two Pair:** Low value, easy to spot visually
+- Only highlight hands requiring non-trivial pattern recognition
+
+**Card Sorting (Per-Deck):**
+
+**Default Sort:** By rank (2, 3, 4, ..., J, Q, K, A), then by suit
+- Makes straights and pairs obvious at a glance
+- **Example:** [2♠][3♥][3♣][7♦][7♠][K♥][A♠]
+
+**Alternative Sort:** By suit (♠♠♠ | ♥♥ | ♦ | ♣♣), then by rank within each suit
+- Makes flushes obvious at a glance
+- **Example:** [2♠][7♠][A♠] | [3♥][K♥] | [7♦] | [3♣]
+
+**Per-Deck Independence:**
+- Each deck has its own sort setting (remembered globally)
+- Players can switch sort type anytime during play
+- **Example:** Deck 1 sorted by suit (has Flush Jokers), Deck 2 sorted by rank (has Pair Jokers)
+- Works synergistically with hand filter settings
+
+**Design Rationale:**
+- Complements hand highlighting system
+- Reduces visual scanning time
+- Supports asymmetric deck strategies
+- Familiar to poker players (both sort methods are standard)
 
 **3. Scoring (Per-Deck System):**
 - **For Each Deck:**
@@ -455,56 +554,62 @@ Rounds are **free-form** — you can play or trade in any order until tokens are
   - **Calculate: Deck Score = Deck Points × Deck Mult**
 - **Final Calculation:**
   - **Final Score = Sum of all deck scores**
-  - Compare to quota: Pass = advance to shop, Fail = game over.
+  - Compare to quota: Pass = advance to shop, Fail = game over
 
 **4. Shop Phase:**
-- **4 random Jokers** offered (Common/Uncommon/Rare/Legendary mix).
-- **1 Planet Pack** offered (upgrade one hand type globally).
-- Purchase Jokers (see pricing below) — immediately choose which slot to place them in.
-- **Freely move and reorder ALL Jokers** between any slots (deck-specific or Bridge).
-- Shop refresh costs $4 (rerolls both Jokers AND Planet Pack).
-- Purchase permanent card trades ($8).
-- Proceed to next round.
+- **4 random Jokers** offered (Common/Uncommon/Rare/Legendary mix)
+- **1 Planet Pack** offered (upgrade one hand type globally)
+- Purchase Jokers (see pricing below) — immediately choose which slot to place them in
+- **Freely move and reorder ALL Jokers** between any slots (deck-specific or Bridge)
+- Shop refresh costs $4 (rerolls both Jokers AND Planet Pack)
+- Purchase permanent card trades ($8)
+- Proceed to next round
 
 **5. End of Round Rewards:**
 - Earn money for unspent tokens:
-  - $2 per unspent hand token
+  - $1 per unspent discard token
   - $1 per unspent trade token
 - Earn interest: $1 per $5 held (max $4 interest on $20+)
 
-### 4-7 Poker Hand Scoring (1-4 Cards)
+### 4-7 Poker Hand Scoring (1-5 Cards)
 
-Players can form hands using 1-4 cards from a single deck. Hand rankings and base scores:
+Players can form hands using 1-5 cards from a single deck. Hand rankings and base scores:
 
-| Rank | Hand | Base Score | Notes |
-|------|------|------------|-------|
-| 1 | Royal Flush | 60 | A-K-Q-J of same suit (requires 4 cards) |
-| 2 | Straight Flush | 50 | 4 cards: sequential ranks, same suit |
-| 3 | Four of a Kind | 30 | All 4 cards same rank |
-| 4 | Flush | 20 | 4 cards: all same suit |
-| 5 | Straight | 18 | Sequential ranks (A-2-3-4, 2-3-4-5, etc.) |
-| 6 | Three of a Kind | 15 | Three cards same rank |
-| 7 | Two Pair | 10 | Two different pairs (requires 4 cards) |
-| 8 | Pair | 6 | Two cards same rank |
-| 9 | High Card | 3 | No matching pattern |
+| Rank | Hand            | Base Score | Notes                                                      |
+| ---- | --------------- | ---------- | ---------------------------------------------------------- |
+| 1    | Royal Flush     | 60         | A-K-Q-J-10 of same suit (requires 5 cards)                 |
+| 2    | Straight Flush  | 50         | 5 cards: sequential ranks, same suit                       |
+| 3    | Four of a Kind  | 30         | 4 same rank + optional kicker (4-5 cards)                  |
+| 4    | Flush           | 20         | 5 cards: all same suit                                     |
+| 5    | Straight        | 18         | 5 cards: sequential ranks (A-2-3-4-5, 2-3-4-5-6, etc.)     |
+| 6    | Three of a Kind | 15         | 3 same rank + optional kickers (3-5 cards)                 |
+| 7    | Two Pair        | 10         | Two different pairs + optional kicker (4-5 cards)          |
+| 8    | Pair            | 6          | 2 same rank + optional kickers (2-5 cards)                 |
+| 9    | High Card       | 3          | No matching pattern (1-5 cards)                            |
 
 **Scoring Notes:**
-- Jokers modify these base scores (add chips, multiply, etc.).
-- Hands with fewer cards are valid (e.g., play 1 card = High Card for 3 points).
-- Values tuned for dual-deck economy where 4 hands per round are played.
+
+- **Flushes and Straights:** Always require exactly 5 cards
+- **Kickers (optional extra cards):** Can be included with Four of a Kind, Three of a Kind, Two Pair, and Pair without changing the hand type or base score
+- **Example:** Playing 2♠ 2♥ 7♣ K♦ A♠ = Pair (2s) with 3 kickers, still scores 6 base points
+- Jokers modify these base scores (add chips, multiply, etc.)
+- Values tuned for dual-deck economy
 
 ## 5. PROGRESSION & ECONOMY
 
 ### 5-1 Starting Conditions
+
 - **Money:** $0
 - **Jokers:** None (all slots empty)
 - **First Round:** Play Round 1 with no Jokers, earn money from unspent tokens and beating quota, then enter first shop
 
 ### 5-2 Win Condition
+
 - Beat **Round 8** to win the run.
 - **Future TODO:** Endless mode after Round 8.
 
 ### 5-3 Quota Scaling (Exponential - 1.3× Per Round)
+
 - **Round 1:** 300 points (beatable with base poker hands, no Jokers)
 - **Round 2:** 390 points (1.3×)
 - **Round 3:** 507 points (1.3×)
@@ -515,23 +620,27 @@ Players can form hands using 1-4 cards from a single deck. Hand rankings and bas
 - **Round 8:** 1,882 points (1.3×)
 
 **Scaling Philosophy (Balanced for Per-Deck Mult):**
+
 - **Round 1:** Base hands only, learn the game
 - **Rounds 2-4:** Build Joker engine + start upgrading hands
 - **Rounds 5-6:** Joker synergies kick in, hand upgrades critical
 - **Rounds 7-8:** Full power, max hand levels, optimized Joker placement
 
 **Why 1.3× (not 1.5×):**
+
 - Per-Deck Mult system scales slower than Global Mult
 - 1.3× growth matches achievable power curve with 8 Joker slots + hand upgrades
 - Round 8 = 6.3× harder than Round 1 (still feels epic!)
 - Aligns with Design Goal #1 (Satisfying Progression) + #3 (Casual Friendly)
 
 **Failure Condition:**
+
 - If final score < quota: **Game Over** (no retry, no lives).
 
 ### 5-4 Money System
 
 **Earning Money:**
+
 - Unspent hand tokens: $2 each
 - Unspent trade tokens: $1 each
 - Interest: $1 per $5 held (max $4 interest on $20+)
@@ -540,12 +649,14 @@ Players can form hands using 1-4 cards from a single deck. Hand rankings and bas
 **Spending Money:**
 
 **Joker Prices (by rarity):**
+
 - Common: $5
 - Uncommon: $8
 - Rare: $12
 - Legendary: $18
 
 **Planet Packs (Universal Hand Upgrades):**
+
 - Cost: $6 per upgrade
 - Upgrades ONE hand type globally (affects BOTH decks)
 - Each hand type can be upgraded multiple times
@@ -556,24 +667,28 @@ Players can form hands using 1-4 cards from a single deck. Hand rankings and bas
   - Flush Level 4: 50 points (+$6)
 
 **Other Shop Options:**
+
 - Shop refresh: $4 (rerolls all 4 Jokers AND Planet Pack)
 - Sell Joker: Receive 50% of purchase price (mitigates bad purchases)
 - Skip purchase: Free (save money for better shops)
 - Permanent card trades: $8 (move one specific card permanently between decks)
 
 **Shop Strategy:**
+
 - **Early game (R1-3):** Buy cheap Common Jokers ($5) to start scaling
 - **Mid game (R4-6):** Upgrade key hands with Planet Packs, buy Rare Jokers
 - **Late game (R7-8):** Hunt for Legendary Jokers or max out hand levels
 - **Always:** Prioritize Bridge slots (2× value), can sell bad Jokers to pivot
 
 **Why Planet Packs are Critical:**
+
 - Jokers alone can't reach Round 8 quota (need base hand scaling too)
 - Universal upgrades = both decks benefit immediately
 - Familiar mechanic for Balatro players
 - Creates strategic choice: "Which hand type do I play most?"
 
 ### 5-5 Unlocks (Future TODO)
+
 - Asymmetric deck splits
 - New starting Jokers
 - Special card modifications
@@ -582,13 +697,13 @@ Players can form hands using 1-4 cards from a single deck. Hand rankings and bas
 
 Co-op is planned but not part of the current solo prototype. Future design considerations:
 
-| Element | Solo (Current) | Co-op (Future) |
-|---------|----------------|----------------|
-| **Decks** | One player manages all N decks (default 2). | Each player controls one deck. |
-| **Jokers** | N deck-specific sets + shared bridge jokers. | Each player manages their own Jokers; shared bridge jokers affect all. |
-| **Shop & Money** | Single wallet. | Shared team wallet and shop inventory. |
-| **Quota** | Combined total of all decks. | Scales with player count (BaseQuota × N × 1.3). |
-| **Trades** | Internal swaps between decks. | Cross-player trades require mutual confirmation. |
+| Element          | Solo (Current)                               | Co-op (Future)                                                         |
+| ---------------- | -------------------------------------------- | ---------------------------------------------------------------------- |
+| **Decks**        | One player manages all N decks (default 2).  | Each player controls one deck.                                         |
+| **Jokers**       | N deck-specific sets + shared bridge jokers. | Each player manages their own Jokers; shared bridge jokers affect all. |
+| **Shop & Money** | Single wallet.                               | Shared team wallet and shop inventory.                                 |
+| **Quota**        | Combined total of all decks.                 | Scales with player count (BaseQuota × N × 1.3).                        |
+| **Trades**       | Internal swaps between decks.                | Cross-player trades require mutual confirmation.                       |
 
 ## 7. UNIQUE SELL POINTS
 
