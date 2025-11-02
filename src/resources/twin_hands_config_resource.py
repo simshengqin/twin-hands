@@ -21,13 +21,15 @@ class TwinHandsConfig:
     # RULE 6: Multiplayer-ready - configurable deck count
     num_decks: int = 2  # GDD specifies 2, but configurable for future modes
 
-    # === TOKEN SYSTEM (GDD 4-3) ===
-    hand_tokens_per_round: int = 4  # Number of hands you can play
-    trade_tokens_per_round: int = 3  # Number of trades you can make
-    max_hands_per_deck: int = 2     # Max hands per deck per round
+    # === TOKEN SYSTEM (GDD v6.1 4-3) ===
+    # GDD v6.1: Hand tokens unlimited, discard and trade tokens limited
+    discard_tokens_per_round: int = 3  # Number of discards (NEW in v6.1)
+    trade_tokens_per_round: int = 2    # Number of trades (was 3 in v6.0)
+    max_hands_per_deck: int = 2        # Max hands per deck per round
+    # Note: No min_hands_per_deck - if quota hit early, round ends immediately
 
-    # === CARD VISIBILITY (GDD 4-4) ===
-    max_visible_per_deck: int = 8   # 4 base + 4 from trades
+    # === CARD VISIBILITY (GDD v6.1 4-2) ===
+    visible_cards_per_deck: int = 7    # Base visible cards (up from 4 in v6.0)
 
     # === PROGRESSION (GDD 5-2, 5-3) ===
     max_rounds: int = 8             # Maximum number of rounds
@@ -36,18 +38,19 @@ class TwinHandsConfig:
     # === UI/UX ===
     skip_welcome_screen: bool = True  # Skip welcome screen for testing
 
-    # === HAND SCORES (GDD 4-7) ===
+    # === HAND SCORES (GDD v6.1 4-7) ===
     # Class constant - UPPERCASE
+    # GDD v6.1: Flushes and straights now require 5 cards (was 4 in v6.0)
     HAND_SCORES = {
-        "Royal Flush": 60,
-        "Straight Flush": 50,
-        "Four of a Kind": 30,
-        "Flush": 20,
-        "Straight": 18,
-        "Three of a Kind": 15,
-        "Two Pair": 10,
-        "Pair": 6,
-        "High Card": 3,
+        "Royal Flush": 60,        # A-K-Q-J-10 same suit (5 cards)
+        "Straight Flush": 50,     # 5 sequential same suit
+        "Four of a Kind": 30,     # 4 same rank + optional kicker
+        "Flush": 20,              # 5 same suit
+        "Straight": 18,           # 5 sequential
+        "Three of a Kind": 15,    # 3 same rank + optional kickers
+        "Two Pair": 10,           # 2 pairs + optional kicker
+        "Pair": 6,                # 2 same rank + optional kickers
+        "High Card": 3,           # No pattern (1-5 cards)
     }
 
     @property

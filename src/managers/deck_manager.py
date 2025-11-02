@@ -33,9 +33,14 @@ class DeckManager:
 
     def split_deck(self) -> None:
         """
-        GDD 4-1: Split 52-card deck into N decks.
+        GDD v6.1 4-1: Split 52-card deck into N decks.
         Default: 2 decks of 26 cards each (random split).
-        Each deck starts with 4 visible cards (GDD 4-2).
+        Each deck starts with 7 visible cards (GDD v6.1 4-2).
+
+        Deckbuilder Model:
+        - Draw pile: 26 cards → deal 7 → 19 remaining
+        - Discard pile: 0 cards (empty at start)
+        - Visible cards: 7 cards
         """
         # Create full 52-card deck (already shuffled)
         full_deck = CardFactory.create_shuffled_deck()
@@ -43,6 +48,7 @@ class DeckManager:
         # Split into N decks
         num_decks = self.config.num_decks
         cards_per_deck = 52 // num_decks  # 26 for 2 decks
+        visible_count = self.config.visible_cards_per_deck  # 7 in v6.1
 
         for i in range(num_decks):
             # Get this deck's cards
@@ -50,14 +56,15 @@ class DeckManager:
             end_idx = start_idx + cards_per_deck
             deck_cards = full_deck[start_idx:end_idx]
 
-            # Draw initial 4 visible cards (GDD 4-2)
-            visible_cards = deck_cards[:4]
-            undrawn_cards = deck_cards[4:]
+            # Deal initial visible cards (GDD v6.1: 7 cards)
+            visible_cards = deck_cards[:visible_count]
+            draw_pile = deck_cards[visible_count:]
 
-            # Create DeckResource
+            # Create DeckResource (GDD v6.1 deckbuilder model)
             deck = DeckResource(
-                visible_cards=list(visible_cards),
-                undrawn_cards=list(undrawn_cards)
+                draw_pile=list(draw_pile),
+                discard_pile=[],  # Empty at start
+                visible_cards=list(visible_cards)
             )
 
             # Store in state
@@ -65,8 +72,12 @@ class DeckManager:
 
     def draw_cards(self, deck_index: int, count: int) -> None:
         """
-        GDD 4-2: Draw cards from undrawn pile to visible cards.
-        Used after playing cards to refill to 4 visible.
+        GDD v6.1 4-2: Draw cards from draw pile to visible cards.
+        Used after playing/discarding cards to maintain 7 visible baseline.
+
+        Deckbuilder Model:
+        - If draw pile empty: Shuffle discard pile → New draw pile → Continue
+        - Draw from draw pile → Add to visible cards
 
         Args:
             deck_index: Which deck to draw from (0-indexed)
@@ -74,8 +85,24 @@ class DeckManager:
         """
         deck = self.state.decks[deck_index]
 
-        # Draw from undrawn pile
         for _ in range(count):
-            if deck.undrawn_cards:
-                card = deck.undrawn_cards.pop(0)  # Draw from top
+            # If draw pile empty, shuffle discard pile (GDD v6.1 4-2)
+            if not deck.draw_pile:
+                deck.shuffle_discard_into_draw()
+
+            # Draw from draw pile (if available)
+            if deck.draw_pile:
+                card = deck.draw_pile.pop(0)  # Draw from top
                 deck.visible_cards.append(card)
+
+    def discard_to_pile(self, deck_index: int, cards: List[CardResource]) -> None:
+        """
+        GDD v6.1 4-2: Move cards to discard pile.
+        Used when playing or discarding cards.
+
+        Args:
+            deck_index: Which deck these cards came from
+            cards: Cards to add to discard pile
+        """
+        deck = self.state.decks[deck_index]
+        deck.discard_pile.extend(cards)

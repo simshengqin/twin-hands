@@ -1,6 +1,6 @@
 """
-Poker Evaluator Utility - Godot-ready poker hand evaluation
-Static utility class for evaluating poker hands.
+Poker Evaluator Utility - Godot-ready poker hand evaluation (Twin Hands v6.1)
+Static utility class for evaluating poker hands (1-5 cards).
 In Godot: class with static functions (no extends)
 """
 
@@ -10,7 +10,13 @@ from collections import Counter
 
 class PokerEvaluator:
     """
-    Evaluates 5-card poker hands and assigns scores.
+    Evaluates 1-5 card poker hands and assigns scores (GDD v6.1 4-7).
+
+    GDD v6.1 Rules:
+    - Flushes/Straights: Require exactly 5 cards
+    - Kickers allowed: Four of a Kind (4-5), Three of a Kind (3-5), Two Pair (4-5), Pair (2-5)
+    - High Card: 1-5 cards (any cards that don't match a pattern)
+
     In Godot, this would be a static class or namespace with static funcs.
 
     GDScript equivalent:
@@ -23,46 +29,88 @@ class PokerEvaluator:
     @staticmethod
     def evaluate_hand(cards: List['CardResource']) -> 'HandResource':
         """
-        Evaluate a 5-card hand and return HandResource with type and chips.
-        Uses new flat chip scoring (no per-hand mult).
+        Evaluate a 1-5 card hand and return HandResource with type and base score.
+        GDD v6.1 4-7: Supports variable-length hands with kickers.
+
+        Args:
+            cards: 1-5 cards to evaluate
+
+        Returns:
+            HandResource with hand_type and base score from TwinHandsConfig
         """
         from src.resources.hand_resource import HandResource
-        from src.resources.game_config_resource import GameConfigResource
+        from src.resources.twin_hands_config_resource import TwinHandsConfig
 
-        if len(cards) != 5:
+        if len(cards) < 1 or len(cards) > 5:
             # Invalid hand
             return HandResource(cards=cards, hand_type="Invalid", chips=0, mult=1)
 
         # Sort cards by value for easier evaluation
         sorted_cards = sorted(cards, key=lambda c: c.get_rank_value(), reverse=True)
+        num_cards = len(sorted_cards)
 
-        # Check all hand types from best to worst
-        if PokerEvaluator._is_five_of_a_kind(sorted_cards):
-            hand_type = "Five of a Kind"
-        elif PokerEvaluator._is_royal_flush(sorted_cards):
-            hand_type = "Royal Flush"
-        elif PokerEvaluator._is_straight_flush(sorted_cards):
-            hand_type = "Straight Flush"
-        elif PokerEvaluator._is_four_of_a_kind(sorted_cards):
-            hand_type = "Four of a Kind"
-        elif PokerEvaluator._is_full_house(sorted_cards):
-            hand_type = "Full House"
-        elif PokerEvaluator._is_flush(sorted_cards):
-            hand_type = "Flush"
-        elif PokerEvaluator._is_straight(sorted_cards):
-            hand_type = "Straight"
-        elif PokerEvaluator._is_three_of_a_kind(sorted_cards):
-            hand_type = "Three of a Kind"
-        elif PokerEvaluator._is_two_pair(sorted_cards):
-            hand_type = "Two Pair"
-        elif PokerEvaluator._is_one_pair(sorted_cards):
-            hand_type = "One Pair"
-        else:
+        # GDD v6.1 4-7: Check hands based on card count and rules
+        # Note: Flushes/Straights REQUIRE 5 cards
+
+        if num_cards == 5:
+            # 5-card hands: Check all types
+            if PokerEvaluator._is_royal_flush(sorted_cards):
+                hand_type = "Royal Flush"
+            elif PokerEvaluator._is_straight_flush(sorted_cards):
+                hand_type = "Straight Flush"
+            elif PokerEvaluator._is_four_of_a_kind(sorted_cards):
+                hand_type = "Four of a Kind"
+            elif PokerEvaluator._is_flush(sorted_cards):
+                hand_type = "Flush"
+            elif PokerEvaluator._is_straight(sorted_cards):
+                hand_type = "Straight"
+            elif PokerEvaluator._is_full_house(sorted_cards):
+                hand_type = "Full House"  # GDD: 3-of-a-kind + pair
+            elif PokerEvaluator._is_three_of_a_kind(sorted_cards):
+                hand_type = "Three of a Kind"
+            elif PokerEvaluator._is_two_pair(sorted_cards):
+                hand_type = "Two Pair"
+            elif PokerEvaluator._is_one_pair(sorted_cards):
+                hand_type = "Pair"
+            else:
+                hand_type = "High Card"
+
+        elif num_cards == 4:
+            # 4-card hands: No flush/straight (require 5), check pairs/sets
+            if PokerEvaluator._is_four_of_a_kind(sorted_cards):
+                hand_type = "Four of a Kind"
+            elif PokerEvaluator._is_three_of_a_kind(sorted_cards):
+                hand_type = "Three of a Kind"
+            elif PokerEvaluator._is_two_pair(sorted_cards):
+                hand_type = "Two Pair"
+            elif PokerEvaluator._is_one_pair(sorted_cards):
+                hand_type = "Pair"
+            else:
+                hand_type = "High Card"
+
+        elif num_cards == 3:
+            # 3-card hands: Only three-of-a-kind or pair
+            if PokerEvaluator._is_three_of_a_kind(sorted_cards):
+                hand_type = "Three of a Kind"
+            elif PokerEvaluator._is_one_pair(sorted_cards):
+                hand_type = "Pair"
+            else:
+                hand_type = "High Card"
+
+        elif num_cards == 2:
+            # 2-card hands: Only pair
+            if PokerEvaluator._is_one_pair(sorted_cards):
+                hand_type = "Pair"
+            else:
+                hand_type = "High Card"
+
+        else:  # num_cards == 1
+            # 1-card hand: Always High Card
             hand_type = "High Card"
 
-        # Get flat chips from config (new scoring system)
-        chips = GameConfigResource.HAND_SCORES[hand_type]
-        # Base mult is always 1 (jokers provide global mult bonuses)
+        # Get base score from TwinHandsConfig (GDD v6.1 4-7)
+        chips = TwinHandsConfig.HAND_SCORES[hand_type]
+        # Base mult is always 1 (Jokers modify mult per-deck, GDD 4-5-3)
         mult = 1
 
         return HandResource(cards=sorted_cards, hand_type=hand_type, chips=chips, mult=mult)
@@ -111,11 +159,6 @@ class PokerEvaluator:
             return False
         return PokerEvaluator._is_flush(cards) and PokerEvaluator._is_straight(cards)
 
-    @staticmethod
-    def _is_five_of_a_kind(cards: List['CardResource']) -> bool:
-        """Check if all five cards have the same rank (possible with replacement)."""
-        rank_counts = PokerEvaluator._get_rank_counts(cards)
-        return 5 in rank_counts.values()
 
     @staticmethod
     def _is_four_of_a_kind(cards: List['CardResource']) -> bool:
@@ -171,9 +214,8 @@ class PokerEvaluator:
         cards = hand_resource.cards
         hand_type = hand_resource.hand_type
 
-        if hand_type in ["Five of a Kind", "Royal Flush", "Straight Flush",
-                         "Full House", "Flush", "Straight"]:
-            # All 5 cards contribute
+        if hand_type in ["Royal Flush", "Straight Flush", "Full House", "Flush", "Straight"]:
+            # All cards contribute (5-card hands only)
             return cards
 
         elif hand_type == "Four of a Kind":
@@ -194,7 +236,7 @@ class PokerEvaluator:
             pair_ranks = [rank for rank, count in rank_counts.items() if count == 2]
             return [c for c in cards if c.rank in pair_ranks]
 
-        elif hand_type == "One Pair":
+        elif hand_type == "Pair":
             # Return the 2 matching cards
             rank_counts = PokerEvaluator._get_rank_counts(cards)
             target_rank = [rank for rank, count in rank_counts.items() if count == 2][0]

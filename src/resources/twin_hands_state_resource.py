@@ -29,9 +29,10 @@ class TwinHandsState:
     # === SCORING STATE (GDD 4-7) ===
     scores: List[int] = field(default_factory=list)  # Per-deck scores
 
-    # === TOKEN STATE (GDD 4-3) ===
-    hand_tokens: int = 0
-    trade_tokens: int = 0  # Phase B, but in state for future
+    # === TOKEN STATE (GDD v6.1 4-3) ===
+    # GDD v6.1: Hand tokens unlimited (no tracking), discard + trade tokens limited
+    discard_tokens: int = 0  # NEW in v6.1
+    trade_tokens: int = 0
 
     # === ROUND STATE (GDD 5-3) ===
     current_round: int = 1  # Rounds start at 1, not 0
@@ -53,6 +54,6 @@ class TwinHandsState:
         self.scores = [0] * num_decks
         self.hands_played_per_deck = [0] * num_decks
 
-        # Initialize tokens from config
-        self.hand_tokens = self.config.hand_tokens_per_round
+        # Initialize tokens from config (GDD v6.1)
+        self.discard_tokens = self.config.discard_tokens_per_round
         self.trade_tokens = self.config.trade_tokens_per_round
