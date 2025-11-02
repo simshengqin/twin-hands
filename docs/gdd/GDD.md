@@ -171,7 +171,11 @@ Manage resources across both decks in a fluid round where every decision matters
 **During Play:**
 - Play/discard cards → Discard pile → Redraw from draw pile → Maintain 7 visible baseline
 - **Trades can increase visible cards** (e.g., trade cards into one deck → 8-9 visible)
-- **If draw pile empty during redraw:** Shuffle discard pile → Becomes new draw pile → Continue drawing
+- **If draw pile empty during redraw:**
+  - Draw remaining cards from draw pile FIRST (if any)
+  - Shuffle discard pile → Becomes new draw pile
+  - Continue drawing remaining cards
+  - Example: Need 5 cards, only 2 left → Draw 2 first → Reshuffle → Draw last 3
 
 ### 4-3 Token System (Shared Between Decks)
 
@@ -185,8 +189,8 @@ All tokens are shared resources between both decks:
 
 **Key Rules:**
 
-- **Minimum 1 hand per deck per round** (enforced, but round ends early if quota hit)
 - **Maximum 2 hands per deck per round** (prevents degenerate "stack one side" strategies)
+- **No minimum hands enforced** (round ends immediately when quota reached)
 - A hand can only be formed from one deck's cards (no mixing)
 - Tokens are flexible: use anytime during the round
 - Trades can stack cards into one deck (e.g., 7 baseline → 8-9 after trades)
@@ -495,9 +499,11 @@ Game-warping effects, build-defining.
 - **Discard** (1-5 cards) → Discard pile → Redraw from draw pile (3 tokens per round)
 - **Trade** (give 1 card from X→Y) → Giving deck redraws, receiving deck accumulates (2 tokens per round)
 - Tokens are flexible: use in any order, anytime during the round
-- **MUST play minimum 1 hand from each deck before round can end**
-- If draw pile empty during redraw: Shuffle discard pile → Becomes new draw pile → Continue drawing
-- **Round ends immediately when quota reached** (like Balatro)
+- **Max 2 hands per deck per round** (prevents degenerate 1-3 or 1-4 splits)
+- **If draw pile empty during redraw:**
+  - Draw remaining cards FIRST → Reshuffle discard → Continue drawing
+  - Example: Need 5, only 2 left → Draw 2 → Reshuffle → Draw 3
+- **Round ends immediately when quota reached** (no minimum hands enforced)
 
 **Hand Highlighting System (UX Polish):**
 
