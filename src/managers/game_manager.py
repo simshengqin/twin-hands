@@ -178,8 +178,8 @@ class GameManager:
         """
         return {
             "round": self.state.current_round,
-            "hand_tokens": self.state.hand_tokens,
-            "trade_tokens": self.state.trade_tokens,  # PHASE B
+            "discard_tokens": self.state.discard_tokens,  # GDD v6.1
+            "trade_tokens": self.state.trade_tokens,      # GDD v6.1
             "hands_played_per_deck": self.state.hands_played_per_deck,
             "hands_this_round": len(self._hands_played),
             "current_score": self.calculate_round_score()

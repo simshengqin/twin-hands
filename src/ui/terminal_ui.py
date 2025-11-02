@@ -120,19 +120,19 @@ class TerminalUI:
         print(f"  {self.GRAY}[{bar_filled}{bar_empty}] {progress}%{self.RESET}\n")
 
     def display_tokens(self):
-        """Display token status (Balatro style: compact, clear)."""
+        """Display token status (GDD v6.1: discard + trade tokens)."""
         state = self.game.get_game_state_summary()
 
-        # Hand tokens (like Balatro's "Hands: 3") - Windows-safe
-        hand_color = self.YELLOW if state["hand_tokens"] > 0 else self.GRAY
-        hand_icons = "[H]" * state["hand_tokens"] + self.GRAY + "[_]" * (4 - state["hand_tokens"]) + self.RESET
+        # Discard tokens (GDD v6.1: 3 per round) - not yet implemented
+        discard_color = self.YELLOW if state["discard_tokens"] > 0 else self.GRAY
+        discard_icons = "[D]" * state["discard_tokens"] + self.GRAY + "[_]" * (3 - state["discard_tokens"]) + self.RESET
 
-        # Trade tokens (PHASE B)
+        # Trade tokens (GDD v6.1: 2 per round)
         trade_color = self.CYAN if state["trade_tokens"] > 0 else self.GRAY
-        trade_icons = "[T]" * state["trade_tokens"] + self.GRAY + "[_]" * (3 - state["trade_tokens"]) + self.RESET
+        trade_icons = "[T]" * state["trade_tokens"] + self.GRAY + "[_]" * (2 - state["trade_tokens"]) + self.RESET
 
-        print(f"  {self.BOLD}Hand Tokens:{self.RESET} {hand_color}{state['hand_tokens']}/4{self.RESET} {hand_icons}")
-        print(f"  {self.BOLD}Trade Tokens:{self.RESET} {trade_color}{state['trade_tokens']}/3{self.RESET} {trade_icons}\n")
+        print(f"  {self.BOLD}Discard Tokens:{self.RESET} {discard_color}{state['discard_tokens']}/3{self.RESET} {discard_icons} {self.GRAY}(not implemented){self.RESET}")
+        print(f"  {self.BOLD}Trade Tokens:{self.RESET} {trade_color}{state['trade_tokens']}/2{self.RESET} {trade_icons}\n")
 
     def display_deck_status(self):
         """Display per-deck hand counts (unique to Twin Hands)."""

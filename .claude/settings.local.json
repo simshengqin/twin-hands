@@ -16,7 +16,8 @@
       "Bash(python run.py:*)",
       "Bash(python -c:*)",
       "Bash(git reset:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(timeout:*)"
     ],
     "deny": [],
     "ask": []

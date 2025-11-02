@@ -72,10 +72,18 @@ def parse_card_selection(input_str: str, game: GameManager):
 
 
 def play_round(game: GameManager, ui: TerminalUI):
-    """Play one round with Balatro-style UI (PHASE B: with Trading)."""
+    """Play one round with Balatro-style UI (GDD v6.1: with Trading)."""
     game.start_game()
 
-    while game.state.hand_tokens > 0 or game.state.trade_tokens > 0:
+    # GDD v6.1: Check if can still play hands (max 2 per deck) OR have trade tokens
+    def can_continue():
+        # Can play if any deck hasn't hit max hands
+        can_play = any(game.token_manager.can_play_hand(i) for i in range(game.config.num_decks))
+        # Can trade if have trade tokens
+        can_trade = game.state.trade_tokens > 0
+        return can_play or can_trade
+
+    while can_continue():
         # Display full state (all-in-one screen like Balatro)
         ui.display_full_state()
 
@@ -108,30 +116,33 @@ def play_round(game: GameManager, ui: TerminalUI):
             parsed = parse_card_selection(trade_input, game)
 
             if parsed is None:
-                ui.display_error("Invalid trade. Enter 1-4 card numbers from ONE deck (e.g., 't123' or 't 10 11')")
+                ui.display_error("Invalid trade. Enter 1 card number (e.g., 't1' or 't 10')")
                 input("\nPress Enter to continue...")
                 continue
 
-            deck_index, card_indices, num_cards = parsed
+            source_deck, card_indices, num_cards = parsed
 
-            # Validate 1-4 cards (GDD 4-4)
-            if num_cards < 1 or num_cards > 4:
-                ui.display_error(f"Can only trade 1-4 cards per trade (you selected {num_cards})")
+            # GDD v6.1: Only 1 card per trade
+            if num_cards != 1:
+                ui.display_error(f"Can only trade 1 card at a time (GDD v6.1). You selected {num_cards} cards.")
                 input("\nPress Enter to continue...")
                 continue
+
+            # Determine target deck (simple: trade to opposite deck)
+            target_deck = 1 if source_deck == 0 else 0
 
             try:
-                result = game.trade_cards(deck_index, card_indices)
+                result = game.trade_card(source_deck, target_deck, card_indices[0])
 
                 if result["success"]:
-                    ui.display_trade_result(len(card_indices), deck_index)
+                    ui.display_trade_result(1, source_deck)
                     input("\nPress Enter to continue...")
                 else:
                     ui.display_error(result["error"])
                     input("\nPress Enter to continue...")
 
             except (ValueError, IndexError) as e:
-                ui.display_error(f"Error trading cards - {e}")
+                ui.display_error(f"Error trading card - {e}")
                 input("\nPress Enter to continue...")
 
             continue
@@ -152,9 +163,9 @@ def play_round(game: GameManager, ui: TerminalUI):
 
         deck_index, card_indices, num_cards = parsed
 
-        # Validate 1-4 cards (GDD 4-7)
-        if num_cards < 1 or num_cards > 4:
-            ui.display_error(f"Can only play 1-4 cards per hand (you selected {num_cards})")
+        # Validate 1-5 cards (GDD v6.1 4-7)
+        if num_cards < 1 or num_cards > 5:
+            ui.display_error(f"Can only play 1-5 cards per hand (you selected {num_cards})")
             input("\nPress Enter to continue...")
             continue
 
@@ -191,20 +202,21 @@ def main():
     if not config.skip_welcome_screen:
         ui.clear_screen()
         print(f"\n{ui.BOLD}{'='*70}{ui.RESET}")
-        print(f"{ui.YELLOW}{ui.BOLD}  TWIN HANDS{ui.RESET} {ui.GRAY}|{ui.RESET} {ui.CYAN}Phase B: Core Loop (Trading){ui.RESET}")
+        print(f"{ui.YELLOW}{ui.BOLD}  TWIN HANDS{ui.RESET} {ui.GRAY}|{ui.RESET} {ui.CYAN}GDD v6.1 (Trading + Deckbuilder){ui.RESET}")
         print(f"{ui.BOLD}{'='*70}{ui.RESET}\n")
         print(f"  {ui.BOLD}Goal:{ui.RESET} Play poker hands from 2 decks to beat the quota!\n")
-        print(f"  {ui.BOLD}Rules:{ui.RESET}")
-        print(f"    • 4 hand tokens per round (max 2 per deck)")
-        print(f"    • 3 trade tokens per round")
-        print(f"    • Play 1-4 cards to form poker hands")
-        print(f"    • Trade cards between decks to set up combos")
+        print(f"  {ui.BOLD}Rules (GDD v6.1):{ui.RESET}")
+        print(f"    • Hand tokens: {ui.CYAN}UNLIMITED{ui.RESET} (max 2 hands per deck)")
+        print(f"    • 2 trade tokens per round")
+        print(f"    • 3 discard tokens per round (not yet implemented)")
+        print(f"    • Play 1-5 cards to form poker hands")
+        print(f"    • Trade 1 card at a time between decks")
         print(f"    • Beat Round 1 quota: {ui.CYAN}300 points{ui.RESET}\n")
         print(f"  {ui.BOLD}How to Play:{ui.RESET}")
-        print(f"    • Cards numbered {ui.CYAN}1-4{ui.RESET} (Deck 1), {ui.CYAN}5-8{ui.RESET} (Deck 2)")
-        print(f"    • After trading: decks can have up to 8 cards each")
-        print(f"    • Play 1-4 cards: {ui.CYAN}123{ui.RESET} or {ui.CYAN}10 11 12{ui.RESET} (use spaces for 10+)")
-        print(f"    • Trade 1-4 cards: {ui.CYAN}t123{ui.RESET} or {ui.CYAN}t 10 11{ui.RESET}")
+        print(f"    • Cards numbered {ui.CYAN}1-7{ui.RESET} (Deck 1), {ui.CYAN}8-14{ui.RESET} (Deck 2)")
+        print(f"    • After trading: decks can grow to 8, 9+ cards")
+        print(f"    • Play 1-5 cards: {ui.CYAN}12345{ui.RESET} or {ui.CYAN}10 11 12{ui.RESET} (spaces for 10+)")
+        print(f"    • Trade 1 card: {ui.CYAN}t1{ui.RESET} or {ui.CYAN}t 10{ui.RESET} (goes to opposite deck)")
         print(f"    • End round: {ui.CYAN}end{ui.RESET}\n")
         print(f"{ui.BOLD}{'='*70}{ui.RESET}\n")
 
@@ -215,8 +227,8 @@ def main():
 
     # Goodbye
     print(f"\n{ui.BOLD}Thanks for playing Twin Hands!{ui.RESET}")
-    print(f"{ui.GRAY}This is a Phase A prototype.{ui.RESET}")
-    print(f"{ui.GRAY}Coming soon: Trading, Jokers, Shop, 8-round progression!{ui.RESET}\n")
+    print(f"{ui.GRAY}GDD v6.1 prototype: Trading + Deckbuilder model implemented{ui.RESET}")
+    print(f"{ui.GRAY}Coming soon: Discard system, Hand highlighting, Jokers, Shop, 8-round progression!{ui.RESET}\n")
 
 
 if __name__ == "__main__":
