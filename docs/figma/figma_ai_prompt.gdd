@@ -1,0 +1,192 @@
+🟦 Figma AI Prompt — “Twin Hands (v4 — Sorted Decks + Unified Interactivity)”
+
+Recreate the attached screenshot faithfully, upgrading it to include all new functionality and systems below.
+
+🎮 Game Context
+
+Twin Hands is a roguelike poker game with two linked decks (Left = Blue, Right = Magenta).
+Each deck builds its own Chips × Mult score, and both share a unified resource pool (Hands, Discards, Trades).
+
+⚙️ Layout
+
+Two decks, spaced ≈5 px apart.
+
+Shared center column for Jokers, resources, and total score.
+
+Background: #0a0e1a → #121828 → #0a0e1a.
+
+Left deck glows blue, right deck glows magenta.
+
+🃏 Deck Structure
+
+Each deck contains:
+
+3 full-size Jokers (top row).
+
+Score panel with Chips × Mult.
+
+7 clickable poker cards, large and well-spaced (≥ 24 px gap).
+
+Buttons below: Play, Discard, Rank, Suit
+
+Rank and Suit are smaller utility buttons (right-aligned).
+
+Buttons use per-deck color accents (blue or magenta).
+
+🧮 Sorting Behavior
+
+Each deck maintains its own sorting preference.
+
+Rank button → Sorts ascending by rank (9 → 10 → J → Q → K → A).
+
+If ranks tie, sort by suit (♠ → ♥ → ♦ → ♣).
+
+Suit button → Sorts ascending by suit, then by rank.
+
+Sorting animates smoothly (0.25 s reorder).
+
+🟡 Central Column
+Shared Resources
+Hands   4 / 4   |   Discards   4 / 4   |   Trades   2 / 2
+
+
+Shared pool for both decks (golden glow).
+
+Decrements live when actions consume tokens.
+
+Bridge Jokers
+
+Two same-size cards centered at the top.
+
+Straight arrows only (no curves).
+
+Left flow: J1 → J2 → J3 → Bridge 1 → Bridge 2 (blue arrows).
+
+Right flow: J3 → J2 → J1 → Bridge 2 → Bridge 1 (magenta arrows).
+
+Total Score / Round
+TOTAL SCORE  20 288
+★ Quota 50 000
+ROUND 1 / 8
+
+
+Gold glowing frame below resource bar.
+
+💡 Highlight System (Final Behavior)
+Core Principle
+
+Highlights can appear in both decks simultaneously, updating dynamically.
+They exist in two visual tiers:
+
+Tier 1 — Passive Highlights
+
+Any card that, if traded, would complete a 5-card combo in the opposite deck glows softly.
+
+Applies to combos already at 4 cards.
+
+No limit to highlight count.
+
+Combo	Example	Highlight?
+Four of a Kind	Opposite deck has 3 Aces → highlight Aces here	✅
+Full House	Opposite deck has 3 of X + 1–2 of Y → highlight completing card	✅
+Flush	Opposite deck has 4 ♥ → highlight ♥ here	✅
+Five of a Kind	Opposite deck has 4 same rank → highlight matching rank	✅
+Others	(3 oak, 2 pair, straight, pair, high card)	❌
+Tier 2 — Active Highlights (on Click)
+
+When a highlighted card is clicked:
+
+It gains a bright gold rim (active).
+
+In the opposite deck, all cards forming that completed combo glow brighter.
+
+Tooltip above those cards:
+"Completes Flush → Right Deck" or "Completes Full House → Left Deck".
+
+Tooltip fades after 2 s.
+
+Click again to deselect.
+
+Tier Differentiation
+Tier	Glow	Border	Purpose
+0	none	gray-200	default card
+1	deck color + gold rim	thin	shows potential trade card
+2	brighter (1.3×) + thick gold rim	active	shows confirmed combo cards
+Visual Style
+
+Left deck = inner blue #4DA6FF + gold #FFD700.
+
+Right deck = inner magenta #FF4DD2 + gold rim.
+
+Subtle 2 s pulse (opacity 0.8→1→0.8).
+
+All cards are clickable, not just highlights.
+
+Interaction Clarification
+
+Clicking a non-highlighted card simply selects/deselects it (no cross-deck glow).
+
+Clicking a highlighted card triggers Tier-2 response in the other deck.
+
+Ensures players can freely click anywhere but only meaningful cards react.
+
+🔄 Interactions
+🃏 Play
+
+Consumes 1 Hand token.
+
+Replaces played cards with the same count of new, unique cards.
+
+🗑️ Discard
+
+Consumes 1 Discard token.
+
+Discarded cards are replaced with equal new cards.
+
+🔁 Trade
+
+Drag-and-drop, one-directional: Left → Right or Right → Left.
+
+While dragging:
+
+Card = 50 % opacity.
+
+Banner (top-center):
+
+Trading Q♠ → Right Deck
+
+
+Target deck = 1.05× scale on hover.
+
+On drop:
+
+Consume 1 Trade token.
+
+Slide animation + highlight refresh.
+
+✨ Visual Polish
+Element	Style
+Highlights	Inner deck color glow + gold rim
+Active Card	Thicker gold border + brighter halo
+Cards	Large, 3:2 ratio, clear spacing
+Arrows	Straight glowing lines (blue/magenta)
+Buttons	Hover glow, smooth ease-in-out
+Background	Dark vignette for focus
+Tooltip	Small dark label above card (2 s fade)
+✅ Output Goal
+
+Generate a polished, interactive Figma mockup that shows:
+
+Two decks (5 px gap) with straight Joker arrows.
+
+Shared Hands/Discards/Trades pool.
+
+All cards clickable, sorted per deck.
+
+Working Rank/Suit sort buttons (ascending 9 → 10 → J → Q → K → A).
+
+Dynamic cross-deck highlighting and selection.
+
+Play/Discard/Trade actions that always replace the same number of cards.
+
+Maintain every previous visual and structural element — this version only adds functionality and interactivity clarity.
